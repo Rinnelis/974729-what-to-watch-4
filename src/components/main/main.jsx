@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const filmTitles = [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`, `Aviator`];
-
 const Main = (props) => {
   const {filmTitle, filmGenre, releaseDate, titles} = props;
 
@@ -140,7 +138,7 @@ Main.propTypes = {
   filmTitle: PropTypes.string.isRequired,
   filmGenre: PropTypes.string.isRequired,
   releaseDate: PropTypes.number.isRequired,
-  titles: PropTypes.oneOf(filmTitles),
+  titles: PropTypes.array.isRequired,
 };
 
 export default Main;
