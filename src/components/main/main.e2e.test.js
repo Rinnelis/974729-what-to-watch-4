@@ -2,6 +2,7 @@ import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import Main from "./main";
+import {movieTestInfo} from "../../mocks/movie-test-info.js";
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -15,7 +16,7 @@ it(`Should film title link be pressed`, () => {
         filmTitle={`Fantastic Beasts`}
         filmGenre={`Comedy`}
         releaseDate={2020}
-        titles={[`The Grand Budapest Hotel`, `Bohemian Rhapsody`, `Macbeth`, `Aviator`]}
+        films={movieTestInfo}
         onTitleClick={onTitleClick}
       />
   );
