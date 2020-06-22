@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import App from "./app.jsx";
+import {movieTestInfo} from "../../mocks/movie-test-info.js";
 
 it(`Render App`, () => {
   const tree = renderer
@@ -8,7 +9,7 @@ it(`Render App`, () => {
       filmTitle={`Fantastic Beasts`}
       filmGenre={`Comedy`}
       releaseDate={2020}
-      titles={[`The Grand Budapest Hotel`, `Bohemian Rhapsody`, `Macbeth`, `Aviator`]}
+      films={movieTestInfo}
     />)
     .toJSON();
 
