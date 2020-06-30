@@ -8,8 +8,11 @@ it(`Should MoviesList render correctly`, () => {
     .create(<MoviesList
       films={movieTestInfo}
       onCardClick={() => {}}
-    />)
-    .toJSON();
+    />, {
+      createNodeMock: () => {
+        return {};
+      }
+    }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

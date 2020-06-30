@@ -13,8 +13,11 @@ it(`Should MovieCard render correctly`, () => {
       film={movieTestInfo}
       onMouseEnter={() => {}}
       onCardClick={() => {}}
-    />)
-    .toJSON();
+    />, {
+      createNodeMock: () => {
+        return {};
+      }
+    }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });
