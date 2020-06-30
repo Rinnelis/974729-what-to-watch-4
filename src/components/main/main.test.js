@@ -11,8 +11,11 @@ it(`Should Main render correctly`, () => {
       releaseDate={2020}
       films={movieTestInfo}
       onCardClick={() => {}}
-    />)
-    .toJSON();
+    />, {
+      createNodeMock: () => {
+        return {};
+      }
+    }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

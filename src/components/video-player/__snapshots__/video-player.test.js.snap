@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VideoPlayer is rendered correctly 1`] = `
+<video
+  className="player__video"
+/>
+`;

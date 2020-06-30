@@ -12,8 +12,11 @@ it(`Render App`, () => {
       releaseDate={2020}
       films={movieTestInfo}
       film={film}
-    />)
-    .toJSON();
+    />, {
+      createNodeMock: () => {
+        return {};
+      }
+    }).toJSON();
 
   expect(tree).toMatchSnapshot();
 });

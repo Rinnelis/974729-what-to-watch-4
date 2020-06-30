@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {v4 as uuidv4} from "uuid";
 import {RatingLevel} from '../../const.js';
 
 class MoviePage extends PureComponent {
@@ -12,18 +13,19 @@ class MoviePage extends PureComponent {
     const {title, genre, releaseDate, bgImage, poster, ratingScore, ratingCount, description, director, starring} = film;
 
     const getRatingLevel = (count) => {
-      switch (true) {
-        case count < 3:
-          return RatingLevel.BAD;
-        case count >= 3 && count < 5:
-          return RatingLevel.NORMAL;
-        case count >= 5 && count < 8:
-          return RatingLevel.GOOD;
-        case count >= 8 && count < 10:
-          return RatingLevel.VERY_GOOD;
-        default:
-          return RatingLevel.AWESOME;
+      let ratingLevel = ``;
+      if (count < 3) {
+        ratingLevel = RatingLevel.BAD;
+      } else if (count >= 3 && count < 5) {
+        ratingLevel = RatingLevel.NORMAL;
+      } else if (count >= 5 && count < 8) {
+        ratingLevel = RatingLevel.GOOD;
+      } else if (count >= 8 && count < 10) {
+        ratingLevel = RatingLevel.VERY_GOOD;
+      } else {
+        ratingLevel = RatingLevel.AWESOME;
       }
+      return ratingLevel;
     };
 
     const getStarring = (actors) => {
@@ -33,8 +35,8 @@ class MoviePage extends PureComponent {
     const getDescription = (text) => {
       return (
         <React.Fragment>
-          {text.map((item, i) => {
-            return <p key={`item-${i}`}>{item}</p>;
+          {text.map((item) => {
+            return <p key={`item-${uuidv4()}`}>{item}</p>;
           })}
         </React.Fragment>
       );
