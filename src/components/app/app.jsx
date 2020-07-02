@@ -3,6 +3,7 @@ import {Switch, Route, BrowserRouter} from "react-router-dom";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import {SIMILAR_FILMS_AMOUNT} from '../../const.js';
 
 class App extends PureComponent {
   constructor(props) {
@@ -22,14 +23,16 @@ class App extends PureComponent {
   }
 
   renderApp() {
-    const {title, genre, releaseDate, films, film} = this.props;
+    const {film, films} = this.props;
+
+    const similarFilms = films
+      .filter((filmItem) => filmItem.genre === film.genre && filmItem.title !== film.title)
+      .slice(0, SIMILAR_FILMS_AMOUNT);
 
     if (!this.state.activeMovie) {
       return (
         <Main
-          title={title}
-          genre={genre}
-          releaseDate={releaseDate}
+          film={film}
           films={films}
           onCardClick={this._handleCardClick}
         />
@@ -37,12 +40,20 @@ class App extends PureComponent {
     }
 
     return (
-      <MoviePage film={film}/>
+      <MoviePage
+        film={film}
+        similarFilms={similarFilms}
+        onCardClick={this._handleCardClick}
+      />
     );
   }
 
   render() {
-    const {film} = this.props;
+    const {film, films} = this.props;
+
+    const similarFilms = films
+      .filter((filmItem) => filmItem.genre === film.genre && filmItem.title !== film.title)
+      .slice(0, SIMILAR_FILMS_AMOUNT);
 
     return (
       <BrowserRouter>
@@ -51,7 +62,10 @@ class App extends PureComponent {
             {this.renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage film={film}
+            <MoviePage
+              film={film}
+              similarFilms={similarFilms}
+              onCardClick={this._handleCardClick}
             />
           </Route>
         </Switch>
@@ -61,27 +75,8 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.number.isRequired,
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    bgImage: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.array.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.array.isRequired,
-  }).isRequired
+  film: PropTypes.object.isRequired,
+  films: PropTypes.array.isRequired,
 };
 
 export default App;

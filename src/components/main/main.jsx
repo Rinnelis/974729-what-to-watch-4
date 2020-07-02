@@ -1,20 +1,42 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import MoviesList from "../movies-list/movies-list.jsx";
+import Genre from '../genre/genre.jsx';
+import {MovieGenre} from '../../const.js';
 
 class Main extends PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      currentGenre: MovieGenre.ALL,
+    };
+
+    this._handleGenreClick = this._handleGenreClick.bind(this);
+  }
+
+  _handleGenreClick(genre) {
+    this.setState({
+      currentGenre: genre,
+    });
   }
 
   render() {
-    const {title, genre, releaseDate, films, onCardClick} = this.props;
+    const {film, films, onCardClick} = this.props;
+    const {title, genre, releaseDate, bgImage, poster} = film;
+    const {currentGenre} = this.state;
+
+    let filmsByGenre = films;
+
+    if (currentGenre !== MovieGenre.ALL) {
+      filmsByGenre = films.filter((filmItem) => filmItem.genre === currentGenre);
+    }
 
     return (
       <React.Fragment>
         <section className="movie-card">
           <div className="movie-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
+            <img src={bgImage} alt={title} />
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -38,7 +60,7 @@ class Main extends PureComponent {
           <div className="movie-card__wrap">
             <div className="movie-card__info">
               <div className="movie-card__poster">
-                <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327" />
+                <img src={poster} alt={title} width="218" height="327" />
               </div>
 
               <div className="movie-card__desc">
@@ -71,41 +93,14 @@ class Main extends PureComponent {
           <section className="catalog">
             <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-            <ul className="catalog__genres-list">
-              <li className="catalog__genres-item catalog__genres-item--active">
-                <a href="#" className="catalog__genres-link">All genres</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Comedies</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Crime</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Documentary</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Dramas</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Horror</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Kids & Family</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Romance</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Sci-Fi</a>
-              </li>
-              <li className="catalog__genres-item">
-                <a href="#" className="catalog__genres-link">Thrillers</a>
-              </li>
-            </ul>
+            <Genre
+              genres={MovieGenre}
+              currentGenre={currentGenre}
+              onGenreClick={this._handleGenreClick}
+            />
 
             <MoviesList
-              films={films}
+              films={filmsByGenre}
               onCardClick={onCardClick}
             />
 
@@ -134,15 +129,14 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseDate: PropTypes.number.isRequired,
-  films: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        image: PropTypes.string.isRequired,
-      }).isRequired
-  ).isRequired,
+  film: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    genre: PropTypes.string.isRequired,
+    releaseDate: PropTypes.number.isRequired,
+    bgImage: PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired,
+  }).isRequired,
+  films: PropTypes.array.isRequired,
   onCardClick: PropTypes.func.isRequired,
 };
 
