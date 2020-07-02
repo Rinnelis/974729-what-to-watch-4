@@ -69,7 +69,7 @@ Array [
           className="movie-card__poster"
         >
           <img
-            alt="The Grand Budapest Hotel poster"
+            alt="The Grand Budapest Hotel"
             height="327"
             src="img/the-grand-budapest-hotel-poster.jpg"
             width="218"
@@ -81,7 +81,7 @@ Array [
           <h2
             className="movie-card__title"
           >
-            Fantastic Beasts
+            The Grand Budapest Hotel
           </h2>
           <p
             className="movie-card__meta"
@@ -89,12 +89,12 @@ Array [
             <span
               className="movie-card__genre"
             >
-              Comedy
+              Dramas
             </span>
             <span
               className="movie-card__year"
             >
-              2020
+              2014
             </span>
           </p>
           <div
@@ -155,6 +155,7 @@ Array [
       >
         <li
           className="catalog__genres-item catalog__genres-item--active"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -165,6 +166,7 @@ Array [
         </li>
         <li
           className="catalog__genres-item"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -175,6 +177,7 @@ Array [
         </li>
         <li
           className="catalog__genres-item"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -185,6 +188,7 @@ Array [
         </li>
         <li
           className="catalog__genres-item"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -195,6 +199,7 @@ Array [
         </li>
         <li
           className="catalog__genres-item"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -205,6 +210,7 @@ Array [
         </li>
         <li
           className="catalog__genres-item"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -215,6 +221,7 @@ Array [
         </li>
         <li
           className="catalog__genres-item"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -225,6 +232,7 @@ Array [
         </li>
         <li
           className="catalog__genres-item"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -235,6 +243,7 @@ Array [
         </li>
         <li
           className="catalog__genres-item"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -245,6 +254,7 @@ Array [
         </li>
         <li
           className="catalog__genres-item"
+          onClick={[Function]}
         >
           <a
             className="catalog__genres-link"
@@ -270,9 +280,9 @@ Array [
               className="player__video"
             />
             <img
-              alt="Moonrise Kingdom"
+              alt="Fantastic Beasts: The Crimes of Grindelwald"
               height="175"
-              src="img/moonrise-kingdom.jpg"
+              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="280"
             />
           </div>
@@ -284,7 +294,224 @@ Array [
               href="movie-page.html"
               onClick={[Function]}
             >
-              Moonrise Kingdom
+              Fantastic Beasts: The Crimes of Grindelwald
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+          >
+            <video
+              className="player__video"
+            />
+            <img
+              alt="Shutter Island"
+              height="175"
+              src="img/shutter-island.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Shutter Island
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+          >
+            <video
+              className="player__video"
+            />
+            <img
+              alt="Macbeth"
+              height="175"
+              src="img/macbeth.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Macbeth
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+          >
+            <video
+              className="player__video"
+            />
+            <img
+              alt="Aviator"
+              height="175"
+              src="img/aviator.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Aviator
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+          >
+            <video
+              className="player__video"
+            />
+            <img
+              alt="We need to talk about Kevin"
+              height="175"
+              src="img/we-need-to-talk-about-kevin.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              We need to talk about Kevin
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+          >
+            <video
+              className="player__video"
+            />
+            <img
+              alt="What We Do in the Shadows"
+              height="175"
+              src="img/what-we-do-in-the-shadows.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              What We Do in the Shadows
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+          >
+            <video
+              className="player__video"
+            />
+            <img
+              alt="Revenant"
+              height="175"
+              src="img/revenant.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Revenant
+            </a>
+          </h3>
+        </article>
+        <article
+          className="small-movie-card catalog__movies-card"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <div
+            className="small-movie-card__image"
+            onClick={[Function]}
+          >
+            <video
+              className="player__video"
+            />
+            <img
+              alt="Johnny English"
+              height="175"
+              src="img/johnny-english.jpg"
+              width="280"
+            />
+          </div>
+          <h3
+            className="small-movie-card__title"
+          >
+            <a
+              className="small-movie-card__link"
+              href="movie-page.html"
+              onClick={[Function]}
+            >
+              Johnny English
             </a>
           </h3>
         </article>
