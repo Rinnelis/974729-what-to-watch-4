@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {MAX_GENRES_AMOUNT} from "../../const.js";
 
 const Genre = (props) => {
   const {genres, currentGenre, onGenreClick} = props;
-  const navGenres = Object.values(genres);
+  const navGenres = genres.slice(0, MAX_GENRES_AMOUNT);
 
   return (
     <ul className="catalog__genres-list">
@@ -23,7 +24,7 @@ const Genre = (props) => {
 };
 
 Genre.propTypes = {
-  genres: PropTypes.objectOf(PropTypes.string).isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired,
 };

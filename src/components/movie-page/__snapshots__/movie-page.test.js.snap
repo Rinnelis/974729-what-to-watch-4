@@ -100,6 +100,17 @@ Array [
                 viewBox="0 0 19 19"
                 width="19"
               >
+                <symbol
+                  id="play-s"
+                  viewBox="0 0 19 19"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M0 0L19 9.5L0 19V0Z"
+                    fill="#EEE5B5"
+                    fillRule="evenodd"
+                  />
+                </symbol>
                 <use
                   xlinkHref="#play-s"
                 />

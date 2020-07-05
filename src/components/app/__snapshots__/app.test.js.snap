@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Render App 1`] = `
+exports[`Should App render correctly 1`] = `
 Array [
   <section
     className="movie-card"
@@ -109,6 +109,17 @@ Array [
                 viewBox="0 0 19 19"
                 width="19"
               >
+                <symbol
+                  id="play-s"
+                  viewBox="0 0 19 19"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M0 0L19 9.5L0 19V0Z"
+                    fill="#EEE5B5"
+                    fillRule="evenodd"
+                  />
+                </symbol>
                 <use
                   xlinkHref="#play-s"
                 />
@@ -172,7 +183,7 @@ Array [
             className="catalog__genres-link"
             href="#"
           >
-            Comedies
+            Kids & Family
           </a>
         </li>
         <li
@@ -194,40 +205,7 @@ Array [
             className="catalog__genres-link"
             href="#"
           >
-            Documentary
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-          onClick={[Function]}
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
             Dramas
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-          onClick={[Function]}
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Horror
-          </a>
-        </li>
-        <li
-          className="catalog__genres-item"
-          onClick={[Function]}
-        >
-          <a
-            className="catalog__genres-link"
-            href="#"
-          >
-            Kids & Family
           </a>
         </li>
         <li
@@ -249,6 +227,28 @@ Array [
             className="catalog__genres-link"
             href="#"
           >
+            Thrillers
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item"
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
+            Horror
+          </a>
+        </li>
+        <li
+          className="catalog__genres-item"
+          onClick={[Function]}
+        >
+          <a
+            className="catalog__genres-link"
+            href="#"
+          >
             Sci-Fi
           </a>
         </li>
@@ -260,7 +260,7 @@ Array [
             className="catalog__genres-link"
             href="#"
           >
-            Thrillers
+            Comedies
           </a>
         </li>
       </ul>

@@ -1,13 +1,14 @@
 import React, {PureComponent} from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import {SIMILAR_FILMS_AMOUNT} from '../../const.js';
 
 class App extends PureComponent {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       activeMovie: null
@@ -32,8 +33,6 @@ class App extends PureComponent {
     if (!this.state.activeMovie) {
       return (
         <Main
-          film={film}
-          films={films}
           onCardClick={this._handleCardClick}
         />
       );
@@ -79,4 +78,9 @@ App.propTypes = {
   films: PropTypes.array.isRequired,
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  film: state.film,
+  films: state.films,
+});
+
+export default connect(mapStateToProps)(App);
