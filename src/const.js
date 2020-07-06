@@ -1,5 +1,9 @@
 export const SIMILAR_FILMS_AMOUNT = 4;
 
+export const MAX_GENRES_AMOUNT = 10;
+
+export const ALL_GENRES = `All genres`;
+
 export const RatingLevel = {
   AWESOME: `Awesome`,
   VERY_GOOD: `Very good`,
@@ -12,17 +16,4 @@ export const MovieNav = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,
   REVIEWS: `Reviews`,
-};
-
-export const MovieGenre = {
-  ALL: `All genres`,
-  COMEDIES: `Comedies`,
-  CRIME: `Crime`,
-  DOCUMENTARY: `Documentary`,
-  DRAMAS: `Dramas`,
-  HORROR: `Horror`,
-  KIDS: `Kids & Family`,
-  ROMANCE: `Romance`,
-  SCI_FI: `Sci-Fi`,
-  THRILLERS: `Thrillers`,
 };
