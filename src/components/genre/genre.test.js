@@ -22,6 +22,7 @@ it(`Should Genre render correctly`, () => {
         genres={genres}
         currentGenre={ALL_GENRES}
         onGenreClick={() => {}}
+        onGenreChange={() => {}}
       />
   ).toJSON();
 

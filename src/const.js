@@ -1,5 +1,7 @@
 export const SIMILAR_FILMS_AMOUNT = 4;
 
+export const MAX_SHOWN_FILMS_AMOUNT = 8;
+
 export const MAX_GENRES_AMOUNT = 10;
 
 export const ALL_GENRES = `All genres`;
