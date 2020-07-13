@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {MAX_GENRES_AMOUNT} from "../../const.js";
 
 const Genre = (props) => {
-  const {genres, currentGenre, onGenreClick} = props;
+  const {genres, currentGenre, onGenreClick, onGenreChange} = props;
   const navGenres = genres.slice(0, MAX_GENRES_AMOUNT);
 
   return (
@@ -14,6 +14,7 @@ const Genre = (props) => {
           onClick={(evt) => {
             evt.preventDefault();
             onGenreClick(genre);
+            onGenreChange();
           }}
         >
           <a href="#" className="catalog__genres-link">{genre}</a>
@@ -27,6 +28,7 @@ Genre.propTypes = {
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired,
+  onGenreChange: PropTypes.func.isRequired,
 };
 
 export default Genre;
