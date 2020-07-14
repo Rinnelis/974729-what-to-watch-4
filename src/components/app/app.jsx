@@ -4,42 +4,42 @@ import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import Main from "../main/main.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
-import {SIMILAR_FILMS_AMOUNT} from '../../const.js';
+import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
+import withShownFilms from "../../hocs/with-shown-films/with-shown-films.js";
+import {SIMILAR_FILMS_AMOUNT} from "../../const.js";
+
+const MainWrapped = withShownFilms(Main);
+const MoviePageWrapped = withActiveTab(MoviePage);
 
 class App extends PureComponent {
   constructor() {
     super();
 
-    this.state = {
-      activeMovie: null
-    };
-
     this._handleCardClick = this._handleCardClick.bind(this);
   }
 
   _handleCardClick(movie) {
-    this.setState({
-      activeMovie: movie
-    });
+    const {onMovieChoose} = this.props;
+    onMovieChoose(movie);
   }
 
   renderApp() {
-    const {film, films} = this.props;
+    const {film, films, chosenMovie} = this.props;
 
     const similarFilms = films
       .filter((filmItem) => filmItem.genre === film.genre && filmItem.title !== film.title)
       .slice(0, SIMILAR_FILMS_AMOUNT);
 
-    if (!this.state.activeMovie) {
+    if (!chosenMovie) {
       return (
-        <Main
+        <MainWrapped
           onCardClick={this._handleCardClick}
         />
       );
     }
 
     return (
-      <MoviePage
+      <MoviePageWrapped
         film={film}
         similarFilms={similarFilms}
         onCardClick={this._handleCardClick}
@@ -61,7 +61,7 @@ class App extends PureComponent {
             {this.renderApp()}
           </Route>
           <Route exact path="/dev-film">
-            <MoviePage
+            <MoviePageWrapped
               film={film}
               similarFilms={similarFilms}
               onCardClick={this._handleCardClick}
@@ -76,6 +76,8 @@ class App extends PureComponent {
 App.propTypes = {
   film: PropTypes.object.isRequired,
   films: PropTypes.array.isRequired,
+  chosenMovie: PropTypes.string.isRequired,
+  onMovieChoose: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

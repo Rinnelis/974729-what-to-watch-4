@@ -29,6 +29,10 @@ it(`Should title or image be pressed`, () => {
       <Provider store={store}>
         <Main
           onCardClick={() => {}}
+          onGenreClick={() => {}}
+          maxShownFilms={8}
+          onShownFilmsAmountReset={() => {}}
+          onShownFilmsAdd={() => {}}
         />
       </Provider>
   );

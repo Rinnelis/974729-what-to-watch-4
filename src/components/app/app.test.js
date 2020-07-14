@@ -21,7 +21,10 @@ it(`Should App render correctly`, () => {
 
   const tree = renderer.create(
       <Provider store={store}>
-        <App />
+        <App
+          onMovieChoose={() => {}}
+          chosenMovie={``}
+        />
       </Provider>, {
         createNodeMock: () => {
           return {};

@@ -12,8 +12,9 @@ it(`Should MovieCard render correctly`, () => {
   const tree = renderer
     .create(<MovieCard
       film={movieTestInfo}
-      onMouseEnter={() => {}}
       onCardClick={() => {}}
+      isVideoPlaying={false}
+      setVideoPlaying={() => {}}
     />, {
       createNodeMock: () => {
         return {};

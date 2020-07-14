@@ -3,7 +3,10 @@ import ReactDOM from "react-dom";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 import App from "./components/app/app.jsx";
+import withChosenMovie from "./hocs/with-chosen-movie/with-chosen-movie.js";
 import {reducer} from "./reducer.js";
+
+const AppWrapped = withChosenMovie(App);
 
 const store = createStore(
     reducer,
@@ -12,7 +15,7 @@ const store = createStore(
 
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <AppWrapped />
     </Provider>,
     document.querySelector(`#root`)
 );

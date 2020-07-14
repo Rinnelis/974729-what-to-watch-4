@@ -9,53 +9,39 @@ const getRatingScore = (score) => {
 const Reviews = (props) => {
   const {film} = props;
   const {reviews} = film;
+  const halfOfReviews = Math.round(reviews.length / 2);
+  const col1 = reviews.slice(0, halfOfReviews);
+  const col2 = reviews.slice(halfOfReviews);
+
+  const getReviews = (movieReviews) => {
+    return (
+      <div className="movie-card__reviews-col">
+        {movieReviews.map((review) => {
+          const date = new Date(review.date);
+
+          return (
+            <div key={uuidv4()} className="review">
+              <blockquote className="review__quote">
+                <p className="review__text">{review.text}</p>
+                <footer className="review__details">
+                  <cite className="review__author">{review.author}</cite>
+                  <time className="review__date" dateTime={date.toISOString()}>{
+                    date.toLocaleDateString(`en-US`, {month: `long`, day: `numeric`, year: `numeric`})
+                  }</time>
+                </footer>
+              </blockquote>
+              <div className="review__rating">{getRatingScore(review.score)}</div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
 
   return (
     <div className="movie-card__reviews movie-card__row">
-      <div className="movie-card__reviews-col">
-        {
-          reviews.slice(0, 3).map((review) => {
-            const date = new Date(review.date);
-
-            return (
-              <div key={uuidv4()} className="review">
-                <blockquote className="review__quote">
-                  <p className="review__text">{review.text}</p>
-                  <footer className="review__details">
-                    <cite className="review__author">{review.author}</cite>
-                    <time className="review__date" dateTime={date.toISOString()}>{
-                      date.toLocaleDateString(`en-US`, {month: `long`, day: `numeric`, year: `numeric`})
-                    }</time>
-                  </footer>
-                </blockquote>
-                <div className="review__rating">{getRatingScore(review.score)}</div>
-              </div>
-            );
-          })
-        }
-      </div>
-      <div className="movie-card__reviews-col">
-        {
-          reviews.slice(3, 5).map((review) => {
-            const date = new Date(review.date);
-
-            return (
-              <div key={uuidv4()} className="review">
-                <blockquote className="review__quote">
-                  <p className="review__text">{review.text}</p>
-                  <footer className="review__details">
-                    <cite className="review__author">{review.author}</cite>
-                    <time className="review__date" dateTime={date.toISOString()}>{
-                      date.toLocaleDateString(`en-US`, {month: `long`, day: `numeric`, year: `numeric`})
-                    }</time>
-                  </footer>
-                </blockquote>
-                <div className="review__rating">{getRatingScore(review.score)}</div>
-              </div>
-            );
-          })
-        }
-      </div>
+      {getReviews(col1)}
+      {getReviews(col2)}
     </div>
   );
 };

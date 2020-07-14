@@ -10,6 +10,9 @@ it(`Should MoviePage render correctly`, () => {
       film={film}
       similarFilms={films}
       onCardClick={() => {}}
+      currentTab={`Overview`}
+      onTabClick={() => {}}
+      onCurrentTabRender={() => {}}
     />, {
       createNodeMock: () => {
         return {};
