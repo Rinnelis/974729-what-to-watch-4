@@ -23,6 +23,10 @@ it(`Should Main render correctly`, () => {
       <Provider store={store}>
         <Main
           onCardClick={() => {}}
+          onGenreClick={() => {}}
+          maxShownFilms={8}
+          onShownFilmsAmountReset={() => {}}
+          onShownFilmsAdd={() => {}}
         />
       </Provider>, {
         createNodeMock: () => {

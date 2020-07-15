@@ -1,34 +1,20 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
-import VideoPlayer from '../video-player/video-player.jsx';
+import VideoPlayer from "../video-player/video-player.jsx";
 
 class MovieCard extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isVideoPlaying: false
-    };
-  }
-
   render() {
-    const {film, onMouseEnter, onCardClick} = this.props;
+    const {film, onCardClick, isVideoPlaying, setVideoPlaying} = this.props;
     const {title, image} = film;
-    const {isVideoPlaying} = this.state;
 
     return (
       <article
         className="small-movie-card catalog__movies-card"
         onMouseEnter={() => {
-          onMouseEnter(film);
-          this.setState({
-            isVideoPlaying: true
-          });
+          setVideoPlaying(true);
         }}
         onMouseLeave={() => {
-          this.setState({
-            isVideoPlaying: false
-          });
+          setVideoPlaying(false);
         }}
       >
         <div className="small-movie-card__image" onClick={onCardClick}>
@@ -57,8 +43,9 @@ MovieCard.propTypes = {
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired,
-  onMouseEnter: PropTypes.func.isRequired,
-  onCardClick: PropTypes.func.isRequired
+  onCardClick: PropTypes.func.isRequired,
+  isVideoPlaying: PropTypes.bool.isRequired,
+  setVideoPlaying: PropTypes.func.isRequired,
 };
 
 export default MovieCard;

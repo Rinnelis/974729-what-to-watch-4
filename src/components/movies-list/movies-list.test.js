@@ -8,7 +8,6 @@ it(`Should MoviesList render correctly`, () => {
     .create(<MoviesList
       films={films}
       onCardClick={() => {}}
-      onMouseEnter={() => {}}
     />, {
       createNodeMock: () => {
         return {};
