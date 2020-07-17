@@ -6,6 +6,11 @@ export const MAX_GENRES_AMOUNT = 10;
 
 export const ALL_GENRES = `All genres`;
 
+export const Time = {
+  SECONDS_PER_MINUTE: 60,
+  MINUTES_PER_HOUR: 60
+};
+
 export const RatingLevel = {
   AWESOME: `Awesome`,
   VERY_GOOD: `Very good`,

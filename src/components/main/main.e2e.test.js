@@ -1,5 +1,5 @@
 import React from "react";
-import Enzyme, {shallow} from "enzyme";
+import Enzyme, {shallow, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
@@ -15,7 +15,7 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-it(`Should title or image be pressed`, () => {
+describe(`Main tests`, () => {
   const store = mockStore({
     film,
     films,
@@ -23,25 +23,50 @@ it(`Should title or image be pressed`, () => {
     currentGenre: ALL_GENRES,
     filmsByGenre: films,
   });
-  const onCardClick = jest.fn();
 
-  const main = shallow(
-      <Provider store={store}>
-        <Main
-          onCardClick={() => {}}
-          onGenreClick={() => {}}
-          maxShownFilms={8}
-          onShownFilmsAmountReset={() => {}}
-          onShownFilmsAdd={() => {}}
-        />
-      </Provider>
-  );
+  it(`Should title or image be pressed`, () => {
+    const onCardClick = jest.fn();
 
-  const titles = main.find(`.small-movie-card__link`);
-  const images = main.find(`.small-movie-card__image`);
+    const main = shallow(
+        <Provider store={store}>
+          <Main
+            onCardClick={() => {}}
+            onGenreClick={() => {}}
+            maxShownFilms={8}
+            onShownFilmsAmountReset={() => {}}
+            onShownFilmsAdd={() => {}}
+          />
+        </Provider>
+    );
 
-  titles.forEach((title) => title.simulate(`click`));
-  images.forEach((image) => image.simulate(`click`));
+    const titles = main.find(`.small-movie-card__link`);
+    const images = main.find(`.small-movie-card__image`);
 
-  expect(onCardClick).toHaveBeenCalledTimes(titles.length + images.length);
+    titles.forEach((title) => title.simulate(`click`));
+    images.forEach((image) => image.simulate(`click`));
+
+    expect(onCardClick).toHaveBeenCalledTimes(titles.length + images.length);
+  });
+
+  it(`Should play btn be clicked`, () => {
+    const handlePlayClick = jest.fn();
+    const movie = store.getState().film;
+
+    const main = mount(
+        <Provider store={store}>
+          <Main
+            onCardClick={() => {}}
+            onGenreClick={() => {}}
+            maxShownFilms={8}
+            onShownFilmsAmountReset={() => {}}
+            onShownFilmsAdd={() => {}}
+            onPlayBtnClick={handlePlayClick}
+          />
+        </Provider>
+    );
+
+    const playButton = main.find(`.btn--play`);
+    playButton.simulate(`click`, movie);
+    expect(handlePlayClick).toHaveBeenCalledWith(movie);
+  });
 });

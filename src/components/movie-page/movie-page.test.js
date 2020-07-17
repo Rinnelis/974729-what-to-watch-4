@@ -13,6 +13,7 @@ it(`Should MoviePage render correctly`, () => {
       currentTab={`Overview`}
       onTabClick={() => {}}
       onCurrentTabRender={() => {}}
+      onPlayBtnClick={() => {}}
     />, {
       createNodeMock: () => {
         return {};

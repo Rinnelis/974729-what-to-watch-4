@@ -5,7 +5,7 @@ import Tabs from "../tabs/tabs.jsx";
 import {MovieNav} from "../../const.js";
 
 const MoviePage = (props) => {
-  const {film, similarFilms, onCardClick, currentTab, onTabClick, onCurrentTabRender} = props;
+  const {film, similarFilms, onCardClick, currentTab, onTabClick, onCurrentTabRender, onPlayBtnClick} = props;
   const {title, genre, releaseDate, bgImage, poster} = film;
 
   return (
@@ -43,7 +43,9 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button className="btn btn--play movie-card__button" type="button"
+                  onClick={() => onPlayBtnClick(film)}
+                >
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <symbol id="play-s" viewBox="0 0 19 19">
                       <path fillRule="evenodd" clipRule="evenodd" d="M0 0L19 9.5L0 19V0Z" fill="#EEE5B5" />
@@ -124,6 +126,7 @@ MoviePage.propTypes = {
   currentTab: PropTypes.string.isRequired,
   onTabClick: PropTypes.func.isRequired,
   onCurrentTabRender: PropTypes.func.isRequired,
+  onPlayBtnClick: PropTypes.func.isRequired,
 };
 
 export default MoviePage;

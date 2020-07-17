@@ -27,6 +27,7 @@ it(`Should Main render correctly`, () => {
           maxShownFilms={8}
           onShownFilmsAmountReset={() => {}}
           onShownFilmsAdd={() => {}}
+          onPlayBtnClick={() => {}}
         />
       </Provider>, {
         createNodeMock: () => {
