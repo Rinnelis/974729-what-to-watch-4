@@ -37,8 +37,15 @@ it(`withVideoControls is rendered correctly`, () => {
       onFullScreenClick={() => {}}
     />
   ), {
-    createNodeMock() {
-      return {};
+    createNodeMock: (element) => {
+      if (element.type === `video`) {
+        return {
+          play: () => {
+            return true;
+          }
+        };
+      }
+      return null;
     }
   }).toJSON();
 

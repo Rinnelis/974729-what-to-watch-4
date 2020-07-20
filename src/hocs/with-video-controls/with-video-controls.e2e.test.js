@@ -13,7 +13,7 @@ const Player = (props) => {
   const {onPlayBtnClick, children} = props;
   return (
     <div>
-      <button onClick={onPlayBtnClick} />
+      <button onClick={onPlayBtnClick} className="player__play" />
       {children}
     </div>
   );
@@ -64,6 +64,7 @@ it(`Checks that HOC's callback turn off video (pause)`, () => {
     onFullScreenClick={() => {}}
   />);
 
+  window.HTMLMediaElement.prototype.play = () => {};
   window.HTMLMediaElement.prototype.pause = () => {};
 
   const {videoRef} = wrapper.instance();
