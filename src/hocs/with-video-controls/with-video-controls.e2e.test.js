@@ -27,6 +27,9 @@ Player.propTypes = {
   ]).isRequired,
 };
 
+window.HTMLMediaElement.prototype.play = () => {};
+window.HTMLMediaElement.prototype.pause = () => {};
+
 it(`Checks that HOC's callback turn on video (play)`, () => {
   const PlayerWrapped = withVideoControls(Player);
   const wrapper = mount(<PlayerWrapped
@@ -38,8 +41,6 @@ it(`Checks that HOC's callback turn on video (play)`, () => {
     onPlayBtnClick={() => {}}
     onFullScreenClick={() => {}}
   />);
-
-  window.HTMLMediaElement.prototype.play = () => {};
 
   const {videoRef} = wrapper.instance();
 
@@ -63,9 +64,6 @@ it(`Checks that HOC's callback turn off video (pause)`, () => {
     onPlayBtnClick={() => {}}
     onFullScreenClick={() => {}}
   />);
-
-  window.HTMLMediaElement.prototype.play = () => {};
-  window.HTMLMediaElement.prototype.pause = () => {};
 
   const {videoRef} = wrapper.instance();
 
