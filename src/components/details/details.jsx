@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {Time} from "../../const.js";
 
 const Details = (props) => {
   const {film} = props;
@@ -8,6 +9,18 @@ const Details = (props) => {
   const getStarring = (actors) => {
     return actors.join(`, `);
   };
+
+  const getHours = () => {
+    const hours = Math.trunc(runTime / Time.MINUTES_PER_HOUR);
+    return hours > 0 ? `${hours}h` : ``;
+  };
+
+  const getMinutes = () => {
+    const minutes = runTime % Time.SECONDS_PER_MINUTE;
+    return minutes > 0 ? `${minutes}m` : ``;
+  };
+
+  const time = `${getHours()} ${getMinutes()}`;
 
   return (
     <React.Fragment>
@@ -28,7 +41,7 @@ const Details = (props) => {
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">{runTime}</span>
+            <span className="movie-card__details-value">{time}</span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>

@@ -14,7 +14,7 @@ export default {
   ],
   director: `Wes Andreson`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`, `Willem Dafoe`, `Saoirse Ronan`, `Tony Revoloru`, `Tilda Swinton`, `Tom Wilkinson`, `Owen Wilkinson`, `Adrien Brody`, `Ralph Fiennes`, `Jeff Goldblum`],
-  runTime: `1h 39m`,
+  runTime: `99`,
   reviews: [
     {
       id: `01`,

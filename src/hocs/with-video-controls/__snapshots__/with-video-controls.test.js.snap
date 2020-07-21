@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withVideoControls is rendered correctly 1`] = `
+<div>
+  <video
+    className="player__video"
+    type="video/webm"
+  >
+    Your browser doesn\`t support embedded video
+  </video>
+</div>
+`;
