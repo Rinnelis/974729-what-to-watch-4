@@ -5,9 +5,8 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Main from "./main";
 import {ALL_GENRES} from "../../const.js";
-import {getGenresList} from "../../utils.js";
-import film from "../../mocks/film.js";
-import films from "../../mocks/films.js";
+import {NameSpace} from "../../reducer/name-space.js";
+import {film, films} from "../../test-data.js";
 
 const mockStore = configureStore([]);
 
@@ -17,11 +16,13 @@ Enzyme.configure({
 
 describe(`Main tests`, () => {
   const store = mockStore({
-    film,
-    films,
-    genresList: getGenresList(films),
-    currentGenre: ALL_GENRES,
-    filmsByGenre: films,
+    [NameSpace.DATA]: {
+      film,
+      films,
+    },
+    [NameSpace.MOVIES]: {
+      currentGenre: ALL_GENRES,
+    },
   });
 
   it(`Should title or image be pressed`, () => {
@@ -50,7 +51,7 @@ describe(`Main tests`, () => {
 
   it(`Should play btn be clicked`, () => {
     const handlePlayClick = jest.fn();
-    const movie = store.getState().film;
+    const movie = film;
 
     const main = mount(
         <Provider store={store}>

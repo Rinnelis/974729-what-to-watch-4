@@ -7,16 +7,15 @@ const getRatingScore = (score) => {
 };
 
 const Reviews = (props) => {
-  const {film} = props;
-  const {reviews} = film;
-  const halfOfReviews = Math.round(reviews.length / 2);
-  const col1 = reviews.slice(0, halfOfReviews);
-  const col2 = reviews.slice(halfOfReviews);
+  const {reviews} = props;
+  const halfOfReviews = reviews && Math.round(reviews.length / 2);
+  const col1 = reviews && reviews.slice(0, halfOfReviews);
+  const col2 = reviews && reviews.slice(halfOfReviews);
 
   const getReviews = (movieReviews) => {
     return (
       <div className="movie-card__reviews-col">
-        {movieReviews.map((review) => {
+        {reviews && movieReviews.map((review) => {
           const date = new Date(review.date);
 
           return (
@@ -47,16 +46,10 @@ const Reviews = (props) => {
 };
 
 Reviews.propTypes = {
-  film: PropTypes.shape({
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          author: PropTypes.string.isRequired,
-          score: PropTypes.number.isRequired,
-          text: PropTypes.string.isRequired,
-          date: PropTypes.number.isRequired,
-        }).isRequired
-    ).isRequired,
-  }).isRequired,
+  reviews: PropTypes.PropTypes.oneOfType([
+    PropTypes.array.isRequired,
+    PropTypes.bool,
+  ]),
 };
 
 export default Reviews;

@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import withChosenMovie from "./with-chosen-movie.js";
-import films from "../../mocks/films.js";
+import {films} from "../../test-data.js";
 
 const film = films[0];
 const MockComponent = () => <div />;

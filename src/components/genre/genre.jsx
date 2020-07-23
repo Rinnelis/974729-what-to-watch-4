@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {MAX_GENRES_AMOUNT} from "../../const.js";
 
 const Genre = (props) => {
-  const {genres, currentGenre, onGenreClick, onGenreChange} = props;
+  const {films, genres, currentGenre, onGenreClick, onGenreChange} = props;
   const navGenres = genres.slice(0, MAX_GENRES_AMOUNT);
 
   return (
@@ -13,7 +13,7 @@ const Genre = (props) => {
           className={currentGenre === genre ? `catalog__genres-item catalog__genres-item--active` : `catalog__genres-item`}
           onClick={(evt) => {
             evt.preventDefault();
-            onGenreClick(genre);
+            onGenreClick(genre, films);
             onGenreChange();
           }}
         >
@@ -25,6 +25,7 @@ const Genre = (props) => {
 };
 
 Genre.propTypes = {
+  films: PropTypes.array.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired,

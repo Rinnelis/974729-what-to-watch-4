@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {v4 as uuidv4} from "uuid";
 import {RatingLevel} from '../../const.js';
 
 const getRatingLevel = (count) => {
@@ -23,16 +22,6 @@ const getStarring = (actors) => {
   return actors.slice(0, 4).join(`, `);
 };
 
-const getDescription = (text) => {
-  return (
-    <React.Fragment>
-      {text.map((item) => {
-        return <p key={`item-${uuidv4()}`}>{item}</p>;
-      })}
-    </React.Fragment>
-  );
-};
-
 const getRatingScore = (score) => {
   return score.toFixed(1).toString().replace(`.`, `,`);
 };
@@ -52,7 +41,7 @@ const Overview = (props) => {
       </div>
 
       <div className="movie-card__text">
-        {getDescription(description)}
+        {description}
 
         <p className="movie-card__director"><strong>Director: {director}</strong></p>
 
@@ -66,7 +55,7 @@ Overview.propTypes = {
   film: PropTypes.shape({
     ratingScore: PropTypes.number.isRequired,
     ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+    description: PropTypes.string.isRequired,
     director: PropTypes.string.isRequired,
     starring: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired

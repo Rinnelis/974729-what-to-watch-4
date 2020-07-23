@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import films from "../../mocks/films.js";
+import {films} from "../../test-data.js";
 import VideoPlayerFull from "./video-player-full.jsx";
 
 const film = films[0];
