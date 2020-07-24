@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Details from "./details.jsx";
-import film from "../../mocks/film.js";
+import {film} from "../../test-data.js";
 
 it(`Should Details render correctly`, () => {
   const tree = renderer

@@ -2,6 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import Genre from "./genre.jsx";
 import {ALL_GENRES} from "../../const.js";
+import {films} from "../../test-data.js";
 
 const genres = [
   `All genres`,
@@ -19,6 +20,7 @@ const genres = [
 it(`Should Genre render correctly`, () => {
   const tree = renderer.create(
       <Genre
+        films={films}
         genres={genres}
         currentGenre={ALL_GENRES}
         onGenreClick={() => {}}

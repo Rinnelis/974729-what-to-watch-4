@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import withActiveTab from "./with-active-tab.js";
-import films from "../../mocks/films.js";
+import {films} from "../../test-data.js";
 
 const film = films[0];
 

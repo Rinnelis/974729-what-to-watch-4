@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {configure, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import withVideoControls from "./with-video-controls.js";
-import films from "../../mocks/films.js";
+import {films} from "../../test-data.js";
 
 const film = films[0];
 

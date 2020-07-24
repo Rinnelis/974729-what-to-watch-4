@@ -8,6 +8,8 @@ import VideoPlayerFull from "../video-player-full/video-player-full.jsx";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import withShownFilms from "../../hocs/with-shown-films/with-shown-films.js";
 import withVideoControls from "../../hocs/with-video-controls/with-video-controls.js";
+import {Operation} from "../../reducer/data/data.js";
+import {getFilms, getPromo, getFilmComments} from "../../reducer/data/selectors.js";
 import {SIMILAR_FILMS_AMOUNT} from "../../const.js";
 
 const MainWrapped = withShownFilms(Main);
@@ -29,8 +31,9 @@ class App extends PureComponent {
   }
 
   _handleCardClick(movie) {
-    const {onMovieChoose} = this.props;
+    const {getComments, onMovieChoose} = this.props;
     onMovieChoose(movie);
+    getComments(movie.id);
   }
 
   _handleMoviePlayerRender() {
@@ -117,15 +120,26 @@ class App extends PureComponent {
 }
 
 App.propTypes = {
-  film: PropTypes.object.isRequired,
+  film: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.bool,
+  ]),
   films: PropTypes.array.isRequired,
   chosenMovie: PropTypes.string.isRequired,
   onMovieChoose: PropTypes.func.isRequired,
+  getComments: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  film: state.film,
-  films: state.films,
+  film: getPromo(state),
+  films: getFilms(state),
+  comments: getFilmComments(state),
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => ({
+  getComments(filmID) {
+    dispatch(Operation.loadComments(filmID));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

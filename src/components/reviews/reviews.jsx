@@ -7,30 +7,29 @@ const getRatingScore = (score) => {
 };
 
 const Reviews = (props) => {
-  const {film} = props;
-  const {reviews} = film;
-  const halfOfReviews = Math.round(reviews.length / 2);
-  const col1 = reviews.slice(0, halfOfReviews);
-  const col2 = reviews.slice(halfOfReviews);
+  const {reviews} = props;
+  const halfOfReviews = reviews && Math.round(reviews.length / 2);
+  const col1 = reviews && reviews.slice(0, halfOfReviews);
+  const col2 = reviews && reviews.slice(halfOfReviews);
 
   const getReviews = (movieReviews) => {
     return (
       <div className="movie-card__reviews-col">
-        {movieReviews.map((review) => {
+        {reviews && movieReviews.map((review) => {
           const date = new Date(review.date);
 
           return (
             <div key={uuidv4()} className="review">
               <blockquote className="review__quote">
-                <p className="review__text">{review.text}</p>
+                <p className="review__text">{review.comment}</p>
                 <footer className="review__details">
-                  <cite className="review__author">{review.author}</cite>
+                  <cite className="review__author">{review.user.name}</cite>
                   <time className="review__date" dateTime={date.toISOString()}>{
                     date.toLocaleDateString(`en-US`, {month: `long`, day: `numeric`, year: `numeric`})
                   }</time>
                 </footer>
               </blockquote>
-              <div className="review__rating">{getRatingScore(review.score)}</div>
+              <div className="review__rating">{getRatingScore(review.rating)}</div>
             </div>
           );
         })}
@@ -47,16 +46,10 @@ const Reviews = (props) => {
 };
 
 Reviews.propTypes = {
-  film: PropTypes.shape({
-    reviews: PropTypes.arrayOf(
-        PropTypes.shape({
-          author: PropTypes.string.isRequired,
-          score: PropTypes.number.isRequired,
-          text: PropTypes.string.isRequired,
-          date: PropTypes.number.isRequired,
-        }).isRequired
-    ).isRequired,
-  }).isRequired,
+  reviews: PropTypes.PropTypes.oneOfType([
+    PropTypes.array.isRequired,
+    PropTypes.bool,
+  ]),
 };
 
 export default Reviews;

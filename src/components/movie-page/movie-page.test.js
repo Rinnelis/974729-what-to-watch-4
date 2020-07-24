@@ -1,8 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import MoviePage from "./movie-page.jsx";
-import film from "../../mocks/film.js";
-import films from "../../mocks/films.js";
+import {film, films} from "../../test-data.js";
 
 it(`Should MoviePage render correctly`, () => {
   const tree = renderer

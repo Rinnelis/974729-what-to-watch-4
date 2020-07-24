@@ -1,14 +1,17 @@
 import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {ActionCreator} from "../../reducer.js";
+import {ActionCreator} from "../../reducer/movies/movies.js";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Genre from "../genre/genre.jsx";
 import ShowMoreButton from "../show-more-btn/show-more-btn.jsx";
+import {getGenresList, getFilms, getPromo} from "../../reducer/data/selectors.js";
+import {getCurrentGenre, getFilmsByGenre} from "../../reducer/movies/selectors.js";
 
 const Main = (props) => {
   const {
     film,
+    films,
     genresList,
     currentGenre,
     filmsByGenre,
@@ -89,6 +92,7 @@ const Main = (props) => {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <Genre
+            films={films}
             genres={genresList}
             currentGenre={currentGenre}
             onGenreClick={onGenreClick}
@@ -126,13 +130,11 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    bgImage: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-  }).isRequired,
+  film: PropTypes.oneOfType([
+    PropTypes.object.isRequired,
+    PropTypes.bool,
+  ]),
+  films: PropTypes.array.isRequired,
   genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentGenre: PropTypes.string.isRequired,
   filmsByGenre: PropTypes.array.isRequired,
@@ -145,17 +147,17 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  film: state.film,
-  genresList: state.genresList,
-  currentGenre: state.currentGenre,
-  filmsByGenre: state.filmsByGenre,
+  film: getPromo(state),
+  films: getFilms(state),
+  genresList: getGenresList(state),
+  currentGenre: getCurrentGenre(state),
+  filmsByGenre: getFilmsByGenre(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreClick(genre) {
     dispatch(ActionCreator.chooseGenre(genre));
-    dispatch(ActionCreator.getFilmsByGenre(genre));
-  },
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -1,7 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Overview from "./overview.jsx";
-import film from "../../mocks/film.js";
+import {film} from "../../test-data.js";
 
 it(`Should Overview render correctly`, () => {
   const tree = renderer
