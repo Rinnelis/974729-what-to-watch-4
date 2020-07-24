@@ -5,7 +5,7 @@ import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import App from "./components/app/app.jsx";
 import withChosenMovie from "./hocs/with-chosen-movie/with-chosen-movie.js";
-import {reducer} from "./reducer/reducer.js";
+import reducer from "./reducer/reducer.js";
 import {Operation} from "./reducer/data/data.js";
 import {createAPI} from "./api.js";
 

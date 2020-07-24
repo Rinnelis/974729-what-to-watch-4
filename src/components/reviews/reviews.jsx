@@ -21,15 +21,15 @@ const Reviews = (props) => {
           return (
             <div key={uuidv4()} className="review">
               <blockquote className="review__quote">
-                <p className="review__text">{review.text}</p>
+                <p className="review__text">{review.comment}</p>
                 <footer className="review__details">
-                  <cite className="review__author">{review.author}</cite>
+                  <cite className="review__author">{review.user.name}</cite>
                   <time className="review__date" dateTime={date.toISOString()}>{
                     date.toLocaleDateString(`en-US`, {month: `long`, day: `numeric`, year: `numeric`})
                   }</time>
                 </footer>
               </blockquote>
-              <div className="review__rating">{getRatingScore(review.score)}</div>
+              <div className="review__rating">{getRatingScore(review.rating)}</div>
             </div>
           );
         })}
