@@ -5,8 +5,10 @@ import {ActionCreator} from "../../reducer/movies/movies.js";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Genre from "../genre/genre.jsx";
 import ShowMoreButton from "../show-more-btn/show-more-btn.jsx";
-import {getGenresList, getFilms, getPromo} from "../../reducer/data/selectors.js";
+import {getGenresList, getFilms, getPromo, getFilmsStatus, getPromoStatus} from "../../reducer/data/selectors.js";
 import {getCurrentGenre, getFilmsByGenre} from "../../reducer/movies/selectors.js";
+import {getAuthStatus, getUserData} from "../../reducer/user/selectors.js";
+import {AuthStatus} from "../../const.js";
 
 const Main = (props) => {
   const {
@@ -20,10 +22,54 @@ const Main = (props) => {
     maxShownFilms,
     onShownFilmsAmountReset,
     onShownFilmsAdd,
-    onPlayBtnClick
+    onPlayBtnClick,
+    onSignInClick,
+    authStatus,
+    user,
+    isLoadingFilms,
+    isLoadingPromo,
   } = props;
   const {title, genre, releaseDate, bgImage, poster} = film;
+  const {avatarUrl, name} = user;
   const shownFilms = filmsByGenre.slice(0, maxShownFilms);
+
+  const isSignedIn = authStatus === AuthStatus.AUTH
+    ?
+    <React.Fragment>
+      <div className="user-block">
+        <div className="user-block__avatar">
+          <img src={avatarUrl} alt={name} width="63" height="63" />
+        </div>
+      </div>
+    </React.Fragment>
+    :
+    <React.Fragment>
+      <div className="user-block">
+        <a className="user-block__link"
+          onClick={onSignInClick}
+        >Sign in</a>
+      </div>
+    </React.Fragment>;
+
+  const getPromoMsg = () => {
+    if (isLoadingPromo.isLoadingPromo && !isLoadingPromo.loadPromoError) {
+      return `Promo is loading...`;
+    } else if (isLoadingPromo.isLoadingPromo && isLoadingPromo.loadPromoError) {
+      return `Server error occurred, please try again later`;
+    }
+
+    return false;
+  };
+
+  const getFilmsMsg = () => {
+    if (isLoadingFilms.isLoadingFilms && !isLoadingFilms.loadFilmsError) {
+      return `Films are loading...`;
+    } else if (isLoadingFilms.isLoadingFilms && isLoadingFilms.loadFilmsError) {
+      return `Server error occurred, please try again later...`;
+    }
+
+    return false;
+  };
 
   return (
     <React.Fragment>
@@ -43,11 +89,7 @@ const Main = (props) => {
             </a>
           </div>
 
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
+          {isSignedIn}
         </header>
 
         <div className="movie-card__wrap">
@@ -56,6 +98,7 @@ const Main = (props) => {
               <img src={poster} alt={title} width="218" height="327" />
             </div>
 
+            {getPromoMsg() ||
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
@@ -83,6 +126,7 @@ const Main = (props) => {
                 </button>
               </div>
             </div>
+            }
           </div>
         </div>
       </section>
@@ -99,10 +143,12 @@ const Main = (props) => {
             onGenreChange={onShownFilmsAmountReset}
           />
 
+          {getFilmsMsg() ||
           <MoviesList
             films={shownFilms}
             onCardClick={onCardClick}
           />
+          }
 
           {maxShownFilms < filmsByGenre.length &&
             <ShowMoreButton
@@ -144,6 +190,17 @@ Main.propTypes = {
   onShownFilmsAmountReset: PropTypes.func.isRequired,
   onShownFilmsAdd: PropTypes.func.isRequired,
   onPlayBtnClick: PropTypes.func.isRequired,
+  onSignInClick: PropTypes.func.isRequired,
+  authStatus: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
+  isLoadingFilms: PropTypes.shape({
+    isLoadingFilms: PropTypes.bool.isRequired,
+    loadFilmsError: PropTypes.bool.isRequired,
+  }),
+  isLoadingPromo: PropTypes.shape({
+    isLoadingPromo: PropTypes.bool.isRequired,
+    loadPromoError: PropTypes.bool.isRequired,
+  }),
 };
 
 const mapStateToProps = (state) => ({
@@ -152,6 +209,10 @@ const mapStateToProps = (state) => ({
   genresList: getGenresList(state),
   currentGenre: getCurrentGenre(state),
   filmsByGenre: getFilmsByGenre(state),
+  authStatus: getAuthStatus(state),
+  user: getUserData(state),
+  isLoadingPromo: getPromoStatus(state),
+  isLoadingFilms: getFilmsStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -160,4 +221,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Main));

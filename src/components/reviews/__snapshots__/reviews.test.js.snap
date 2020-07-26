@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Should Reviews render correctly 1`] = `
+exports[`Should render Reviews with comments 1`] = `
 <div
   className="movie-card__reviews movie-card__row"
 >
@@ -113,3 +113,7 @@ exports[`Should Reviews render correctly 1`] = `
   </div>
 </div>
 `;
+
+exports[`Should render Reviews with comments loading message 1`] = `"Comments are loading..."`;
+
+exports[`Shouldn't render Reviews comments 1`] = `"Server error occurred, please try again later"`;

@@ -1,10 +1,25 @@
 import MockAdapter from "axios-mock-adapter";
-import {filmAdapter} from "../../film-adapter.js";
+import {filmAdapter} from "../../adapters/film-adapter.js";
 import {film, films, comments} from "../../test-data.js";
 import {createAPI} from "../../api.js";
 import {ActionType, Operation, reducer} from "./data.js";
 
 const api = createAPI(() => {});
+
+it(`Should render initial state`, () => {
+  expect(reducer(void 0, {})).toEqual({
+    film: false,
+    films: [],
+    genresList: [`All genres`],
+    comments: false,
+    isLoadingFilms: true,
+    isLoadingPromo: true,
+    isLoadingComments: true,
+    loadFilmsError: false,
+    loadPromoError: false,
+    loadCommentsError: false
+  });
+});
 
 it(`Should update films by loading`, () => {
   expect(reducer({
@@ -17,7 +32,7 @@ it(`Should update films by loading`, () => {
   });
 });
 
-it(`Should update film by loading`, () => {
+it(`Should update promo by loading`, () => {
   expect(reducer({
     film: false,
   }, {
@@ -36,6 +51,72 @@ it(`Should update comments by loading`, () => {
     payload: comments
   })).toEqual({
     comments,
+  });
+});
+
+it(`Should update films' loading status`, () => {
+  expect(reducer({
+    isLoadingFilms: true,
+  }, {
+    type: ActionType.IS_LOADING_FILMS,
+    payload: false
+  })).toEqual({
+    isLoadingFilms: false,
+  });
+});
+
+it(`Should update films' loading error`, () => {
+  expect(reducer({
+    loadFilmsError: false,
+  }, {
+    type: ActionType.LOAD_FILMS_ERROR,
+    payload: true
+  })).toEqual({
+    loadFilmsError: true,
+  });
+});
+
+it(`Should update promo loading status`, () => {
+  expect(reducer({
+    isLoadingPromo: true,
+  }, {
+    type: ActionType.IS_LOADING_PROMO,
+    payload: false
+  })).toEqual({
+    isLoadingPromo: false,
+  });
+});
+
+it(`Should update promo loading error`, () => {
+  expect(reducer({
+    loadPromoError: false,
+  }, {
+    type: ActionType.LOAD_PROMO_ERROR,
+    payload: true
+  })).toEqual({
+    loadPromoError: true,
+  });
+});
+
+it(`Should update comments loading status`, () => {
+  expect(reducer({
+    isLoadingComments: true,
+  }, {
+    type: ActionType.IS_LOADING_COMMENTS,
+    payload: false
+  })).toEqual({
+    isLoadingComments: false,
+  });
+});
+
+it(`Should update comments loading error`, () => {
+  expect(reducer({
+    loadCommentsError: false,
+  }, {
+    type: ActionType.LOAD_COMMENTS_ERROR,
+    payload: true
+  })).toEqual({
+    loadCommentsError: true,
   });
 });
 

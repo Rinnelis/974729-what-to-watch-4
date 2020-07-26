@@ -1,15 +1,20 @@
 import React from "react";
-import renderer from "react-test-renderer";
+import Enzyme, {mount} from "enzyme";
+import Adapter from "enzyme-adapter-react-16";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import {NameSpace} from "../../reducer/name-space.js";
 import MoviePage from "./movie-page.jsx";
+import {NameSpace} from "../../reducer/name-space.js";
 import {film, films} from "../../test-data.js";
-import {AuthStatus} from "../../const.js";
+import {AuthStatus, MovieNav} from "../../const.js";
+
+Enzyme.configure({
+  adapter: new Adapter(),
+});
 
 const mockStore = configureStore([]);
 
-it(`Should MoviePage render correctly`, () => {
+it(`Should onPlayBtnClick appeal to promo`, () => {
   const store = mockStore({
     [NameSpace.USER]: {
       authStatus: AuthStatus.NO_AUTH,
@@ -20,27 +25,26 @@ it(`Should MoviePage render correctly`, () => {
         name: ``,
         avatarUrl: ``,
       },
-    },
+    }
   });
+  const onPlayBtnClick = jest.fn();
 
-  const tree = renderer.create(
+  const moviePage = mount(
       <Provider store={store}>
         <MoviePage
-          film={film}
           similarFilms={films}
           onCardClick={() => {}}
-          currentTab={`Overview`}
+          currentTab={MovieNav.OVERVIEW}
           onTabClick={() => {}}
           onCurrentTabRender={() => {}}
-          onPlayBtnClick={() => {}}
+          onPlayBtnClick={onPlayBtnClick}
+          film={film}
           onSignInClick={() => {}}
         />
-      </Provider>, {
-        createNodeMock: () => {
-          return {};
-        }
-      }
-  ).toJSON();
+      </Provider>
+  );
 
-  expect(tree).toMatchSnapshot();
+  const playBtn = moviePage.find(`.btn--play`);
+  playBtn.simulate(`click`, film);
+  expect(onPlayBtnClick).toHaveBeenCalledWith(film);
 });

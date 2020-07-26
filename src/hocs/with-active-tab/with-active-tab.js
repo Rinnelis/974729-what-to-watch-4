@@ -25,7 +25,7 @@ const withActiveTab = (Component) => {
     }
 
     _handleCurrentTabRender() {
-      const {comments, film} = this.props;
+      const {film} = this.props;
       const {currentTab} = this.state;
 
       switch (currentTab) {
@@ -43,9 +43,7 @@ const withActiveTab = (Component) => {
           );
         case MovieNav.REVIEWS:
           return (
-            <Reviews
-              reviews={comments}
-            />
+            <Reviews />
           );
         default: return null;
       }
@@ -67,11 +65,7 @@ const withActiveTab = (Component) => {
     film: PropTypes.oneOfType([
       PropTypes.object.isRequired,
       PropTypes.bool,
-    ]),
-    comments: PropTypes.oneOfType([
-      PropTypes.array.isRequired,
-      PropTypes.bool,
-    ]),
+    ])
   };
 
   return WithActiveTab;

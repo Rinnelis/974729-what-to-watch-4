@@ -6,12 +6,18 @@ import {Provider} from "react-redux";
 import App from "./components/app/app.jsx";
 import withChosenMovie from "./hocs/with-chosen-movie/with-chosen-movie.js";
 import reducer from "./reducer/reducer.js";
-import {Operation} from "./reducer/data/data.js";
+import {Operation as DataOperation} from "./reducer/data/data.js";
 import {createAPI} from "./api.js";
+import {AuthStatus} from "./const.js";
+import {ActionCreator, Operation as UserOperation} from "./reducer/user/user.js";
 
 const AppWrapped = withChosenMovie(App);
 
-const api = createAPI();
+const onUnauthorized = () => {
+  store.dispatch(ActionCreator.requireAuth(AuthStatus.NO_AUTH));
+};
+
+const api = createAPI(onUnauthorized);
 
 const store = createStore(
     reducer,
@@ -20,8 +26,9 @@ const store = createStore(
         window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f)
 );
 
-store.dispatch(Operation.loadFilms());
-store.dispatch(Operation.loadPromo());
+store.dispatch(DataOperation.loadFilms());
+store.dispatch(DataOperation.loadPromo());
+store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

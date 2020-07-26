@@ -1,12 +1,45 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import {MovieNav} from "../../const.js";
+import {getAuthStatus, getUserData} from "../../reducer/user/selectors.js";
+import {AuthStatus} from "../../const.js";
 
 const MoviePage = (props) => {
-  const {film, similarFilms, onCardClick, currentTab, onTabClick, onCurrentTabRender, onPlayBtnClick} = props;
+  const {
+    film,
+    similarFilms,
+    onCardClick,
+    currentTab,
+    onTabClick,
+    onCurrentTabRender,
+    onPlayBtnClick,
+    onSignInClick,
+    authStatus,
+    user,
+  } = props;
   const {title, genre, releaseDate, bgImage, poster} = film;
+  const {avatarUrl, name} = user;
+
+  const isSignedIn = authStatus === AuthStatus.AUTH
+    ?
+    <React.Fragment>
+      <div className="user-block">
+        <div className="user-block__avatar">
+          <img src={avatarUrl} alt={name} width="63" height="63" />
+        </div>
+      </div>
+    </React.Fragment>
+    :
+    <React.Fragment>
+      <div className="user-block">
+        <a className="user-block__link"
+          onClick={onSignInClick}
+        >Sign in</a>
+      </div>
+    </React.Fragment>;
 
   return (
     <React.Fragment>
@@ -27,11 +60,7 @@ const MoviePage = (props) => {
               </a>
             </div>
 
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
+            {isSignedIn}
           </header>
 
           <div className="movie-card__wrap">
@@ -127,6 +156,14 @@ MoviePage.propTypes = {
   onTabClick: PropTypes.func.isRequired,
   onCurrentTabRender: PropTypes.func.isRequired,
   onPlayBtnClick: PropTypes.func.isRequired,
+  onSignInClick: PropTypes.func.isRequired,
+  authStatus: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
-export default MoviePage;
+const mapStateToProps = (state) => ({
+  authStatus: getAuthStatus(state),
+  user: getUserData(state),
+});
+
+export default connect(mapStateToProps)(MoviePage);

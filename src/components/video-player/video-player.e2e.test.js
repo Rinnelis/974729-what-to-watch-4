@@ -5,7 +5,7 @@ import VideoPlayer from "./video-player.jsx";
 
 const film = {
   image: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-  videoUrl: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
+  previewUrl: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
 };
 
 Enzyme.configure({
