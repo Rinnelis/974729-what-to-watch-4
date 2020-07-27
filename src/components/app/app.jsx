@@ -33,10 +33,10 @@ class App extends PureComponent {
     this._handleSignInClick = this._handleSignInClick.bind(this);
   }
 
-  _handleCardClick(movie) {
+  _handleCardClick() {
     const {getComments, onMovieChoose} = this.props;
-    onMovieChoose(movie);
-    getComments(movie.id);
+    onMovieChoose(this.props.film);
+    getComments(this.props.film.id);
   }
 
   _handleExitBtnClick() {
@@ -147,7 +147,7 @@ App.propTypes = {
   ]),
   films: PropTypes.array.isRequired,
   chosenMovie: PropTypes.oneOfType([
-    PropTypes.string.isRequired,
+    PropTypes.object.isRequired,
     PropTypes.bool,
   ]),
   onMovieChoose: PropTypes.func.isRequired,
