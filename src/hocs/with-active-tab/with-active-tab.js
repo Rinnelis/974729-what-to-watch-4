@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import {MovieNav} from "../../const.js";
 import Overview from "../../components/overview/overview.jsx";
 import Details from "../../components/details/details.jsx";
@@ -63,9 +64,9 @@ const withActiveTab = (Component) => {
 
   WithActiveTab.propTypes = {
     film: PropTypes.oneOfType([
-      PropTypes.object.isRequired,
-      PropTypes.bool,
-    ])
+      ProjectPropTypes.FILM.isRequired,
+      PropTypes.bool.isRequired,
+    ]).isRequired
   };
 
   return WithActiveTab;

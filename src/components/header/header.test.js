@@ -4,24 +4,32 @@ import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {NameSpace} from "../../reducer/name-space.js";
 import {AuthStatus, Page} from "../../const.js";
-import SignIn from "./sign-in.jsx";
+import Header from "./header.jsx";
+import {user} from "../../test-data.js";
 
 const mockStore = configureStore([]);
 
-it(`Should render SignIn`, () => {
+it(`SHould render header with Sign In`, () => {
   const store = mockStore({
     [NameSpace.USER]: {
       authStatus: AuthStatus.NO_AUTH,
-      authError: false,
+      user: {
+        id: 0,
+        email: ``,
+        name: ``,
+        avatarUrl: ``,
+      },
     },
     [NameSpace.PAGE]: {
-      currentPage: Page.SIGN_IN,
+      currentPage: Page.MAIN,
     },
   });
 
   const tree = renderer.create(
       <Provider store={store}>
-        <SignIn />
+        <Header
+          onSignInClick={() => {}}
+        />
       </Provider>, {
         createNodeMock: () => {
           return {};
@@ -32,20 +40,22 @@ it(`Should render SignIn`, () => {
   expect(tree).toMatchSnapshot();
 });
 
-it(`Should render auth error`, () => {
+it(`SHould render header without Sign In`, () => {
   const store = mockStore({
     [NameSpace.USER]: {
-      authStatus: AuthStatus.NO_AUTH,
-      authError: true,
+      authStatus: AuthStatus.AUTH,
+      user,
     },
     [NameSpace.PAGE]: {
-      currentPage: Page.SIGN_IN,
+      currentPage: Page.MAIN,
     },
   });
 
   const tree = renderer.create(
       <Provider store={store}>
-        <SignIn />
+        <Header
+          onSignInClick={() => {}}
+        />
       </Provider>, {
         createNodeMock: () => {
           return {};

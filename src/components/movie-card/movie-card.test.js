@@ -1,17 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import MovieCard from "./movie-card.jsx";
-
-const movieTestInfo = {
-  title: `Moonrise Kingdom`,
-  image: `img/moonrise-kingdom.jpg`,
-  previewUrl: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-};
+import {film} from "../../test-data.js";
 
 it(`Should MovieCard render correctly`, () => {
   const tree = renderer
     .create(<MovieCard
-      film={movieTestInfo}
+      film={film}
       onCardClick={() => {}}
       isVideoPlaying={false}
       setVideoPlaying={() => {}}

@@ -2,9 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 import PropTypes from "prop-types";
 import withVideoControls from "./with-video-controls.js";
-import {films} from "../../test-data.js";
-
-const film = films[0];
+import {film} from "../../test-data.js";
 
 const MockComponent = (props) => {
   const {children} = props;

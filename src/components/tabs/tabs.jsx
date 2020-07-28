@@ -27,7 +27,7 @@ const Tabs = (props) => {
 };
 
 Tabs.propTypes = {
-  tabs: PropTypes.objectOf(PropTypes.string).isRequired,
+  tabs: PropTypes.objectOf(PropTypes.string.isRequired).isRequired,
   currentTab: PropTypes.string.isRequired,
   onTabClick: PropTypes.func.isRequired,
 };

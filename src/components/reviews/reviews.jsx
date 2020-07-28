@@ -1,6 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import {getFilmComments, getCommentsStatus} from "../../reducer/data/selectors.js";
 
 const getRatingScore = (score) => {
@@ -61,10 +62,10 @@ const Reviews = (props) => {
 };
 
 Reviews.propTypes = {
-  comments: PropTypes.PropTypes.oneOfType([
-    PropTypes.array.isRequired,
-    PropTypes.bool,
-  ]),
+  comments: PropTypes.oneOfType([
+    PropTypes.arrayOf(ProjectPropTypes.COMMENT.isRequired).isRequired,
+    PropTypes.bool.isRequired,
+  ]).isRequired,
   isLoadingComments: PropTypes.shape({
     isLoadingComments: PropTypes.bool.isRequired,
     loadCommentsError: PropTypes.bool.isRequired,

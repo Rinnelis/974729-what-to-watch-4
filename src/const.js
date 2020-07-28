@@ -29,3 +29,9 @@ export const AuthStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`
 };
+
+export const Page = {
+  MAIN: `/`,
+  SIGN_IN: `/login`,
+  MOVIE_PAGE: `/movie-page`
+};

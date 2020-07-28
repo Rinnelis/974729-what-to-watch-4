@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
+import Header from "../header/header.jsx";
+import Footer from "../footer/footer.jsx";
 import {MovieNav} from "../../const.js";
-import {getAuthStatus, getUserData} from "../../reducer/user/selectors.js";
-import {AuthStatus} from "../../const.js";
 
 const MoviePage = (props) => {
   const {
@@ -17,29 +17,8 @@ const MoviePage = (props) => {
     onCurrentTabRender,
     onPlayBtnClick,
     onSignInClick,
-    authStatus,
-    user,
   } = props;
   const {title, genre, releaseDate, bgImage, poster} = film;
-  const {avatarUrl, name} = user;
-
-  const isSignedIn = authStatus === AuthStatus.AUTH
-    ?
-    <React.Fragment>
-      <div className="user-block">
-        <div className="user-block__avatar">
-          <img src={avatarUrl} alt={name} width="63" height="63" />
-        </div>
-      </div>
-    </React.Fragment>
-    :
-    <React.Fragment>
-      <div className="user-block">
-        <a className="user-block__link"
-          onClick={onSignInClick}
-        >Sign in</a>
-      </div>
-    </React.Fragment>;
 
   return (
     <React.Fragment>
@@ -51,17 +30,9 @@ const MoviePage = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header movie-card__head">
-            <div className="logo">
-              <a href="main.html" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </a>
-            </div>
-
-            {isSignedIn}
-          </header>
+          <Header
+            onSignInClick={onSignInClick}
+          />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -124,32 +95,14 @@ const MoviePage = (props) => {
           />
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="main.html" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );
 };
 
 MoviePage.propTypes = {
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-    bgImage: PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired,
-  }).isRequired,
+  film: ProjectPropTypes.FILM.isRequired,
   similarFilms: PropTypes.array.isRequired,
   onCardClick: PropTypes.func.isRequired,
   currentTab: PropTypes.string.isRequired,
@@ -157,13 +110,6 @@ MoviePage.propTypes = {
   onCurrentTabRender: PropTypes.func.isRequired,
   onPlayBtnClick: PropTypes.func.isRequired,
   onSignInClick: PropTypes.func.isRequired,
-  authStatus: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authStatus: getAuthStatus(state),
-  user: getUserData(state),
-});
-
-export default connect(mapStateToProps)(MoviePage);
+export default MoviePage;

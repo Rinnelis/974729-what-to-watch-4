@@ -1,14 +1,15 @@
 import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import {ActionCreator} from "../../reducer/movies/movies.js";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Genre from "../genre/genre.jsx";
 import ShowMoreButton from "../show-more-btn/show-more-btn.jsx";
+import Header from "../header/header.jsx";
+import Footer from "../footer/footer.jsx";
 import {getGenresList, getFilms, getPromo, getFilmsStatus, getPromoStatus} from "../../reducer/data/selectors.js";
 import {getCurrentGenre, getFilmsByGenre} from "../../reducer/movies/selectors.js";
-import {getAuthStatus, getUserData} from "../../reducer/user/selectors.js";
-import {AuthStatus} from "../../const.js";
 
 const Main = (props) => {
   const {
@@ -24,32 +25,12 @@ const Main = (props) => {
     onShownFilmsAdd,
     onPlayBtnClick,
     onSignInClick,
-    authStatus,
-    user,
     isLoadingFilms,
     isLoadingPromo,
   } = props;
   const {title, genre, releaseDate, bgImage, poster} = film;
-  const {avatarUrl, name} = user;
-  const shownFilms = filmsByGenre.slice(0, maxShownFilms);
 
-  const isSignedIn = authStatus === AuthStatus.AUTH
-    ?
-    <React.Fragment>
-      <div className="user-block">
-        <div className="user-block__avatar">
-          <img src={avatarUrl} alt={name} width="63" height="63" />
-        </div>
-      </div>
-    </React.Fragment>
-    :
-    <React.Fragment>
-      <div className="user-block">
-        <a className="user-block__link"
-          onClick={onSignInClick}
-        >Sign in</a>
-      </div>
-    </React.Fragment>;
+  const shownFilms = filmsByGenre.slice(0, maxShownFilms);
 
   const getPromoMsg = () => {
     if (isLoadingPromo.isLoadingPromo && !isLoadingPromo.loadPromoError) {
@@ -80,17 +61,9 @@ const Main = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          {isSignedIn}
-        </header>
+        <Header
+          onSignInClick={onSignInClick}
+        />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
@@ -157,19 +130,7 @@ const Main = (props) => {
           }
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );
@@ -177,10 +138,10 @@ const Main = (props) => {
 
 Main.propTypes = {
   film: PropTypes.oneOfType([
-    PropTypes.object.isRequired,
-    PropTypes.bool,
-  ]),
-  films: PropTypes.array.isRequired,
+    ProjectPropTypes.FILM.isRequired,
+    PropTypes.bool.isRequired,
+  ]).isRequired,
+  films: PropTypes.arrayOf(ProjectPropTypes.FILM.isRequired).isRequired,
   genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentGenre: PropTypes.string.isRequired,
   filmsByGenre: PropTypes.array.isRequired,
@@ -191,8 +152,6 @@ Main.propTypes = {
   onShownFilmsAdd: PropTypes.func.isRequired,
   onPlayBtnClick: PropTypes.func.isRequired,
   onSignInClick: PropTypes.func.isRequired,
-  authStatus: PropTypes.string.isRequired,
-  user: PropTypes.object.isRequired,
   isLoadingFilms: PropTypes.shape({
     isLoadingFilms: PropTypes.bool.isRequired,
     loadFilmsError: PropTypes.bool.isRequired,
@@ -209,8 +168,6 @@ const mapStateToProps = (state) => ({
   genresList: getGenresList(state),
   currentGenre: getCurrentGenre(state),
   filmsByGenre: getFilmsByGenre(state),
-  authStatus: getAuthStatus(state),
-  user: getUserData(state),
   isLoadingPromo: getPromoStatus(state),
   isLoadingFilms: getFilmsStatus(state),
 });

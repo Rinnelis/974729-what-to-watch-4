@@ -6,7 +6,7 @@ import configureStore from "redux-mock-store";
 import MoviePage from "./movie-page.jsx";
 import {NameSpace} from "../../reducer/name-space.js";
 import {film, films} from "../../test-data.js";
-import {AuthStatus, MovieNav} from "../../const.js";
+import {AuthStatus, MovieNav, Page} from "../../const.js";
 
 Enzyme.configure({
   adapter: new Adapter(),
@@ -25,7 +25,10 @@ it(`Should onPlayBtnClick appeal to promo`, () => {
         name: ``,
         avatarUrl: ``,
       },
-    }
+    },
+    [NameSpace.PAGE]: {
+      currentPage: Page.MOVIE_PAGE,
+    },
   });
   const onPlayBtnClick = jest.fn();
 

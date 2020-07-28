@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import VideoPlayer from "../video-player/video-player.jsx";
 
 class MovieCard extends PureComponent {
@@ -39,10 +40,7 @@ class MovieCard extends PureComponent {
 }
 
 MovieCard.propTypes = {
-  film: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-  }).isRequired,
+  film: ProjectPropTypes.FILM.isRequired,
   onCardClick: PropTypes.func.isRequired,
   isVideoPlaying: PropTypes.bool.isRequired,
   setVideoPlaying: PropTypes.func.isRequired,

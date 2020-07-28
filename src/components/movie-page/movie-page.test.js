@@ -5,7 +5,7 @@ import configureStore from "redux-mock-store";
 import {NameSpace} from "../../reducer/name-space.js";
 import MoviePage from "./movie-page.jsx";
 import {film, films} from "../../test-data.js";
-import {AuthStatus} from "../../const.js";
+import {AuthStatus, Page} from "../../const.js";
 
 const mockStore = configureStore([]);
 
@@ -20,6 +20,9 @@ it(`Should MoviePage render correctly`, () => {
         name: ``,
         avatarUrl: ``,
       },
+    },
+    [NameSpace.PAGE]: {
+      currentPage: Page.MOVIE_PAGE,
     },
   });
 
