@@ -7,6 +7,7 @@ import Main from "../main/main.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
 import VideoPlayerFull from "../video-player-full/video-player-full.jsx";
+import withChosenMovie from "../../hocs/with-chosen-movie/with-chosen-movie.js";
 import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
 import withShownFilms from "../../hocs/with-shown-films/with-shown-films.js";
 import withVideoControls from "../../hocs/with-video-controls/with-video-controls.js";
@@ -157,10 +158,7 @@ App.propTypes = {
     PropTypes.bool.isRequired,
   ]).isRequired,
   films: PropTypes.arrayOf(ProjectPropTypes.FILM.isRequired).isRequired,
-  chosenMovie: PropTypes.oneOfType([
-    ProjectPropTypes.FILM.isRequired,
-    PropTypes.bool.isRequired,
-  ]).isRequired,
+  chosenMovie: ProjectPropTypes.FILM,
   onMovieChoose: PropTypes.func.isRequired,
   getComments: PropTypes.func.isRequired,
   authStatus: PropTypes.string.isRequired,
@@ -184,4 +182,6 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+const AppWrapped = withChosenMovie(App);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppWrapped);

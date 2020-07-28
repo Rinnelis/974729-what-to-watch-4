@@ -4,14 +4,11 @@ import {applyMiddleware, compose, createStore} from "redux";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import App from "./components/app/app.jsx";
-import withChosenMovie from "./hocs/with-chosen-movie/with-chosen-movie.js";
 import reducer from "./reducer/reducer.js";
 import {Operation as DataOperation} from "./reducer/data/data.js";
 import {createAPI} from "./api.js";
 import {AuthStatus} from "./const.js";
 import {ActionCreator, Operation as UserOperation} from "./reducer/user/user.js";
-
-const AppWrapped = withChosenMovie(App);
 
 const onUnauthorized = () => {
   store.dispatch(ActionCreator.requireAuth(AuthStatus.NO_AUTH));
@@ -32,7 +29,7 @@ store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <AppWrapped />
+      <App />
     </Provider>,
     document.querySelector(`#root`)
 );
