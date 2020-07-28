@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {ProjectPropTypes} from "../../project-prop-types.js";
 import MovieCard from "../movie-card/movie-card.jsx";
-import withVideo from "../../hocs/with-video/with-video.js";
+import withVideo from "../../hocs/with-video/with-video.jsx";
 
 const MovieCardWrapped = withVideo(MovieCard);
 

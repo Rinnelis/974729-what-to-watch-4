@@ -17,7 +17,9 @@ it(`Should render initial state`, () => {
     isLoadingComments: true,
     loadFilmsError: false,
     loadPromoError: false,
-    loadCommentsError: false
+    loadCommentsError: false,
+    isSendingReview: false,
+    sendReviewError: false,
   });
 });
 
@@ -168,4 +170,47 @@ it(`Should correctly go to /comments/filmID`, () => {
           payload: [{fake: true}],
         });
       });
+});
+
+it(`Should correctly post review to comments/filmID`, () => {
+  const apiMock = new MockAdapter(api);
+  const dispatch = jest.fn();
+  const reviewSending = Operation.sendReview(0, {
+    rating: `3`,
+    review: `review`,
+  });
+
+  apiMock
+    .onPost(`/comments/0`)
+    .reply(200, [{fake: true}]);
+
+  return reviewSending(dispatch, () => {}, api)
+    .then(() => {
+      expect(dispatch).toHaveBeenCalledWith({
+        type: ActionType.IS_SENDING_REVIEW,
+        payload: true,
+      });
+    });
+});
+
+it(`Should update review sending status`, () => {
+  expect(reducer({
+    isSendingReview: false,
+  }, {
+    type: ActionType.IS_SENDING_REVIEW,
+    payload: true
+  })).toEqual({
+    isSendingReview: true,
+  });
+});
+
+it(`Should update review sending error`, () => {
+  expect(reducer({
+    sendReviewError: false,
+  }, {
+    type: ActionType.SEND_REVIEW_ERROR,
+    payload: true
+  })).toEqual({
+    sendReviewError: true,
+  });
 });

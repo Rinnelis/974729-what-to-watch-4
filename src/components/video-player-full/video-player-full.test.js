@@ -9,12 +9,13 @@ import VideoPlayerFull from "./video-player-full.jsx";
 
 const mockStore = configureStore([]);
 
-it(`Should VideoPlayerFull render correctly`, () => {
-  const store = mockStore({
-    [NameSpace.PAGE]: {
-      currentPage: Page.MAIN,
-    }
-  });
+const store = mockStore({
+  [NameSpace.PAGE]: {
+    currentPage: Page.MAIN,
+  }
+});
+
+it(`Should VideoPlayerFull play`, () => {
   const tree = renderer
     .create(
         <Provider store={store}>
@@ -24,6 +25,31 @@ it(`Should VideoPlayerFull render correctly`, () => {
             leftTime={`00:10:12`}
             duration={100}
             isPlaying={true}
+            onExitBtnClick={() => {}}
+            onPlayBtnClick={() => {}}
+            onFullScreenClick={() => {}}
+          ><video/>
+          </VideoPlayerFull>
+        </Provider>, {
+          createNodeMock: () => {
+            return {};
+          }
+        }
+    ).toJSON();
+
+  expect(tree).toMatchSnapshot();
+});
+
+it(`Should VideoPlayerFull pause`, () => {
+  const tree = renderer
+    .create(
+        <Provider store={store}>
+          <VideoPlayerFull
+            film={film}
+            currentTime={20}
+            leftTime={`00:10:12`}
+            duration={100}
+            isPlaying={false}
             onExitBtnClick={() => {}}
             onPlayBtnClick={() => {}}
             onFullScreenClick={() => {}}

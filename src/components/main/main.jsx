@@ -46,7 +46,7 @@ const Main = (props) => {
     if (isLoadingFilms.isLoadingFilms && !isLoadingFilms.loadFilmsError) {
       return `Films are loading...`;
     } else if (isLoadingFilms.isLoadingFilms && isLoadingFilms.loadFilmsError) {
-      return `Server error occurred, please try again later...`;
+      return `Server error occurred, please try again later`;
     }
 
     return false;
