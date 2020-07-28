@@ -1,5 +1,6 @@
 import React, {PureComponent, createRef} from "react";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 
 class VideoPlayer extends PureComponent {
   constructor(props) {
@@ -10,10 +11,10 @@ class VideoPlayer extends PureComponent {
 
   componentDidMount() {
     const {film} = this.props;
-    const {image, videoUrl} = film;
+    const {image, previewUrl} = film;
     const video = this._video.current;
 
-    video.src = videoUrl;
+    video.src = previewUrl;
     video.poster = image;
     video.muted = true;
   }
@@ -55,10 +56,7 @@ class VideoPlayer extends PureComponent {
 }
 
 VideoPlayer.propTypes = {
-  film: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    videoUrl: PropTypes.string.isRequired,
-  }).isRequired,
+  film: ProjectPropTypes.FILM.isRequired,
   isPlaying: PropTypes.bool.isRequired,
 };
 

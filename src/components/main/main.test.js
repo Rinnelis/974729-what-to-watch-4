@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Main from "./main.jsx";
-import {ALL_GENRES} from "../../const.js";
+import {ALL_GENRES, AuthStatus, Page} from "../../const.js";
 import {NameSpace} from "../../reducer/name-space.js";
 import {film, films} from "../../test-data.js";
 
@@ -14,9 +14,26 @@ it(`Should Main render correctly`, () => {
     [NameSpace.DATA]: {
       film,
       films,
+      isLoadingFilms: false,
+      isLoadingPromo: false,
+      loadFilmsError: false,
+      loadPromoError: false,
     },
     [NameSpace.MOVIES]: {
       currentGenre: ALL_GENRES,
+    },
+    [NameSpace.USER]: {
+      authStatus: AuthStatus.NO_AUTH,
+      authError: false,
+      user: {
+        id: 0,
+        email: ``,
+        name: ``,
+        avatarUrl: ``,
+      },
+    },
+    [NameSpace.PAGE]: {
+      currentPage: Page.MAIN,
     },
   });
 
@@ -29,6 +46,7 @@ it(`Should Main render correctly`, () => {
           onShownFilmsAmountReset={() => {}}
           onShownFilmsAdd={() => {}}
           onPlayBtnClick={() => {}}
+          onSignInClick={() => {}}
         />
       </Provider>, {
         createNodeMock: () => {

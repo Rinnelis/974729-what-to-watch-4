@@ -1,5 +1,6 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import {MovieNav} from "../../const.js";
 import Overview from "../../components/overview/overview.jsx";
 import Details from "../../components/details/details.jsx";
@@ -25,7 +26,7 @@ const withActiveTab = (Component) => {
     }
 
     _handleCurrentTabRender() {
-      const {comments, film} = this.props;
+      const {film} = this.props;
       const {currentTab} = this.state;
 
       switch (currentTab) {
@@ -43,9 +44,7 @@ const withActiveTab = (Component) => {
           );
         case MovieNav.REVIEWS:
           return (
-            <Reviews
-              reviews={comments}
-            />
+            <Reviews />
           );
         default: return null;
       }
@@ -65,13 +64,9 @@ const withActiveTab = (Component) => {
 
   WithActiveTab.propTypes = {
     film: PropTypes.oneOfType([
-      PropTypes.object.isRequired,
-      PropTypes.bool,
-    ]),
-    comments: PropTypes.oneOfType([
-      PropTypes.array.isRequired,
-      PropTypes.bool,
-    ]),
+      ProjectPropTypes.FILM.isRequired,
+      PropTypes.bool.isRequired,
+    ]).isRequired
   };
 
   return WithActiveTab;

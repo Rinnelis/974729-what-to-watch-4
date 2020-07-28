@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import {Time} from "../../const.js";
 
 const withVideoControls = (Component) => {
@@ -101,7 +101,7 @@ const withVideoControls = (Component) => {
   }
 
   WithVideoControls.propTypes = {
-    film: PropTypes.object.isRequired,
+    film: ProjectPropTypes.FILM.isRequired,
   };
 
   return WithVideoControls;

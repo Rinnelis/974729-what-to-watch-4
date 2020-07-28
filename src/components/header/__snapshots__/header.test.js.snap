@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SHould render header with Sign In 1`] = `
+<header
+  className="page-header movie-card__head"
+>
+  <div
+    className="logo"
+  >
+    <a
+      className="logo__link"
+      href={null}
+    >
+      <span
+        className="logo__letter logo__letter--1"
+      >
+        W
+      </span>
+      <span
+        className="logo__letter logo__letter--2"
+      >
+        T
+      </span>
+      <span
+        className="logo__letter logo__letter--3"
+      >
+        W
+      </span>
+    </a>
+  </div>
+  <div
+    className="user-block"
+  >
+    <a
+      className="user-block__link"
+      onClick={[Function]}
+    >
+      Sign in
+    </a>
+  </div>
+</header>
+`;
+
+exports[`SHould render header without Sign In 1`] = `
+<header
+  className="page-header movie-card__head"
+>
+  <div
+    className="logo"
+  >
+    <a
+      className="logo__link"
+      href={null}
+    >
+      <span
+        className="logo__letter logo__letter--1"
+      >
+        W
+      </span>
+      <span
+        className="logo__letter logo__letter--2"
+      >
+        T
+      </span>
+      <span
+        className="logo__letter logo__letter--3"
+      >
+        W
+      </span>
+    </a>
+  </div>
+  <div
+    className="user-block"
+  >
+    <div
+      className="user-block__avatar"
+    >
+      <img
+        alt="Oliver.conner"
+        height="63"
+        src="img/1.png"
+        width="63"
+      />
+    </div>
+  </div>
+</header>
+`;

@@ -1,11 +1,14 @@
 import React from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import {ActionCreator} from "../../reducer/movies/movies.js";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Genre from "../genre/genre.jsx";
 import ShowMoreButton from "../show-more-btn/show-more-btn.jsx";
-import {getGenresList, getFilms, getPromo} from "../../reducer/data/selectors.js";
+import Header from "../header/header.jsx";
+import Footer from "../footer/footer.jsx";
+import {getGenresList, getFilms, getPromo, getFilmsStatus, getPromoStatus} from "../../reducer/data/selectors.js";
 import {getCurrentGenre, getFilmsByGenre} from "../../reducer/movies/selectors.js";
 
 const Main = (props) => {
@@ -20,10 +23,34 @@ const Main = (props) => {
     maxShownFilms,
     onShownFilmsAmountReset,
     onShownFilmsAdd,
-    onPlayBtnClick
+    onPlayBtnClick,
+    onSignInClick,
+    isLoadingFilms,
+    isLoadingPromo,
   } = props;
   const {title, genre, releaseDate, bgImage, poster} = film;
+
   const shownFilms = filmsByGenre.slice(0, maxShownFilms);
+
+  const getPromoMsg = () => {
+    if (isLoadingPromo.isLoadingPromo && !isLoadingPromo.loadPromoError) {
+      return `Promo is loading...`;
+    } else if (isLoadingPromo.isLoadingPromo && isLoadingPromo.loadPromoError) {
+      return `Server error occurred, please try again later`;
+    }
+
+    return false;
+  };
+
+  const getFilmsMsg = () => {
+    if (isLoadingFilms.isLoadingFilms && !isLoadingFilms.loadFilmsError) {
+      return `Films are loading...`;
+    } else if (isLoadingFilms.isLoadingFilms && isLoadingFilms.loadFilmsError) {
+      return `Server error occurred, please try again later...`;
+    }
+
+    return false;
+  };
 
   return (
     <React.Fragment>
@@ -34,21 +61,9 @@ const Main = (props) => {
 
         <h1 className="visually-hidden">WTW</h1>
 
-        <header className="page-header movie-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="user-block">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-            </div>
-          </div>
-        </header>
+        <Header
+          onSignInClick={onSignInClick}
+        />
 
         <div className="movie-card__wrap">
           <div className="movie-card__info">
@@ -56,6 +71,7 @@ const Main = (props) => {
               <img src={poster} alt={title} width="218" height="327" />
             </div>
 
+            {getPromoMsg() ||
             <div className="movie-card__desc">
               <h2 className="movie-card__title">{title}</h2>
               <p className="movie-card__meta">
@@ -83,6 +99,7 @@ const Main = (props) => {
                 </button>
               </div>
             </div>
+            }
           </div>
         </div>
       </section>
@@ -99,10 +116,12 @@ const Main = (props) => {
             onGenreChange={onShownFilmsAmountReset}
           />
 
+          {getFilmsMsg() ||
           <MoviesList
             films={shownFilms}
             onCardClick={onCardClick}
           />
+          }
 
           {maxShownFilms < filmsByGenre.length &&
             <ShowMoreButton
@@ -111,19 +130,7 @@ const Main = (props) => {
           }
         </section>
 
-        <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </React.Fragment>
   );
@@ -131,10 +138,10 @@ const Main = (props) => {
 
 Main.propTypes = {
   film: PropTypes.oneOfType([
-    PropTypes.object.isRequired,
-    PropTypes.bool,
-  ]),
-  films: PropTypes.array.isRequired,
+    ProjectPropTypes.FILM.isRequired,
+    PropTypes.bool.isRequired,
+  ]).isRequired,
+  films: PropTypes.arrayOf(ProjectPropTypes.FILM.isRequired).isRequired,
   genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentGenre: PropTypes.string.isRequired,
   filmsByGenre: PropTypes.array.isRequired,
@@ -144,6 +151,15 @@ Main.propTypes = {
   onShownFilmsAmountReset: PropTypes.func.isRequired,
   onShownFilmsAdd: PropTypes.func.isRequired,
   onPlayBtnClick: PropTypes.func.isRequired,
+  onSignInClick: PropTypes.func.isRequired,
+  isLoadingFilms: PropTypes.shape({
+    isLoadingFilms: PropTypes.bool.isRequired,
+    loadFilmsError: PropTypes.bool.isRequired,
+  }),
+  isLoadingPromo: PropTypes.shape({
+    isLoadingPromo: PropTypes.bool.isRequired,
+    loadPromoError: PropTypes.bool.isRequired,
+  }),
 };
 
 const mapStateToProps = (state) => ({
@@ -152,6 +168,8 @@ const mapStateToProps = (state) => ({
   genresList: getGenresList(state),
   currentGenre: getCurrentGenre(state),
   filmsByGenre: getFilmsByGenre(state),
+  isLoadingPromo: getPromoStatus(state),
+  isLoadingFilms: getFilmsStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -160,4 +178,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Main));

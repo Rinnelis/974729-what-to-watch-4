@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import {MAX_GENRES_AMOUNT} from "../../const.js";
 
 const Genre = (props) => {
@@ -25,7 +26,7 @@ const Genre = (props) => {
 };
 
 Genre.propTypes = {
-  films: PropTypes.array.isRequired,
+  films: PropTypes.arrayOf(ProjectPropTypes.FILM.isRequired).isRequired,
   genres: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentGenre: PropTypes.string.isRequired,
   onGenreClick: PropTypes.func.isRequired,

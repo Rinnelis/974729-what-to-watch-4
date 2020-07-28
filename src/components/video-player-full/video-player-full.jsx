@@ -1,5 +1,8 @@
 import React from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
+import {getCurrentPage} from "../../reducer/page/selectors.js";
 
 const VideoPlayerFull = (props) => {
   const {
@@ -74,7 +77,7 @@ const VideoPlayerFull = (props) => {
 };
 
 VideoPlayerFull.propTypes = {
-  film: PropTypes.object.isRequired,
+  film: ProjectPropTypes.FILM.isRequired,
   children: PropTypes.element.isRequired,
   currentTime: PropTypes.number.isRequired,
   leftTime: PropTypes.string.isRequired,
@@ -85,4 +88,8 @@ VideoPlayerFull.propTypes = {
   onFullScreenClick: PropTypes.func.isRequired,
 };
 
-export default VideoPlayerFull;
+const mapStateToProps = (state) => ({
+  currentPage: getCurrentPage(state),
+});
+
+export default connect(mapStateToProps)(VideoPlayerFull);

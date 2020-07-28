@@ -4,7 +4,7 @@ import Adapter from "enzyme-adapter-react-16";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Main from "./main";
-import {ALL_GENRES} from "../../const.js";
+import {ALL_GENRES, AuthStatus, Page} from "../../const.js";
 import {NameSpace} from "../../reducer/name-space.js";
 import {film, films} from "../../test-data.js";
 
@@ -19,9 +19,26 @@ describe(`Main tests`, () => {
     [NameSpace.DATA]: {
       film,
       films,
+      isLoadingFilms: false,
+      isLoadingPromo: false,
+      loadFilmsError: false,
+      loadPromoError: false,
     },
     [NameSpace.MOVIES]: {
       currentGenre: ALL_GENRES,
+    },
+    [NameSpace.USER]: {
+      authStatus: AuthStatus.NO_AUTH,
+      authError: false,
+      user: {
+        id: 0,
+        email: ``,
+        name: ``,
+        avatarUrl: ``,
+      },
+    },
+    [NameSpace.PAGE]: {
+      currentPage: Page.MAIN,
     },
   });
 
@@ -36,6 +53,8 @@ describe(`Main tests`, () => {
             maxShownFilms={8}
             onShownFilmsAmountReset={() => {}}
             onShownFilmsAdd={() => {}}
+            onPlayBtnClick={() => {}}
+            onSignInClick={() => {}}
           />
         </Provider>
     );
@@ -62,6 +81,7 @@ describe(`Main tests`, () => {
             onShownFilmsAmountReset={() => {}}
             onShownFilmsAdd={() => {}}
             onPlayBtnClick={handlePlayClick}
+            onSignInClick={() => {}}
           />
         </Provider>
     );

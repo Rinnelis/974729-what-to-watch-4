@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import {Time} from "../../const.js";
 
 const Details = (props) => {
@@ -58,13 +58,7 @@ const Details = (props) => {
 };
 
 Details.propTypes = {
-  film: PropTypes.shape({
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    runTime: PropTypes.number.isRequired,
-    genre: PropTypes.string.isRequired,
-    releaseDate: PropTypes.number.isRequired,
-  }).isRequired
+  film: ProjectPropTypes.FILM.isRequired,
 };
 
 export default Details;

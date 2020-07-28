@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import MovieCard from "../movie-card/movie-card.jsx";
 import withVideo from "../../hocs/with-video/with-video.js";
 
@@ -22,7 +23,7 @@ const MoviesList = (props) => {
 };
 
 MoviesList.propTypes = {
-  films: PropTypes.array.isRequired,
+  films: PropTypes.arrayOf(ProjectPropTypes.FILM.isRequired).isRequired,
   onCardClick: PropTypes.func.isRequired,
 };
 

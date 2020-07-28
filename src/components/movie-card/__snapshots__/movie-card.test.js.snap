@@ -14,9 +14,9 @@ exports[`Should MovieCard render correctly 1`] = `
       className="player__video"
     />
     <img
-      alt="Moonrise Kingdom"
+      alt="The Grand Budapest Hotel"
       height="175"
-      src="img/moonrise-kingdom.jpg"
+      src="img/the-grand-budapest-hotel-poster.jpg"
       width="280"
     />
   </div>
@@ -28,7 +28,7 @@ exports[`Should MovieCard render correctly 1`] = `
       href="movie-page.html"
       onClick={[Function]}
     >
-      Moonrise Kingdom
+      The Grand Budapest Hotel
     </a>
   </h3>
 </article>

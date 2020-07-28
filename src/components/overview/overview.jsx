@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {ProjectPropTypes} from "../../project-prop-types.js";
 import {RatingLevel} from '../../const.js';
 
 const getRatingLevel = (count) => {
@@ -52,13 +52,7 @@ const Overview = (props) => {
 };
 
 Overview.propTypes = {
-  film: PropTypes.shape({
-    ratingScore: PropTypes.number.isRequired,
-    ratingCount: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    director: PropTypes.string.isRequired,
-    starring: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  }).isRequired
+  film: ProjectPropTypes.FILM.isRequired,
 };
 
 export default Overview;

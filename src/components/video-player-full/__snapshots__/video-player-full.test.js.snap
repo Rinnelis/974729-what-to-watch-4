@@ -67,7 +67,7 @@ exports[`Should VideoPlayerFull render correctly 1`] = `
       <div
         className="player__name"
       >
-        Fantastic Beasts: The Crimes of Grindelwald
+        The Grand Budapest Hotel
       </div>
       <button
         className="player__full-screen"
