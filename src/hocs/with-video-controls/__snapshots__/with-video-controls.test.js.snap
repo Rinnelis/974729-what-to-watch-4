@@ -5,7 +5,6 @@ exports[`withVideoControls is rendered correctly 1`] = `
   <video
     className="player__video"
     poster="img/the-grand-budapest-hotel-poster.jpg"
-    type="video/webm"
   >
     Your browser doesn\`t support embedded video
   </video>

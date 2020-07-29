@@ -18,7 +18,9 @@ const initialState = {
   isLoadingComments: true,
   loadFilmsError: false,
   loadPromoError: false,
-  loadCommentsError: false
+  loadCommentsError: false,
+  isSendingReview: false,
+  sendReviewError: false,
 };
 
 const ActionType = {
@@ -31,6 +33,8 @@ const ActionType = {
   IS_LOADING_FILMS: `IS_LOADING_FILMS`,
   IS_LOADING_PROMO: `IS_LOADING_PROMO`,
   IS_LOADING_COMMENTS: `IS_LOADING_COMMENTS`,
+  IS_SENDING_REVIEW: `IS_SENDING_REVIEW`,
+  SEND_REVIEW_ERROR: `SEND_REVIEW_ERROR`,
 };
 
 const ActionCreator = {
@@ -78,6 +82,16 @@ const ActionCreator = {
     type: ActionType.IS_LOADING_COMMENTS,
     payload: load,
   }),
+
+  isSendingReview: (review) => ({
+    type: ActionType.IS_SENDING_REVIEW,
+    payload: review,
+  }),
+
+  sendReviewError: (error) => ({
+    type: ActionType.SEND_REVIEW_ERROR,
+    payload: error,
+  }),
 };
 
 const Operation = {
@@ -118,6 +132,22 @@ const Operation = {
         dispatch(ActionCreator.loadCommentsError(true));
         throw err;
       });
+  },
+
+  sendReview: (movieID, review) => (dispatch, getState, api) => {
+    dispatch(ActionCreator.isSendingReview(true));
+    return api.post(`${EntryPoint.COMMENTS}${movieID}`, {
+      rating: review.rating,
+      review: review.review,
+    })
+    .then(() => {
+      dispatch(ActionCreator.isSendingReview(false));
+      dispatch(ActionCreator.sendReviewError(false));
+    })
+    .catch((err) => {
+      dispatch(ActionCreator.sendReviewError(true));
+      throw err;
+    });
   },
 };
 
@@ -166,6 +196,16 @@ const reducer = (state = initialState, action) => {
     case ActionType.IS_LOADING_COMMENTS:
       return extend(state, {
         isLoadingComments: action.payload,
+      });
+
+    case ActionType.IS_SENDING_REVIEW:
+      return extend(state, {
+        isSendingReview: action.payload,
+      });
+
+    case ActionType.SEND_REVIEW_ERROR:
+      return extend(state, {
+        sendReviewError: action.payload,
       });
 
     default:

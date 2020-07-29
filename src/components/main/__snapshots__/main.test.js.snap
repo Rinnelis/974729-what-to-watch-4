@@ -45,11 +45,13 @@ Array [
           </span>
         </a>
       </div>
+      
       <div
         className="user-block"
       >
         <a
           className="user-block__link"
+          href="/login"
           onClick={[Function]}
         >
           Sign in

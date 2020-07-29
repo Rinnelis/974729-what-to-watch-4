@@ -28,3 +28,14 @@ it(`Should render SignIn`, () => {
     currentPage: Page.SIGN_IN,
   });
 });
+
+it(`Should render AddReview`, () => {
+  expect(reducer({
+    currentPage: Page.MAIN,
+  }, {
+    type: ActionType.SET_CURRENT_PAGE,
+    payload: Page.REVIEW,
+  })).toEqual({
+    currentPage: Page.REVIEW,
+  });
+});

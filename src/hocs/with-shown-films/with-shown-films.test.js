@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import withShownFilms from "./with-shown-films.js";
+import withShownFilms from "./with-shown-films.jsx";
 
 const MockComponent = () => <div />;
 const MockComponentWrapped = withShownFilms(MockComponent);

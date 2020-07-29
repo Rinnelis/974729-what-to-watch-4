@@ -37,6 +37,8 @@ it(`Should MoviePage render correctly`, () => {
           onCurrentTabRender={() => {}}
           onPlayBtnClick={() => {}}
           onSignInClick={() => {}}
+          onAddReviewClick={() => {}}
+          authStatus={AuthStatus.NO_AUTH}
         />
       </Provider>, {
         createNodeMock: () => {

@@ -64,6 +64,7 @@ class SignIn extends PureComponent {
                   placeholder="Email address"
                   name="user-email"
                   id="user-email"
+                  required
                   ref={this.email}
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
@@ -75,6 +76,7 @@ class SignIn extends PureComponent {
                   placeholder="Password"
                   name="user-password"
                   id="user-password"
+                  required
                   ref={this.password}
                 />
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>

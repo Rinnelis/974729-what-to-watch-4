@@ -18,6 +18,8 @@ it(`Should App render correctly`, () => {
       isLoadingPromo: false,
       loadFilmsError: false,
       loadPromoError: false,
+      isSendingReview: false,
+      sendReviewError: false,
     },
     [NameSpace.MOVIES]: {
       currentGenre: ALL_GENRES,

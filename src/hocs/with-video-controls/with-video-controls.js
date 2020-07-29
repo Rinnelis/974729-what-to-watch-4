@@ -92,7 +92,7 @@ const withVideoControls = (Component) => {
         onPlayBtnClick={this._handlePlayBtnClick}
         onFullScreenClick={this._handleFullScreenClick}
       >
-        <video className="player__video" type="video/webm"
+        <video className="player__video"
           poster={film.poster}
           ref={this.videoRef}
         >Your browser doesn`t support embedded video</video>

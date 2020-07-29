@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import withActiveTab from "./with-active-tab.js";
+import withActiveTab from "./with-active-tab.jsx";
 import {film} from "../../test-data.js";
 import {MovieNav} from "../../const.js";
 

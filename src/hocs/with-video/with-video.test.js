@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import withVideo from "./with-video.js";
+import withVideo from "./with-video.jsx";
 
 const MockComponent = () => <div />;
 const MockComponentWrapped = withVideo(MockComponent);

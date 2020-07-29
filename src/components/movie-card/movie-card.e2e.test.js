@@ -2,7 +2,7 @@ import React from "react";
 import Enzyme, {shallow, mount} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import MovieCard from "./movie-card.jsx";
-import withVideo from "../../hocs/with-video/with-video.js";
+import withVideo from "../../hocs/with-video/with-video.jsx";
 import {film} from "../../test-data.js";
 
 const MovieCardWrapped = withVideo(MovieCard);

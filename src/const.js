@@ -33,5 +33,11 @@ export const AuthStatus = {
 export const Page = {
   MAIN: `/`,
   SIGN_IN: `/login`,
-  MOVIE_PAGE: `/movie-page`
+  MOVIE_PAGE: `/movie-page`,
+  REVIEW: `/review`,
+};
+
+export const ValidReview = {
+  MIN: 50,
+  MAX: 400,
 };

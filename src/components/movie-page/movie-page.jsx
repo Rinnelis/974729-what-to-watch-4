@@ -5,7 +5,7 @@ import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
-import {MovieNav} from "../../const.js";
+import {MovieNav, AuthStatus} from "../../const.js";
 
 const MoviePage = (props) => {
   const {
@@ -17,8 +17,23 @@ const MoviePage = (props) => {
     onCurrentTabRender,
     onPlayBtnClick,
     onSignInClick,
+    authStatus,
+    onAddReviewClick,
   } = props;
   const {title, genre, releaseDate, bgImage, poster} = film;
+
+  const isSignedIn = authStatus === AuthStatus.AUTH
+    ?
+    <React.Fragment>
+      <a href="review" className="btn btn--review movie-card__button"
+        onClick={(evt) => {
+          evt.preventDefault();
+          onAddReviewClick(film.id);
+        }}
+      >Add review</a>
+    </React.Fragment>
+    :
+    ``;
 
   return (
     <React.Fragment>
@@ -60,7 +75,8 @@ const MoviePage = (props) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <a href="add-review.html" className="btn movie-card__button">Add review</a>
+
+                {isSignedIn}
               </div>
             </div>
           </div>
@@ -110,6 +126,8 @@ MoviePage.propTypes = {
   onCurrentTabRender: PropTypes.func.isRequired,
   onPlayBtnClick: PropTypes.func.isRequired,
   onSignInClick: PropTypes.func.isRequired,
+  authStatus: PropTypes.string.isRequired,
+  onAddReviewClick: PropTypes.func.isRequired,
 };
 
 export default MoviePage;

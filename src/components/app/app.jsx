@@ -6,11 +6,13 @@ import {ProjectPropTypes} from "../../project-prop-types.js";
 import Main from "../main/main.jsx";
 import SignIn from "../sign-in/sign-in.jsx";
 import MoviePage from "../movie-page/movie-page.jsx";
+import AddReview from "../add-review/add-review.jsx";
 import VideoPlayerFull from "../video-player-full/video-player-full.jsx";
-import withChosenMovie from "../../hocs/with-chosen-movie/with-chosen-movie.js";
-import withActiveTab from "../../hocs/with-active-tab/with-active-tab.js";
-import withShownFilms from "../../hocs/with-shown-films/with-shown-films.js";
+import withChosenMovie from "../../hocs/with-chosen-movie/with-chosen-movie.jsx";
+import withActiveTab from "../../hocs/with-active-tab/with-active-tab.jsx";
+import withShownFilms from "../../hocs/with-shown-films/with-shown-films.jsx";
 import withVideoControls from "../../hocs/with-video-controls/with-video-controls.js";
+import withReview from "../../hocs/with-review/with-review.jsx";
 import {Operation} from "../../reducer/data/data.js";
 import {getFilms, getPromo} from "../../reducer/data/selectors.js";
 import {getAuthStatus} from "../../reducer/user/selectors.js";
@@ -21,6 +23,7 @@ import {SIMILAR_FILMS_AMOUNT, AuthStatus, Page} from "../../const.js";
 const MainWrapped = withShownFilms(Main);
 const MoviePageWrapped = withActiveTab(MoviePage);
 const VideoPlayerFullWrapped = withVideoControls(VideoPlayerFull);
+const AddReviewWrapped = withReview(AddReview);
 
 class App extends PureComponent {
   constructor() {
@@ -35,11 +38,12 @@ class App extends PureComponent {
     this._handlePlayBtnClick = this._handlePlayBtnClick.bind(this);
     this._handleCardClick = this._handleCardClick.bind(this);
     this._handleSignInClick = this._handleSignInClick.bind(this);
+    this._handleAddReviewClick = this._handleAddReviewClick.bind(this);
   }
 
   _handleCardClick() {
-    const {getComments, onMovieChoose, handlePageChange} = this.props;
-    handlePageChange(Page.MOVIE_PAGE);
+    const {getComments, onMovieChoose, changePage} = this.props;
+    changePage(Page.MOVIE_PAGE);
     onMovieChoose(this.props.film);
     getComments(this.props.film.id);
   }
@@ -60,8 +64,13 @@ class App extends PureComponent {
   }
 
   _handleSignInClick() {
-    const {handlePageChange} = this.props;
-    handlePageChange(Page.SIGN_IN);
+    const {changePage} = this.props;
+    changePage(Page.SIGN_IN);
+  }
+
+  _handleAddReviewClick() {
+    const {changePage} = this.props;
+    changePage(Page.REVIEW);
   }
 
   _renderMain() {
@@ -75,7 +84,7 @@ class App extends PureComponent {
   }
 
   _renderMoviePage() {
-    const {film, films} = this.props;
+    const {film, films, authStatus} = this.props;
 
     const similarFilms = films
       .filter((filmItem) => filmItem.genre === film.genre && filmItem.title !== film.title)
@@ -88,6 +97,8 @@ class App extends PureComponent {
         onCardClick={this._handleCardClick}
         onPlayBtnClick={this._handlePlayBtnClick}
         onSignInClick={this._handleSignInClick}
+        authStatus={authStatus}
+        onAddReviewClick={this._handleAddReviewClick}
       />
     );
   }
@@ -105,6 +116,7 @@ class App extends PureComponent {
 
   _renderSignIn() {
     const {authStatus} = this.props;
+
     if (authStatus === AuthStatus.NO_AUTH) {
       return (
         <SignIn />
@@ -112,6 +124,18 @@ class App extends PureComponent {
     }
 
     return this._renderMain();
+  }
+
+  _renderAddReview() {
+    const {chosenMovie, onReviewSubmit} = this.props;
+
+    return (
+      <AddReviewWrapped
+        film={chosenMovie}
+        onReviewSubmit={onReviewSubmit}
+        onSignInClick={this._handleSignInClick}
+      />
+    );
   }
 
   renderApp() {
@@ -129,6 +153,8 @@ class App extends PureComponent {
         return this._renderMoviePage();
       case Page.SIGN_IN:
         return this._renderSignIn();
+      case Page.REVIEW:
+        return this._renderAddReview();
     }
     return this._renderMain();
   }
@@ -145,6 +171,9 @@ class App extends PureComponent {
           </Route>
           <Route exact path={Page.SIGN_IN}>
             {this._renderSignIn()}
+          </Route>
+          <Route exact path={Page.REVIEW}>
+            {this._renderAddReview()}
           </Route>
         </Switch>
       </BrowserRouter>
@@ -163,7 +192,8 @@ App.propTypes = {
   getComments: PropTypes.func.isRequired,
   authStatus: PropTypes.string.isRequired,
   currentPage: PropTypes.string.isRequired,
-  handlePageChange: PropTypes.func.isRequired,
+  changePage: PropTypes.func.isRequired,
+  onReviewSubmit: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -177,9 +207,12 @@ const mapDispatchToProps = (dispatch) => ({
   getComments(filmID) {
     dispatch(Operation.loadComments(filmID));
   },
-  handlePageChange(page) {
+  changePage(page) {
     dispatch(ActionCreator.setCurrentPage(page));
-  }
+  },
+  onReviewSubmit(review, id) {
+    dispatch(Operation.sendReview(review, id));
+  },
 });
 
 const AppWrapped = withChosenMovie(App);

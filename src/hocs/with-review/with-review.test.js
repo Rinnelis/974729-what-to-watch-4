@@ -1,16 +1,16 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import withChosenMovie from "./with-chosen-movie.jsx";
+import withReview from "./with-review.jsx";
 import {film} from "../../test-data.js";
 
 const MockComponent = () => <div />;
-const MockComponentWrapped = withChosenMovie(MockComponent);
+const MockComponentWrapped = withReview(MockComponent);
 
-it(`withChosenMovie is rendered correctly`, () => {
+it(`withReview is rendered correctly`, () => {
   const tree = renderer.create((
     <MockComponentWrapped
-      chosenMovie={film}
-      onMovieChoose={() => {}}
+      film={film}
+      onReviewSubmit={() => {}}
     />
   ), {
     createNodeMock() {

@@ -48,11 +48,13 @@ Array [
             </span>
           </a>
         </div>
+        
         <div
           className="user-block"
         >
           <a
             className="user-block__link"
+            href="/login"
             onClick={[Function]}
           >
             Sign in
@@ -133,12 +135,7 @@ Array [
                 My list
               </span>
             </button>
-            <a
-              className="btn movie-card__button"
-              href="add-review.html"
-            >
-              Add review
-            </a>
+            
           </div>
         </div>
       </div>

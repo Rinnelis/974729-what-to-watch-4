@@ -7,7 +7,7 @@ import {getCurrentPage} from "../../reducer/page/selectors.js";
 import {getAuthStatus, getUserData} from "../../reducer/user/selectors.js";
 
 const Header = (props) => {
-  const {currentPage, authStatus, onSignInClick, user} = props;
+  const {currentPage, authStatus, onSignInClick, user, film} = props;
   const {avatarUrl, name} = user;
   const linkToMain = currentPage !== Page.MAIN ? `/` : null;
 
@@ -23,11 +23,28 @@ const Header = (props) => {
     :
     <React.Fragment>
       <div className="user-block">
-        <a className="user-block__link"
+        <a href={Page.SIGN_IN} className="user-block__link"
           onClick={onSignInClick}
         >Sign in</a>
       </div>
     </React.Fragment>;
+
+  const isAddReview = currentPage === Page.REVIEW
+    ?
+    <React.Fragment>
+      <nav className="breadcrumbs">
+        <ul className="breadcrumbs__list">
+          <li className="breadcrumbs__item">
+            <a href={Page.MOVIE_PAGE} className="breadcrumbs__link">{film.title}</a>
+          </li>
+          <li className="breadcrumbs__item">
+            <a className="breadcrumbs__link">Add review</a>
+          </li>
+        </ul>
+      </nav>
+    </React.Fragment>
+    :
+    ``;
 
   return (
     <header className="page-header movie-card__head">
@@ -39,6 +56,7 @@ const Header = (props) => {
         </a>
       </div>
 
+      {isAddReview}
       {isSignedIn}
     </header>
   );
@@ -49,6 +67,7 @@ Header.propTypes = {
   onSignInClick: PropTypes.func.isRequired,
   authStatus: PropTypes.string.isRequired,
   user: ProjectPropTypes.USER.isRequired,
+  film: ProjectPropTypes.FILM,
 };
 
 const mapStateToProps = (state) => ({
