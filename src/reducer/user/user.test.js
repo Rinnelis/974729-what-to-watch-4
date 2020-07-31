@@ -57,7 +57,7 @@ it(`Should change user data`, () => {
   });
 });
 
-it(`Should return checkAuth NO_AUTH`, () => {
+it(`Should return checkAuth AUTH`, () => {
   const apiMock = new MockAdapter(api);
   const dispatch = jest.fn();
   const userCheckAuth = Operation.checkAuth();
@@ -70,7 +70,7 @@ it(`Should return checkAuth NO_AUTH`, () => {
     .then(() => {
       expect(dispatch).toHaveBeenCalledWith({
         type: ActionType.REQUIRE_AUTH,
-        payload: AuthStatus.NO_AUTH,
+        payload: AuthStatus.AUTH,
       });
     });
 });

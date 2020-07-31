@@ -3,6 +3,11 @@
 exports[`Should render AddReview 1`] = `
 <section
   className="movie-card movie-card--full"
+  style={
+    Object {
+      "backgroundColor": "#ffffff",
+    }
+  }
 >
   <div
     className="movie-card__header"
@@ -29,6 +34,7 @@ exports[`Should render AddReview 1`] = `
         <a
           className="logo__link"
           href="/"
+          onClick={[Function]}
         >
           <span
             className="logo__letter logo__letter--1"
@@ -58,7 +64,8 @@ exports[`Should render AddReview 1`] = `
           >
             <a
               className="breadcrumbs__link"
-              href="/movie-page"
+              href="/films/1"
+              onClick={[Function]}
             >
               The Grand Budapest Hotel
             </a>
@@ -80,12 +87,17 @@ exports[`Should render AddReview 1`] = `
         <div
           className="user-block__avatar"
         >
-          <img
-            alt="Oliver.conner"
-            height="63"
-            src="img/1.png"
-            width="63"
-          />
+          <a
+            href="/mylist"
+            onClick={[Function]}
+          >
+            <img
+              alt="Oliver.conner"
+              height="63"
+              src="img/1.png"
+              width="63"
+            />
+          </a>
         </div>
       </div>
     </header>

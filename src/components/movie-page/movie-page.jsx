@@ -1,43 +1,57 @@
 import React from "react";
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {ProjectPropTypes} from "../../project-prop-types.js";
 import MoviesList from "../movies-list/movies-list.jsx";
 import Tabs from "../tabs/tabs.jsx";
 import Header from "../header/header.jsx";
 import Footer from "../footer/footer.jsx";
-import {MovieNav, AuthStatus} from "../../const.js";
+import {MovieNav, AuthStatus, Page} from "../../const.js";
+import {Operation} from "../../reducer/data/data.js";
+import {getAuthStatus} from "../../reducer/user/selectors.js";
+import {ActionCreator} from "../../reducer/movies/movies.js";
+import {getSimilarFilms} from "../../reducer/movies/selectors.js";
+import {getFavoriteFilmStatus} from "../../reducer/data/selectors.js";
 
 const MoviePage = (props) => {
   const {
-    film,
+    chosenMovie,
     similarFilms,
-    onCardClick,
+    onMovieChoose,
     currentTab,
     onTabClick,
     onCurrentTabRender,
-    onPlayBtnClick,
-    onSignInClick,
     authStatus,
-    onAddReviewClick,
+    onFavoriteFilmChoose,
+    onFilmsLoad,
+    onFavoriteFilmSend,
   } = props;
-  const {title, genre, releaseDate, bgImage, poster} = film;
+  const {title, genre, releaseDate, bgImage, poster, id, isFavorite, bgColor} = chosenMovie;
 
-  const isSignedIn = authStatus === AuthStatus.AUTH
+  if (onFavoriteFilmSend.sendFavoriteFilmSuccess) {
+    onFilmsLoad();
+  }
+
+  const isSignedIn = authStatus === AuthStatus.AUTH;
+
+  const isInMyLyst = isFavorite
     ?
     <React.Fragment>
-      <a href="review" className="btn btn--review movie-card__button"
-        onClick={(evt) => {
-          evt.preventDefault();
-          onAddReviewClick(film.id);
-        }}
-      >Add review</a>
+      <svg viewBox="0 0 18 14" width="18" height="14">
+        <use xlinkHref="#in-list"></use>
+      </svg>
     </React.Fragment>
     :
-    ``;
+    <React.Fragment>
+      <svg viewBox="0 0 19 20" width="19" height="20">
+        <use xlinkHref="#add"></use>
+      </svg>
+    </React.Fragment>;
 
   return (
     <React.Fragment>
-      <section className="movie-card movie-card--full">
+      <section className="movie-card movie-card--full" style={/* stylelint-disable-line */{backgroundColor: bgColor}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={bgImage} alt={title} />
@@ -45,9 +59,7 @@ const MoviePage = (props) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header
-            onSignInClick={onSignInClick}
-          />
+          <Header />
 
           <div className="movie-card__wrap">
             <div className="movie-card__desc">
@@ -58,9 +70,7 @@ const MoviePage = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button"
-                  onClick={() => onPlayBtnClick(film)}
-                >
+                <Link to={`${Page.PLAYER}/${id}`} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <symbol id="play-s" viewBox="0 0 19 19">
                       <path fillRule="evenodd" clipRule="evenodd" d="M0 0L19 9.5L0 19V0Z" fill="#EEE5B5" />
@@ -68,15 +78,16 @@ const MoviePage = (props) => {
                     <use xlinkHref="#play-s"></use>
                   </svg>
                   <span>Play</span>
-                </button>
-                <button className="btn btn--list movie-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
+                </Link>
+                <button className="btn btn--list movie-card__button" type="button"
+                  onClick={() => onFavoriteFilmChoose(chosenMovie)}
+                >
+                  {isInMyLyst}
                   <span>My list</span>
                 </button>
 
-                {isSignedIn}
+                {isSignedIn &&
+                <Link to={`${Page.FILM}/${id}/review`} className="btn btn--review movie-card__button">Add review</Link>}
               </div>
             </div>
           </div>
@@ -107,7 +118,7 @@ const MoviePage = (props) => {
 
           <MoviesList
             films={similarFilms}
-            onCardClick={onCardClick}
+            onCardClick={onMovieChoose}
           />
         </section>
 
@@ -118,16 +129,42 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  film: ProjectPropTypes.FILM.isRequired,
+  chosenMovie: PropTypes.oneOfType([
+    ProjectPropTypes.FILM,
+    PropTypes.bool,
+  ]).isRequired,
   similarFilms: PropTypes.array.isRequired,
-  onCardClick: PropTypes.func.isRequired,
+  onMovieChoose: PropTypes.func.isRequired,
   currentTab: PropTypes.string.isRequired,
   onTabClick: PropTypes.func.isRequired,
   onCurrentTabRender: PropTypes.func.isRequired,
-  onPlayBtnClick: PropTypes.func.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
   authStatus: PropTypes.string.isRequired,
-  onAddReviewClick: PropTypes.func.isRequired,
+  onFavoriteFilmChoose: PropTypes.func.isRequired,
+  onFilmsLoad: PropTypes.func.isRequired,
+  onFavoriteFilmSend: PropTypes.shape({
+    isSendingFavoriteFilm: PropTypes.bool.isRequired,
+    sendFavoriteFilmError: PropTypes.bool.isRequired,
+    sendFavoriteFilmSuccess: PropTypes.bool.isRequired,
+  }),
 };
 
-export default MoviePage;
+const mapStateToProps = (state, props) => ({
+  authStatus: getAuthStatus(state),
+  similarFilms: getSimilarFilms(state, props.chosenMovie),
+  onFavoriteFilmSend: getFavoriteFilmStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onMovieChoose(film) {
+    dispatch(ActionCreator.chooseMovie(film));
+    dispatch(Operation.loadComments(film.id));
+  },
+  onFavoriteFilmChoose(film) {
+    dispatch(Operation.sendFavoriteFilm(film.id, film.isFavorite));
+  },
+  onFilmsLoad() {
+    dispatch(Operation.loadFilms());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviePage);

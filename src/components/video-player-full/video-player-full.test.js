@@ -1,36 +1,21 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import {NameSpace} from "../../reducer/name-space.js";
 import {film} from "../../test-data.js";
-import {Page} from "../../const.js";
 import VideoPlayerFull from "./video-player-full.jsx";
-
-const mockStore = configureStore([]);
-
-const store = mockStore({
-  [NameSpace.PAGE]: {
-    currentPage: Page.MAIN,
-  }
-});
 
 it(`Should VideoPlayerFull play`, () => {
   const tree = renderer
     .create(
-        <Provider store={store}>
-          <VideoPlayerFull
-            film={film}
-            currentTime={20}
-            leftTime={`00:10:12`}
-            duration={100}
-            isPlaying={true}
-            onExitBtnClick={() => {}}
-            onPlayBtnClick={() => {}}
-            onFullScreenClick={() => {}}
-          ><video/>
-          </VideoPlayerFull>
-        </Provider>, {
+        <VideoPlayerFull
+          chosenMovie={film}
+          currentTime={20}
+          leftTime={`00:10:12`}
+          duration={100}
+          isPlaying={true}
+          onPlayBtnClick={() => {}}
+          onFullScreenClick={() => {}}
+        ><video/>
+        </VideoPlayerFull>, {
           createNodeMock: () => {
             return {};
           }
@@ -43,19 +28,16 @@ it(`Should VideoPlayerFull play`, () => {
 it(`Should VideoPlayerFull pause`, () => {
   const tree = renderer
     .create(
-        <Provider store={store}>
-          <VideoPlayerFull
-            film={film}
-            currentTime={20}
-            leftTime={`00:10:12`}
-            duration={100}
-            isPlaying={false}
-            onExitBtnClick={() => {}}
-            onPlayBtnClick={() => {}}
-            onFullScreenClick={() => {}}
-          ><video/>
-          </VideoPlayerFull>
-        </Provider>, {
+        <VideoPlayerFull
+          chosenMovie={film}
+          currentTime={20}
+          leftTime={`00:10:12`}
+          duration={100}
+          isPlaying={false}
+          onPlayBtnClick={() => {}}
+          onFullScreenClick={() => {}}
+        ><video/>
+        </VideoPlayerFull>, {
           createNodeMock: () => {
             return {};
           }

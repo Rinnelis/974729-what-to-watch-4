@@ -1,11 +1,13 @@
 import React from "react";
+import {Router} from "react-router-dom";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {NameSpace} from "../../reducer/name-space.js";
 import MoviePage from "./movie-page.jsx";
 import {film, films} from "../../test-data.js";
-import {AuthStatus, Page} from "../../const.js";
+import {AuthStatus} from "../../const.js";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -21,26 +23,31 @@ it(`Should MoviePage render correctly`, () => {
         avatarUrl: ``,
       },
     },
-    [NameSpace.PAGE]: {
-      currentPage: Page.MOVIE_PAGE,
+    [NameSpace.DATA]: {
+      films,
+      isSendingFavoriteFilm: false,
+      sendFavoriteFilmSuccess: false,
+      sendFavoriteFilmError: false,
+    },
+    [NameSpace.MOVIES]: {
+      chosenMovie: films[3],
     },
   });
 
   const tree = renderer.create(
-      <Provider store={store}>
-        <MoviePage
-          film={film}
-          similarFilms={films}
-          onCardClick={() => {}}
-          currentTab={`Overview`}
-          onTabClick={() => {}}
-          onCurrentTabRender={() => {}}
-          onPlayBtnClick={() => {}}
-          onSignInClick={() => {}}
-          onAddReviewClick={() => {}}
-          authStatus={AuthStatus.NO_AUTH}
-        />
-      </Provider>, {
+      <Router history={history}>
+        <Provider store={store}>
+          <MoviePage
+            chosenMovie={film}
+            similarFilms={films}
+            onMovieChoose={() => {}}
+            currentTab={`Overview`}
+            onTabClick={() => {}}
+            onCurrentTabRender={() => {}}
+            authStatus={AuthStatus.NO_AUTH}
+          />
+        </Provider>
+      </Router>, {
         createNodeMock: () => {
           return {};
         }

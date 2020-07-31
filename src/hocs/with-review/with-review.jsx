@@ -1,6 +1,9 @@
 import React, {PureComponent} from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {ProjectPropTypes} from "../../project-prop-types.js";
+import {getChosenMovie} from "../../reducer/movies/selectors.js";
+import {Operation} from "../../reducer/data/data.js";
 
 const withReview = (Component) => {
   class WithReview extends PureComponent {
@@ -34,11 +37,11 @@ const withReview = (Component) => {
     }
 
     _handleReviewSubmit(evt) {
-      const {film, onReviewSubmit} = this.props;
+      const {chosenMovie, onReviewSubmit} = this.props;
       const {rating, review} = this.state;
       evt.preventDefault();
 
-      onReviewSubmit(film.id, {
+      onReviewSubmit(chosenMovie.id, {
         rating,
         review,
       });
@@ -59,11 +62,24 @@ const withReview = (Component) => {
   }
 
   WithReview.propTypes = {
-    film: ProjectPropTypes.FILM,
+    chosenMovie: PropTypes.oneOfType([
+      ProjectPropTypes.FILM,
+      PropTypes.bool,
+    ]),
     onReviewSubmit: PropTypes.func.isRequired,
   };
 
-  return WithReview;
+  const mapStateToProps = (state) => ({
+    chosenMovie: getChosenMovie(state),
+  });
+
+  const mapDispatchToProps = (dispatch) => ({
+    onReviewSubmit(review, id) {
+      dispatch(Operation.sendReview(review, id));
+    },
+  });
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithReview);
 };
 
 export default withReview;

@@ -5,21 +5,25 @@ import {ProjectPropTypes} from "../../project-prop-types.js";
 import {ValidReview} from "../../const.js";
 import Header from "../header/header.jsx";
 import {getReviewStatus} from "../../reducer/data/selectors.js";
+import history from "../../history.js";
 
 const AddReview = (props) => {
   const {
-    film,
+    chosenMovie,
     isSendingReview,
     review,
     rating,
     onReviewWrite,
     onRatingChange,
     onReviewSubmit,
-    onSignInClick
   } = props;
-  const {bgImage, title, poster} = film;
+  const {bgImage, title, poster, bgColor} = chosenMovie;
 
   const isReviewValid = (rating && review) ? false : true;
+
+  if (isSendingReview.sendReviewSuccess) {
+    history.goBack();
+  }
 
   const getReviewMsg = () => {
     if (isSendingReview.isSendingReview && !isSendingReview.sendReviewError) {
@@ -34,7 +38,7 @@ const AddReview = (props) => {
   const isFormBlocked = (isSendingReview.isSendingReview && !isSendingReview.sendReviewError) ? true : false;
 
   return (
-    <section className="movie-card movie-card--full">
+    <section className="movie-card movie-card--full" style={/* stylelint-disable-line */{backgroundColor: bgColor}}>
       <div className="movie-card__header">
         <div className="movie-card__bg">
           <img src={bgImage} alt={title} />
@@ -43,8 +47,7 @@ const AddReview = (props) => {
         <h1 className="visually-hidden">WTW</h1>
 
         <Header
-          film={film}
-          onSignInClick={onSignInClick}
+          chosenMovie={chosenMovie}
         />
 
         <div className="movie-card__poster movie-card__poster--small">
@@ -100,11 +103,12 @@ const AddReview = (props) => {
 };
 
 AddReview.propTypes = {
-  film: ProjectPropTypes.FILM.isRequired,
+  chosenMovie: ProjectPropTypes.FILM.isRequired,
   onReviewSubmit: PropTypes.func.isRequired,
   isSendingReview: PropTypes.shape({
     isSendingReview: PropTypes.bool.isRequired,
     sendReviewError: PropTypes.bool.isRequired,
+    sendReviewSuccess: PropTypes.bool.isRequired,
   }),
   review: PropTypes.oneOfType([
     PropTypes.bool,
@@ -116,7 +120,6 @@ AddReview.propTypes = {
   ]),
   onReviewWrite: PropTypes.func.isRequired,
   onRatingChange: PropTypes.func.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

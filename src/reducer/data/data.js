@@ -6,6 +6,7 @@ const EntryPoint = {
   FILMS: `/films`,
   PROMO: `/films/promo`,
   COMMENTS: `/comments/`,
+  FAVORITE: `/favorite`,
 };
 
 const initialState = {
@@ -21,6 +22,13 @@ const initialState = {
   loadCommentsError: false,
   isSendingReview: false,
   sendReviewError: false,
+  sendReviewSuccess: false,
+  favoriteFilms: [],
+  isLoadingFavoriteFilms: true,
+  loadFavoriteFilmsError: false,
+  isSendingFavoriteFilm: false,
+  sendFavoriteFilmSuccess: false,
+  sendFavoriteFilmError: false,
 };
 
 const ActionType = {
@@ -35,6 +43,13 @@ const ActionType = {
   IS_LOADING_COMMENTS: `IS_LOADING_COMMENTS`,
   IS_SENDING_REVIEW: `IS_SENDING_REVIEW`,
   SEND_REVIEW_ERROR: `SEND_REVIEW_ERROR`,
+  SEND_REVIEW_SUCCESS: `SEND_REVIEW_SUCCESS`,
+  IS_LOADING_FAVORITE_FILMS: `IS_LOADING_FAVORITE_FILMS`,
+  LOAD_FAVORITE_FILMS: `LOAD_FAVORITE_FILMS`,
+  LOAD_FAVORITE_FILMS_ERROR: `LOAD_FAVORITE_FILMS_ERROR`,
+  SEND_FAVORITE_FILM: `SEND_FAVORITE_FILM`,
+  SEND_FAVORITE_FILM_SUCCESS: `SEND_FAVORITE_FILM_SUCCESS`,
+  SEND_FAVORITE_FILM_ERROR: `SEND_FAVORITE_FILM_ERROR`,
 };
 
 const ActionCreator = {
@@ -92,6 +107,41 @@ const ActionCreator = {
     type: ActionType.SEND_REVIEW_ERROR,
     payload: error,
   }),
+
+  sendReviewSuccess: (success) => ({
+    type: ActionType.SEND_REVIEW_SUCCESS,
+    payload: success,
+  }),
+
+  isLoadingFavoriteFilms: (load) => ({
+    type: ActionType.IS_LOADING_FAVORITE_FILMS,
+    payload: load,
+  }),
+
+  loadFavoriteFilms: (films) => ({
+    type: ActionType.LOAD_FAVORITE_FILMS,
+    payload: films,
+  }),
+
+  loadFavoriteFilmsError: (error) => ({
+    type: ActionType.LOAD_FAVORITE_FILMS_ERROR,
+    payload: error,
+  }),
+
+  isSendingFavoriteFilm: (review) => ({
+    type: ActionType.SEND_FAVORITE_FILM,
+    payload: review,
+  }),
+
+  sendFavoriteFilmSuccess: (success) => ({
+    type: ActionType.SEND_FAVORITE_FILM_SUCCESS,
+    payload: success,
+  }),
+
+  sendFavoriteFilmError: (error) => ({
+    type: ActionType.SEND_FAVORITE_FILM_ERROR,
+    payload: error,
+  }),
 };
 
 const Operation = {
@@ -143,11 +193,44 @@ const Operation = {
     .then(() => {
       dispatch(ActionCreator.isSendingReview(false));
       dispatch(ActionCreator.sendReviewError(false));
+      dispatch(ActionCreator.sendReviewSuccess(true));
     })
     .catch((err) => {
       dispatch(ActionCreator.sendReviewError(true));
+      dispatch(ActionCreator.sendReviewSuccess(false));
       throw err;
     });
+  },
+
+  loadFavoriteFilms: () => (dispatch, getState, api) => {
+    return api.get(EntryPoint.FAVORITE)
+      .then((response) => {
+        dispatch(ActionCreator.loadFavoriteFilms(response.data.map((film) => filmAdapter(film))));
+        dispatch(ActionCreator.isLoadingFavoriteFilms(false));
+        dispatch(ActionCreator.loadFavoriteFilmsError(false));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.loadFavoriteFilmsError(true));
+        throw err;
+      });
+  },
+
+  sendFavoriteFilm: (movieID, isFavorite) => (dispatch, getState, api) => {
+    const status = isFavorite ? 0 : 1;
+    dispatch(ActionCreator.isSendingFavoriteFilm(true));
+    return api.post(`${EntryPoint.FAVORITE}/${movieID}/${status}`, {
+      [`is_favorite`]: isFavorite,
+    })
+      .then(() => {
+        dispatch(ActionCreator.isSendingFavoriteFilm(false));
+        dispatch(ActionCreator.sendFavoriteFilmError(false));
+        dispatch(ActionCreator.sendFavoriteFilmSuccess(true));
+      })
+      .catch((err) => {
+        dispatch(ActionCreator.sendFavoriteFilmError(true));
+        dispatch(ActionCreator.sendFavoriteFilmSuccess(false));
+        throw err;
+      });
   },
 };
 
@@ -206,6 +289,41 @@ const reducer = (state = initialState, action) => {
     case ActionType.SEND_REVIEW_ERROR:
       return extend(state, {
         sendReviewError: action.payload,
+      });
+
+    case ActionType.SEND_REVIEW_SUCCESS:
+      return extend(state, {
+        sendReviewSuccess: action.payload,
+      });
+
+    case ActionType.IS_LOADING_FAVORITE_FILMS:
+      return extend(state, {
+        isLoadingFavoriteFilms: action.payload,
+      });
+
+    case ActionType.LOAD_FAVORITE_FILMS:
+      return extend(state, {
+        favoriteFilms: action.payload,
+      });
+
+    case ActionType.LOAD_FAVORITE_FILMS_ERROR:
+      return extend(state, {
+        loadFavoriteFilmsError: action.payload,
+      });
+
+    case ActionType.SEND_FAVORITE_FILM:
+      return extend(state, {
+        isSendingFavoriteFilm: action.payload,
+      });
+
+    case ActionType.SEND_FAVORITE_FILM_SUCCESS:
+      return extend(state, {
+        sendFavoriteFilmSuccess: action.payload,
+      });
+
+    case ActionType.SEND_FAVORITE_FILM_ERROR:
+      return extend(state, {
+        sendFavoriteFilmError: action.payload,
       });
 
     default:

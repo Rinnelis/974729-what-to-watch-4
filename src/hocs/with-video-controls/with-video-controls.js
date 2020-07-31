@@ -1,6 +1,9 @@
 import React, {PureComponent} from "react";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 import {ProjectPropTypes} from "../../project-prop-types.js";
 import {Time} from "../../const.js";
+import {getChosenMovie} from "../../reducer/movies/selectors.js";
 
 const withVideoControls = (Component) => {
   class WithVideoControls extends PureComponent {
@@ -44,10 +47,10 @@ const withVideoControls = (Component) => {
     }
 
     componentDidMount() {
-      const {film} = this.props;
+      const {chosenMovie} = this.props;
       const video = this.videoRef.current;
 
-      video.src = film.videoUrl;
+      video.src = chosenMovie.videoUrl;
       video.play();
 
       video.onloadedmetadata = () => this.setState({
@@ -80,7 +83,7 @@ const withVideoControls = (Component) => {
 
     render() {
       const {currentTime, duration, isPlaying} = this.state;
-      const {film} = this.props;
+      const {chosenMovie} = this.props;
       const leftTime = this._getLeftTime();
 
       return <Component
@@ -93,7 +96,7 @@ const withVideoControls = (Component) => {
         onFullScreenClick={this._handleFullScreenClick}
       >
         <video className="player__video"
-          poster={film.poster}
+          poster={chosenMovie.poster}
           ref={this.videoRef}
         >Your browser doesn`t support embedded video</video>
       </Component>;
@@ -101,10 +104,17 @@ const withVideoControls = (Component) => {
   }
 
   WithVideoControls.propTypes = {
-    film: ProjectPropTypes.FILM.isRequired,
+    chosenMovie: PropTypes.oneOfType([
+      ProjectPropTypes.FILM,
+      PropTypes.bool,
+    ]).isRequired,
   };
 
-  return WithVideoControls;
+  const mapStateToProps = (state) => ({
+    chosenMovie: getChosenMovie(state),
+  });
+
+  return connect(mapStateToProps)(WithVideoControls);
 };
 
 export default withVideoControls;

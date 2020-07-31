@@ -45,8 +45,13 @@ const ActionCreator = {
 const Operation = {
   checkAuth: () => (dispatch, getState, api) => {
     return api.get(`/login`)
-      .then(() => dispatch(ActionCreator.requireAuth(AuthStatus.NO_AUTH)))
+      .then((response) => {
+        dispatch(ActionCreator.setAuthError(false));
+        dispatch(ActionCreator.requireAuth(AuthStatus.AUTH));
+        dispatch(ActionCreator.setUserData(userAdapter(response.data)));
+      })
       .catch((err) => {
+        dispatch(ActionCreator.setAuthError(true));
         throw err;
       });
   },

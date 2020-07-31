@@ -6,26 +6,31 @@ exports[`Should MovieCard render correctly 1`] = `
   onMouseEnter={[Function]}
   onMouseLeave={[Function]}
 >
-  <div
-    className="small-movie-card__image"
+  <a
+    href="/films/1"
     onClick={[Function]}
   >
-    <video
-      className="player__video"
-    />
-    <img
-      alt="The Grand Budapest Hotel"
-      height="175"
-      src="img/the-grand-budapest-hotel-poster.jpg"
-      width="280"
-    />
-  </div>
+    <div
+      className="small-movie-card__image"
+      onClick={[Function]}
+    >
+      <video
+        className="player__video"
+      />
+      <img
+        alt="The Grand Budapest Hotel"
+        height="175"
+        src="img/the-grand-budapest-hotel-poster.jpg"
+        width="280"
+      />
+    </div>
+  </a>
   <h3
     className="small-movie-card__title"
   >
     <a
       className="small-movie-card__link"
-      href="movie-page.html"
+      href="/films/1"
       onClick={[Function]}
     >
       The Grand Budapest Hotel

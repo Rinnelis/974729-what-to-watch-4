@@ -31,4 +31,24 @@ export const getCommentsStatus = (state) => ({
 export const getReviewStatus = (state) => ({
   isSendingReview: state[NameSpace.DATA].isSendingReview,
   sendReviewError: state[NameSpace.DATA].sendReviewError,
+  sendReviewSuccess: state[NameSpace.DATA].sendReviewSuccess,
 });
+
+export const getFilmById = (state, movieID) => {
+  const films = state[NameSpace.DATA].films;
+  return films.find((film) => film.id === movieID && film);
+};
+
+export const getFavoriteFilms = (state) => state[NameSpace.DATA].favoriteFilms;
+
+export const getFavoriteFilmsStatus = (state) => ({
+  isLoadingFavoriteFilms: state[NameSpace.DATA].isLoadingFavoriteFilms,
+  loadFavoriteFilmsError: state[NameSpace.DATA].loadFavoriteFilmsError,
+});
+
+export const getFavoriteFilmStatus = (state) => ({
+  isSendingFavoriteFilm: state[NameSpace.DATA].isSendingFavoriteFilm,
+  sendFavoriteFilmError: state[NameSpace.DATA].sendFavoriteFilmError,
+  sendFavoriteFilmSuccess: state[NameSpace.DATA].sendFavoriteFilmSuccess,
+});
+

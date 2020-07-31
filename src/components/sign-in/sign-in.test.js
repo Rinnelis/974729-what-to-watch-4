@@ -1,10 +1,12 @@
 import React from "react";
+import {Router} from "react-router-dom";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {NameSpace} from "../../reducer/name-space.js";
-import {AuthStatus, Page} from "../../const.js";
+import {AuthStatus} from "../../const.js";
 import SignIn from "./sign-in.jsx";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -14,15 +16,14 @@ it(`Should render SignIn`, () => {
       authStatus: AuthStatus.NO_AUTH,
       authError: false,
     },
-    [NameSpace.PAGE]: {
-      currentPage: Page.SIGN_IN,
-    },
   });
 
   const tree = renderer.create(
-      <Provider store={store}>
-        <SignIn />
-      </Provider>, {
+      <Router history={history}>
+        <Provider store={store}>
+          <SignIn />
+        </Provider>
+      </Router>, {
         createNodeMock: () => {
           return {};
         }
@@ -38,15 +39,14 @@ it(`Should render auth error`, () => {
       authStatus: AuthStatus.NO_AUTH,
       authError: true,
     },
-    [NameSpace.PAGE]: {
-      currentPage: Page.SIGN_IN,
-    },
   });
 
   const tree = renderer.create(
-      <Provider store={store}>
-        <SignIn />
-      </Provider>, {
+      <Router history={history}>
+        <Provider store={store}>
+          <SignIn />
+        </Provider>
+      </Router>, {
         createNodeMock: () => {
           return {};
         }
