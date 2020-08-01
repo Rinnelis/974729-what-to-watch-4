@@ -1,12 +1,14 @@
 import React from "react";
-import Enzyme, {shallow, mount} from "enzyme";
+import {Router} from "react-router-dom";
+import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import Main from "./main";
-import {ALL_GENRES, AuthStatus, Page} from "../../const.js";
+import {ALL_GENRES, AuthStatus} from "../../const.js";
 import {NameSpace} from "../../reducer/name-space.js";
 import {film, films} from "../../test-data.js";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -14,80 +16,56 @@ Enzyme.configure({
   adapter: new Adapter(),
 });
 
-describe(`Main tests`, () => {
-  const store = mockStore({
-    [NameSpace.DATA]: {
-      film,
-      films,
-      isLoadingFilms: false,
-      isLoadingPromo: false,
-      loadFilmsError: false,
-      loadPromoError: false,
+const store = mockStore({
+  [NameSpace.DATA]: {
+    film,
+    films,
+    isLoadingFilms: false,
+    isLoadingPromo: false,
+    loadFilmsError: false,
+    loadPromoError: false,
+    isSendingFavoriteFilm: false,
+    sendFavoriteFilmSuccess: false,
+    sendFavoriteFilmError: false,
+  },
+  [NameSpace.MOVIES]: {
+    currentGenre: ALL_GENRES,
+  },
+  [NameSpace.USER]: {
+    authStatus: AuthStatus.NO_AUTH,
+    authError: false,
+    user: {
+      id: 0,
+      email: ``,
+      name: ``,
+      avatarUrl: ``,
     },
-    [NameSpace.MOVIES]: {
-      currentGenre: ALL_GENRES,
-    },
-    [NameSpace.USER]: {
-      authStatus: AuthStatus.NO_AUTH,
-      authError: false,
-      user: {
-        id: 0,
-        email: ``,
-        name: ``,
-        avatarUrl: ``,
-      },
-    },
-    [NameSpace.PAGE]: {
-      currentPage: Page.MAIN,
-    },
-  });
+    isAuthInProgress: false,
+  },
+});
 
-  it(`Should title or image be pressed`, () => {
-    const onCardClick = jest.fn();
+it(`Should title or image be pressed`, () => {
+  const onCardClick = jest.fn();
 
-    const main = shallow(
+  const main = shallow(
+      <Router history={history}>
         <Provider store={store}>
           <Main
-            onCardClick={() => {}}
             onGenreClick={() => {}}
             maxShownFilms={8}
             onShownFilmsAmountReset={() => {}}
             onShownFilmsAdd={() => {}}
-            onPlayBtnClick={() => {}}
-            onSignInClick={() => {}}
+            isAuth={true}
           />
         </Provider>
-    );
+      </Router>
+  );
 
-    const titles = main.find(`.small-movie-card__link`);
-    const images = main.find(`.small-movie-card__image`);
+  const titles = main.find(`.small-movie-card__link`);
+  const images = main.find(`.small-movie-card__image`);
 
-    titles.forEach((title) => title.simulate(`click`));
-    images.forEach((image) => image.simulate(`click`));
+  titles.forEach((title) => title.simulate(`click`));
+  images.forEach((image) => image.simulate(`click`));
 
-    expect(onCardClick).toHaveBeenCalledTimes(titles.length + images.length);
-  });
-
-  it(`Should play btn be clicked`, () => {
-    const handlePlayClick = jest.fn();
-    const movie = film;
-
-    const main = mount(
-        <Provider store={store}>
-          <Main
-            onCardClick={() => {}}
-            onGenreClick={() => {}}
-            maxShownFilms={8}
-            onShownFilmsAmountReset={() => {}}
-            onShownFilmsAdd={() => {}}
-            onPlayBtnClick={handlePlayClick}
-            onSignInClick={() => {}}
-          />
-        </Provider>
-    );
-
-    const playButton = main.find(`.btn--play`);
-    playButton.simulate(`click`, movie);
-    expect(handlePlayClick).toHaveBeenCalledWith(movie);
-  });
+  expect(onCardClick).toHaveBeenCalledTimes(titles.length + images.length);
 });

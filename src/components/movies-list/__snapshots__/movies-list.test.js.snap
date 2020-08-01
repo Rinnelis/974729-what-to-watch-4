@@ -9,26 +9,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/2"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="Fantastic Beasts: The Crimes of Grindelwald"
-        height="175"
-        src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="Fantastic Beasts: The Crimes of Grindelwald"
+          height="175"
+          src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/2"
         onClick={[Function]}
       >
         Fantastic Beasts: The Crimes of Grindelwald
@@ -40,26 +44,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/3"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="Shutter Island"
-        height="175"
-        src="img/shutter-island.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="Shutter Island"
+          height="175"
+          src="img/shutter-island.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/3"
         onClick={[Function]}
       >
         Shutter Island
@@ -71,26 +79,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/4"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="Macbeth"
-        height="175"
-        src="img/macbeth.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="Macbeth"
+          height="175"
+          src="img/macbeth.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/4"
         onClick={[Function]}
       >
         Macbeth
@@ -102,26 +114,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/5"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="Aviator"
-        height="175"
-        src="img/aviator.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="Aviator"
+          height="175"
+          src="img/aviator.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/5"
         onClick={[Function]}
       >
         Aviator
@@ -133,26 +149,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/6"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="We need to talk about Kevin"
-        height="175"
-        src="img/we-need-to-talk-about-kevin.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="We need to talk about Kevin"
+          height="175"
+          src="img/we-need-to-talk-about-kevin.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/6"
         onClick={[Function]}
       >
         We need to talk about Kevin
@@ -164,26 +184,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/7"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="What We Do in the Shadows"
-        height="175"
-        src="img/what-we-do-in-the-shadows.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="What We Do in the Shadows"
+          height="175"
+          src="img/what-we-do-in-the-shadows.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/7"
         onClick={[Function]}
       >
         What We Do in the Shadows
@@ -195,26 +219,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/8"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="Revenant"
-        height="175"
-        src="img/revenant.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="Revenant"
+          height="175"
+          src="img/revenant.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/8"
         onClick={[Function]}
       >
         Revenant
@@ -226,26 +254,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/9"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="Johnny English"
-        height="175"
-        src="img/johnny-english.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="Johnny English"
+          height="175"
+          src="img/johnny-english.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/9"
         onClick={[Function]}
       >
         Johnny English
@@ -257,26 +289,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/10"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="Pulp Fiction"
-        height="175"
-        src="img/pulp-fiction.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="Pulp Fiction"
+          height="175"
+          src="img/pulp-fiction.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/10"
         onClick={[Function]}
       >
         Pulp Fiction
@@ -288,26 +324,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/11"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="No Country for Old Men"
-        height="175"
-        src="img/no-country-for-old-men.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="No Country for Old Men"
+          height="175"
+          src="img/no-country-for-old-men.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/11"
         onClick={[Function]}
       >
         No Country for Old Men
@@ -319,26 +359,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/12"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="Snatch"
-        height="175"
-        src="img/snatch.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="Snatch"
+          height="175"
+          src="img/snatch.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/12"
         onClick={[Function]}
       >
         Snatch
@@ -350,26 +394,30 @@ exports[`Should MoviesList render correctly 1`] = `
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
   >
-    <div
-      className="small-movie-card__image"
+    <a
+      href="/films/13"
       onClick={[Function]}
     >
-      <video
-        className="player__video"
-      />
-      <img
-        alt="Bohemian Rhapsody"
-        height="175"
-        src="img/bohemian-rhapsody.jpg"
-        width="280"
-      />
-    </div>
+      <div
+        className="small-movie-card__image"
+      >
+        <video
+          className="player__video"
+        />
+        <img
+          alt="Bohemian Rhapsody"
+          height="175"
+          src="img/bohemian-rhapsody.jpg"
+          width="280"
+        />
+      </div>
+    </a>
     <h3
       className="small-movie-card__title"
     >
       <a
         className="small-movie-card__link"
-        href="movie-page.html"
+        href="/films/13"
         onClick={[Function]}
       >
         Bohemian Rhapsody

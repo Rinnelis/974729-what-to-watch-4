@@ -1,6 +1,9 @@
 import React, {PureComponent} from "react";
+import {connect} from "react-redux";
+import PropTypes from "prop-types";
 import {ProjectPropTypes} from "../../project-prop-types.js";
 import {Time} from "../../const.js";
+import {getFilmById} from "../../reducer/data/selectors.js";
 
 const withVideoControls = (Component) => {
   class WithVideoControls extends PureComponent {
@@ -30,6 +33,7 @@ const withVideoControls = (Component) => {
     _handleFullScreenClick() {
       const video = this.videoRef.current;
       video.requestFullscreen();
+      video.controls = true;
     }
 
     _getLeftTime() {
@@ -44,11 +48,11 @@ const withVideoControls = (Component) => {
     }
 
     componentDidMount() {
-      const {film} = this.props;
+      const {chosenMovie} = this.props;
       const video = this.videoRef.current;
 
-      video.src = film.videoUrl;
-      video.play();
+      video.src = chosenMovie.videoUrl;
+      video.play().catch(() => {});
 
       video.onloadedmetadata = () => this.setState({
         duration: video.duration,
@@ -62,8 +66,12 @@ const withVideoControls = (Component) => {
     componentDidUpdate() {
       const video = this.videoRef.current;
 
+      if (document.fullscreenElement === null) {
+        video.controls = false;
+      }
+
       if (this.state.isPlaying) {
-        video.play();
+        video.play().catch(() => {});
       } else {
         video.pause();
       }
@@ -76,11 +84,12 @@ const withVideoControls = (Component) => {
       video.onplay = null;
       video.onloadedmetadata = null;
       video.ontimeupdate = null;
+      video.controls = null;
     }
 
     render() {
       const {currentTime, duration, isPlaying} = this.state;
-      const {film} = this.props;
+      const {chosenMovie} = this.props;
       const leftTime = this._getLeftTime();
 
       return <Component
@@ -93,7 +102,7 @@ const withVideoControls = (Component) => {
         onFullScreenClick={this._handleFullScreenClick}
       >
         <video className="player__video"
-          poster={film.poster}
+          poster={chosenMovie.bgImage}
           ref={this.videoRef}
         >Your browser doesn`t support embedded video</video>
       </Component>;
@@ -101,10 +110,17 @@ const withVideoControls = (Component) => {
   }
 
   WithVideoControls.propTypes = {
-    film: ProjectPropTypes.FILM.isRequired,
+    chosenMovie: PropTypes.oneOfType([
+      ProjectPropTypes.FILM,
+      PropTypes.bool,
+    ]).isRequired,
   };
 
-  return WithVideoControls;
+  const mapStateToProps = (state, props) => ({
+    chosenMovie: getFilmById(state, props.movieID),
+  });
+
+  return connect(mapStateToProps)(WithVideoControls);
 };
 
 export default withVideoControls;

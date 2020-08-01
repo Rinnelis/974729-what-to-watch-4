@@ -3,7 +3,7 @@ import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import App from "./app.jsx";
-import {ALL_GENRES, AuthStatus, Page} from "../../const.js";
+import {ALL_GENRES, AuthStatus} from "../../const.js";
 import {NameSpace} from "../../reducer/name-space.js";
 import {film, films} from "../../test-data.js";
 
@@ -20,6 +20,9 @@ it(`Should App render correctly`, () => {
       loadPromoError: false,
       isSendingReview: false,
       sendReviewError: false,
+      isSendingFavoriteFilm: false,
+      sendFavoriteFilmSuccess: false,
+      sendFavoriteFilmError: false,
     },
     [NameSpace.MOVIES]: {
       currentGenre: ALL_GENRES,
@@ -33,9 +36,7 @@ it(`Should App render correctly`, () => {
         name: ``,
         avatarUrl: ``,
       },
-    },
-    [NameSpace.PAGE]: {
-      currentPage: Page.MAIN,
+      isAuthInProgress: false,
     },
   });
 
@@ -43,7 +44,7 @@ it(`Should App render correctly`, () => {
       <Provider store={store}>
         <App
           onMovieChoose={() => {}}
-          chosenMovie={``}
+          onCardClick={() => {}}
         />
       </Provider>, {
         createNodeMock: () => {

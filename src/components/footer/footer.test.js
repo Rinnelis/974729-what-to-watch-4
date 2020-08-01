@@ -1,23 +1,14 @@
 import React from "react";
+import {Router} from "react-router-dom";
 import renderer from "react-test-renderer";
-import {Provider} from "react-redux";
-import configureStore from "redux-mock-store";
-import {NameSpace} from "../../reducer/name-space.js";
-import {Page} from "../../const.js";
 import Footer from "./footer.jsx";
-
-const mockStore = configureStore([]);
+import history from "../../history.js";
 
 it(`Should Footer render correctly`, () => {
-  const store = mockStore({
-    [NameSpace.PAGE]: {
-      currentPage: Page.MAIN,
-    },
-  });
   const tree = renderer.create(
-      <Provider store={store}>
+      <Router history={history}>
         <Footer />
-      </Provider>
+      </Router>
   ).toJSON();
 
   expect(tree).toMatchSnapshot();

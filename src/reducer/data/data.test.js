@@ -1,6 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import {filmAdapter} from "../../adapters/film-adapter.js";
 import {film, films, comments} from "../../test-data.js";
+import {ALL_GENRES} from "../../const.js";
 import {createAPI} from "../../api.js";
 import {ActionType, Operation, reducer} from "./data.js";
 
@@ -10,7 +11,7 @@ it(`Should render initial state`, () => {
   expect(reducer(void 0, {})).toEqual({
     film: false,
     films: [],
-    genresList: [`All genres`],
+    genresList: [ALL_GENRES],
     comments: false,
     isLoadingFilms: true,
     isLoadingPromo: true,
@@ -20,6 +21,13 @@ it(`Should render initial state`, () => {
     loadCommentsError: false,
     isSendingReview: false,
     sendReviewError: false,
+    sendReviewSuccess: false,
+    favoriteFilms: [],
+    isLoadingFavoriteFilms: true,
+    loadFavoriteFilmsError: false,
+    isSendingFavoriteFilm: false,
+    sendFavoriteFilmSuccess: false,
+    sendFavoriteFilmError: false,
   });
 });
 
@@ -177,7 +185,7 @@ it(`Should correctly post review to comments/filmID`, () => {
   const dispatch = jest.fn();
   const reviewSending = Operation.sendReview(0, {
     rating: `3`,
-    review: `review`,
+    comment: `review`,
   });
 
   apiMock
@@ -212,5 +220,82 @@ it(`Should update review sending error`, () => {
     payload: true
   })).toEqual({
     sendReviewError: true,
+  });
+});
+
+it(`Should update review sending success`, () => {
+  expect(reducer({
+    sendReviewSuccess: false,
+  }, {
+    type: ActionType.SEND_REVIEW_SUCCESS,
+    payload: true
+  })).toEqual({
+    sendReviewSuccess: true,
+  });
+});
+
+it(`Should update favoriteFilms loading status`, () => {
+  expect(reducer({
+    favoriteFilms: true,
+  }, {
+    type: ActionType.LOAD_FAVORITE_FILMS,
+    payload: false
+  })).toEqual({
+    favoriteFilms: false,
+  });
+});
+
+it(`Should update (2) favoriteFilms load status`, () => {
+  expect(reducer({
+    isLoadingFavoriteFilms: true,
+  }, {
+    type: ActionType.IS_LOADING_FAVORITE_FILMS,
+    payload: false
+  })).toEqual({
+    isLoadingFavoriteFilms: false,
+  });
+});
+
+it(`Should update favoriteFilms loading error`, () => {
+  expect(reducer({
+    loadFavoriteFilmsError: false,
+  }, {
+    type: ActionType.LOAD_FAVORITE_FILMS_ERROR,
+    payload: true
+  })).toEqual({
+    loadFavoriteFilmsError: true,
+  });
+});
+
+it(`Should update favoriteFilm sending status`, () => {
+  expect(reducer({
+    isSendingFavoriteFilm: false,
+  }, {
+    type: ActionType.SEND_FAVORITE_FILM,
+    payload: true
+  })).toEqual({
+    isSendingFavoriteFilm: true,
+  });
+});
+
+it(`Should update favoriteFilm sending success`, () => {
+  expect(reducer({
+    sendFavoriteFilmSuccess: false,
+  }, {
+    type: ActionType.SEND_FAVORITE_FILM_SUCCESS,
+    payload: true
+  })).toEqual({
+    sendFavoriteFilmSuccess: true,
+  });
+});
+
+it(`Should update favoriteFilm sending error`, () => {
+  expect(reducer({
+    sendFavoriteFilmError: false,
+  }, {
+    type: ActionType.SEND_FAVORITE_FILM_ERROR,
+    payload: true
+  })).toEqual({
+    sendFavoriteFilmError: true,
   });
 });

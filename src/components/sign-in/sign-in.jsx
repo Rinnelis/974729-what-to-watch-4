@@ -1,9 +1,11 @@
 import React, {PureComponent, createRef} from "react";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getAuthError} from "../../reducer/user/selectors.js";
+import {getAuthStatus} from "../../reducer/user/selectors.js";
 import {Operation} from "../../reducer/user/user.js";
 import Footer from "../footer/footer.jsx";
+import {Page} from "../../const.js";
 
 class SignIn extends PureComponent {
   constructor(props) {
@@ -25,13 +27,13 @@ class SignIn extends PureComponent {
   }
 
   render() {
-    const {authError} = this.props;
+    const {auth} = this.props;
 
-    const isInvalidForm = authError
+    const isInvalidForm = auth.error
       ?
       <React.Fragment>
         <div className="sign-in__message">
-          <p>{authError}</p>
+          <p>{auth.error}</p>
         </div>
       </React.Fragment>
       :
@@ -41,11 +43,11 @@ class SignIn extends PureComponent {
       <div className="user-page">
         <header className="page-header user-page__head">
           <div className="logo">
-            <a href="/" className="logo__link">
+            <Link to={Page.MAIN} className="logo__link">
               <span className="logo__letter logo__letter--1">W</span>
               <span className="logo__letter logo__letter--2">T</span>
               <span className="logo__letter logo__letter--3">W</span>
-            </a>
+            </Link>
           </div>
 
           <h1 className="page-title user-page__title">Sign in</h1>
@@ -95,17 +97,24 @@ class SignIn extends PureComponent {
 }
 
 SignIn.propTypes = {
-  authError: PropTypes.bool.isRequired,
+  auth: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    error: PropTypes.bool.isRequired,
+  }).isRequired,
   onAuthSubmit: PropTypes.func.isRequired,
+  checkAuth: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  authError: getAuthError(state),
+  auth: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onAuthSubmit(authData) {
     dispatch(Operation.login(authData));
+  },
+  checkAuth() {
+    dispatch(Operation.checkAuth());
   },
 });
 

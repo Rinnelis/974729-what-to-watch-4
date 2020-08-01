@@ -1,18 +1,17 @@
 import React from "react";
-import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {ProjectPropTypes} from "../../project-prop-types.js";
-import {getCurrentPage} from "../../reducer/page/selectors.js";
+import {Page} from "../../const.js";
+import history from "../../history.js";
 
 const VideoPlayerFull = (props) => {
   const {
-    film,
+    chosenMovie,
     children,
     currentTime,
     leftTime,
     duration,
     isPlaying,
-    onExitBtnClick,
     onPlayBtnClick,
     onFullScreenClick,
   } = props;
@@ -43,7 +42,7 @@ const VideoPlayerFull = (props) => {
       {children}
 
       <button type="button" className="player__exit"
-        onClick={() => onExitBtnClick()}
+        onClick={() => history.push(`${Page.FILM}/${chosenMovie.id}`)}
       >Exit</button>
 
       <div className="player__controls">
@@ -62,7 +61,7 @@ const VideoPlayerFull = (props) => {
           >
             {playerState}
           </button>
-          <div className="player__name">{film.title}</div>
+          <div className="player__name">{chosenMovie.title}</div>
 
           <button type="button" className="player__full-screen"
             onClick={() => onFullScreenClick()}
@@ -79,19 +78,14 @@ const VideoPlayerFull = (props) => {
 };
 
 VideoPlayerFull.propTypes = {
-  film: ProjectPropTypes.FILM.isRequired,
+  chosenMovie: ProjectPropTypes.FILM.isRequired,
   children: PropTypes.element.isRequired,
   currentTime: PropTypes.number.isRequired,
   leftTime: PropTypes.string.isRequired,
   duration: PropTypes.number.isRequired,
   isPlaying: PropTypes.bool.isRequired,
-  onExitBtnClick: PropTypes.func.isRequired,
   onPlayBtnClick: PropTypes.func.isRequired,
   onFullScreenClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentPage: getCurrentPage(state),
-});
-
-export default connect(mapStateToProps)(VideoPlayerFull);
+export default VideoPlayerFull;

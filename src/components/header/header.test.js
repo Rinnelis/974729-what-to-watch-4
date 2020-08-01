@@ -1,11 +1,13 @@
 import React from "react";
+import {Router} from "react-router-dom";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import {NameSpace} from "../../reducer/name-space.js";
-import {AuthStatus, Page} from "../../const.js";
+import {AuthStatus} from "../../const.js";
 import Header from "./header.jsx";
 import {user} from "../../test-data.js";
+import history from "../../history.js";
 
 const mockStore = configureStore([]);
 
@@ -19,18 +21,17 @@ it(`SHould render header with Sign In`, () => {
         name: ``,
         avatarUrl: ``,
       },
-    },
-    [NameSpace.PAGE]: {
-      currentPage: Page.MAIN,
+      isAuthInProgress: false,
+      authError: false,
     },
   });
 
   const tree = renderer.create(
-      <Provider store={store}>
-        <Header
-          onSignInClick={() => {}}
-        />
-      </Provider>, {
+      <Router history={history}>
+        <Provider store={store}>
+          <Header />
+        </Provider>
+      </Router>, {
         createNodeMock: () => {
           return {};
         }
@@ -45,18 +46,17 @@ it(`SHould render header without Sign In`, () => {
     [NameSpace.USER]: {
       authStatus: AuthStatus.AUTH,
       user,
-    },
-    [NameSpace.PAGE]: {
-      currentPage: Page.MAIN,
+      isAuthInProgress: false,
+      authError: false,
     },
   });
 
   const tree = renderer.create(
-      <Provider store={store}>
-        <Header
-          onSignInClick={() => {}}
-        />
-      </Provider>, {
+      <Router history={history}>
+        <Provider store={store}>
+          <Header />
+        </Provider>
+      </Router>, {
         createNodeMock: () => {
           return {};
         }

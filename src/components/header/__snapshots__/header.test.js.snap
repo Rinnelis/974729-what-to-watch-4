@@ -9,7 +9,8 @@ exports[`SHould render header with Sign In 1`] = `
   >
     <a
       className="logo__link"
-      href={null}
+      href="/"
+      onClick={[Function]}
     >
       <span
         className="logo__letter logo__letter--1"
@@ -28,7 +29,6 @@ exports[`SHould render header with Sign In 1`] = `
       </span>
     </a>
   </div>
-  
   <div
     className="user-block"
   >
@@ -52,7 +52,8 @@ exports[`SHould render header without Sign In 1`] = `
   >
     <a
       className="logo__link"
-      href={null}
+      href="/"
+      onClick={[Function]}
     >
       <span
         className="logo__letter logo__letter--1"
@@ -71,19 +72,23 @@ exports[`SHould render header without Sign In 1`] = `
       </span>
     </a>
   </div>
-  
   <div
     className="user-block"
   >
     <div
       className="user-block__avatar"
     >
-      <img
-        alt="Oliver.conner"
-        height="63"
-        src="img/1.png"
-        width="63"
-      />
+      <a
+        href="/mylist"
+        onClick={[Function]}
+      >
+        <img
+          alt="Oliver.conner"
+          height="63"
+          src="img/1.png"
+          width="63"
+        />
+      </a>
     </div>
   </div>
 </header>

@@ -7,7 +7,7 @@ import withVideo from "../../hocs/with-video/with-video.jsx";
 const MovieCardWrapped = withVideo(MovieCard);
 
 const MoviesList = (props) => {
-  const {films, onCardClick} = props;
+  const {films} = props;
 
   return (
     <div className="catalog__movies-list">
@@ -15,7 +15,6 @@ const MoviesList = (props) => {
         return <MovieCardWrapped
           key={film.id}
           film={film}
-          onCardClick={onCardClick}
         />;
       })}
     </div>
@@ -24,7 +23,6 @@ const MoviesList = (props) => {
 
 MoviesList.propTypes = {
   films: PropTypes.arrayOf(ProjectPropTypes.FILM.isRequired).isRequired,
-  onCardClick: PropTypes.func.isRequired,
 };
 
 export default React.memo(MoviesList);

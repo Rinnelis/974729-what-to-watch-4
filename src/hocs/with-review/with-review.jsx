@@ -1,6 +1,10 @@
 import React, {PureComponent} from "react";
+import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {ProjectPropTypes} from "../../project-prop-types.js";
+import {getFilmById} from "../../reducer/data/selectors.js";
+import {MIN_RATING} from "../../const.js";
+import {Operation} from "../../reducer/data/data.js";
 
 const withReview = (Component) => {
   class WithReview extends PureComponent {
@@ -8,8 +12,8 @@ const withReview = (Component) => {
       super(props);
 
       this.state = {
-        rating: false,
-        review: false,
+        rating: MIN_RATING,
+        comment: false,
       };
 
       this._handleReviewWrite = this._handleReviewWrite.bind(this);
@@ -18,10 +22,10 @@ const withReview = (Component) => {
     }
 
     _handleReviewWrite(evt) {
-      const review = evt.target.value;
+      const comment = evt.target.value;
 
       this.setState({
-        review,
+        comment,
       });
     }
 
@@ -34,23 +38,28 @@ const withReview = (Component) => {
     }
 
     _handleReviewSubmit(evt) {
-      const {film, onReviewSubmit} = this.props;
-      const {rating, review} = this.state;
+      const {chosenMovie, onReviewSubmit} = this.props;
+      const {rating, comment} = this.state;
       evt.preventDefault();
 
-      onReviewSubmit(film.id, {
+      onReviewSubmit(chosenMovie.id, {
         rating,
-        review,
+        comment,
       });
     }
 
+    componentDidMount() {
+      const {loadFilms} = this.props;
+      loadFilms();
+    }
+
     render() {
-      const {rating, review} = this.state;
+      const {rating, comment} = this.state;
 
       return <Component
         {...this.props}
         rating={rating}
-        review={review}
+        comment={comment}
         onReviewWrite={this._handleReviewWrite}
         onRatingChange={this._handleRatingChange}
         onReviewSubmit={this._handleReviewSubmit}
@@ -59,11 +68,28 @@ const withReview = (Component) => {
   }
 
   WithReview.propTypes = {
-    film: ProjectPropTypes.FILM,
+    chosenMovie: PropTypes.oneOfType([
+      ProjectPropTypes.FILM,
+      PropTypes.bool,
+    ]),
     onReviewSubmit: PropTypes.func.isRequired,
+    loadFilms: PropTypes.func.isRequired,
   };
 
-  return WithReview;
+  const mapStateToProps = (state, props) => ({
+    chosenMovie: getFilmById(state, props.movieID),
+  });
+
+  const mapDispatchToProps = (dispatch) => ({
+    onReviewSubmit(comment, id) {
+      dispatch(Operation.sendReview(comment, id));
+    },
+    loadFilms() {
+      dispatch(Operation.loadFilms());
+    },
+  });
+
+  return connect(mapStateToProps, mapDispatchToProps)(WithReview);
 };
 
 export default withReview;
