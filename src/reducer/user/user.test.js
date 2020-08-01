@@ -16,6 +16,7 @@ it(`Should render initital state`, () => {
       name: ``,
       avatarUrl: ``,
     },
+    isAuthInProgress: false,
   });
 });
 

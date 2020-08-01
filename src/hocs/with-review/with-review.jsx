@@ -2,7 +2,8 @@ import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
 import {ProjectPropTypes} from "../../project-prop-types.js";
-import {getChosenMovie} from "../../reducer/movies/selectors.js";
+import {getFilmById} from "../../reducer/data/selectors.js";
+import {MIN_RATING} from "../../const.js";
 import {Operation} from "../../reducer/data/data.js";
 
 const withReview = (Component) => {
@@ -11,7 +12,7 @@ const withReview = (Component) => {
       super(props);
 
       this.state = {
-        rating: false,
+        rating: MIN_RATING,
         review: false,
       };
 
@@ -47,6 +48,11 @@ const withReview = (Component) => {
       });
     }
 
+    componentDidMount() {
+      const {loadFilms} = this.props;
+      loadFilms();
+    }
+
     render() {
       const {rating, review} = this.state;
 
@@ -67,15 +73,19 @@ const withReview = (Component) => {
       PropTypes.bool,
     ]),
     onReviewSubmit: PropTypes.func.isRequired,
+    loadFilms: PropTypes.func.isRequired,
   };
 
-  const mapStateToProps = (state) => ({
-    chosenMovie: getChosenMovie(state),
+  const mapStateToProps = (state, props) => ({
+    chosenMovie: getFilmById(state, props.movieID),
   });
 
   const mapDispatchToProps = (dispatch) => ({
     onReviewSubmit(review, id) {
       dispatch(Operation.sendReview(review, id));
+    },
+    loadFilms() {
+      dispatch(Operation.loadFilms());
     },
   });
 

@@ -10,19 +10,18 @@ import Footer from "../footer/footer.jsx";
 import {MovieNav, AuthStatus, Page} from "../../const.js";
 import {Operation} from "../../reducer/data/data.js";
 import {getAuthStatus} from "../../reducer/user/selectors.js";
-import {ActionCreator} from "../../reducer/movies/movies.js";
 import {getSimilarFilms} from "../../reducer/movies/selectors.js";
 import {getFavoriteFilmStatus} from "../../reducer/data/selectors.js";
+import history from "../../history.js";
 
 const MoviePage = (props) => {
   const {
     chosenMovie,
     similarFilms,
-    onMovieChoose,
     currentTab,
     onTabClick,
     onCurrentTabRender,
-    authStatus,
+    auth,
     onFavoriteFilmChoose,
     onFilmsLoad,
     onFavoriteFilmSend,
@@ -33,7 +32,7 @@ const MoviePage = (props) => {
     onFilmsLoad();
   }
 
-  const isSignedIn = authStatus === AuthStatus.AUTH;
+  const isSignedIn = auth.status === AuthStatus.AUTH;
 
   const isInMyLyst = isFavorite
     ?
@@ -80,7 +79,7 @@ const MoviePage = (props) => {
                   <span>Play</span>
                 </Link>
                 <button className="btn btn--list movie-card__button" type="button"
-                  onClick={() => onFavoriteFilmChoose(chosenMovie)}
+                  onClick={() => isSignedIn ? onFavoriteFilmChoose(chosenMovie) : history.push(`${Page.SIGN_IN}`)}
                 >
                   {isInMyLyst}
                   <span>My list</span>
@@ -118,7 +117,6 @@ const MoviePage = (props) => {
 
           <MoviesList
             films={similarFilms}
-            onCardClick={onMovieChoose}
           />
         </section>
 
@@ -134,11 +132,13 @@ MoviePage.propTypes = {
     PropTypes.bool,
   ]).isRequired,
   similarFilms: PropTypes.array.isRequired,
-  onMovieChoose: PropTypes.func.isRequired,
   currentTab: PropTypes.string.isRequired,
   onTabClick: PropTypes.func.isRequired,
   onCurrentTabRender: PropTypes.func.isRequired,
-  authStatus: PropTypes.string.isRequired,
+  auth: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    error: PropTypes.bool.isRequired,
+  }).isRequired,
   onFavoriteFilmChoose: PropTypes.func.isRequired,
   onFilmsLoad: PropTypes.func.isRequired,
   onFavoriteFilmSend: PropTypes.shape({
@@ -149,16 +149,12 @@ MoviePage.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
-  authStatus: getAuthStatus(state),
+  auth: getAuthStatus(state),
   similarFilms: getSimilarFilms(state, props.chosenMovie),
   onFavoriteFilmSend: getFavoriteFilmStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onMovieChoose(film) {
-    dispatch(ActionCreator.chooseMovie(film));
-    dispatch(Operation.loadComments(film.id));
-  },
   onFavoriteFilmChoose(film) {
     dispatch(Operation.sendFavoriteFilm(film.id, film.isFavorite));
   },

@@ -3,8 +3,8 @@ import {Router} from "react-router-dom";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
 import renderer from "react-test-renderer";
-import Reviews from "./reviews.jsx";
-import {comments} from "../../test-data.js";
+import {Reviews} from "./reviews.jsx";
+import {comments, film} from "../../test-data.js";
 import {NameSpace} from "../../reducer/name-space.js";
 import history from "../../history.js";
 
@@ -17,12 +17,21 @@ it(`Should render Reviews with comments`, () => {
       isLoadingComments: false,
       loadCommentsError: false,
     },
+    [NameSpace.MOVIES]: {
+      chosenMovie: film,
+    },
   });
 
   const tree = renderer.create(
       <Router history={history}>
         <Provider store={store}>
           <Reviews
+            comments={comments}
+            loadComments={() => {}}
+            isLoadingComments={{
+              isLoadingComments: false,
+              loadCommentsError: false,
+            }}
           />
         </Provider>
       </Router>, {
@@ -42,12 +51,21 @@ it(`Should render Reviews with comments loading message`, () => {
       isLoadingComments: true,
       loadCommentsError: false,
     },
+    [NameSpace.MOVIES]: {
+      chosenMovie: film,
+    },
   });
 
   const tree = renderer.create(
       <Router history={history}>
         <Provider store={store}>
           <Reviews
+            comments={comments}
+            loadComments={() => {}}
+            isLoadingComments={{
+              isLoadingComments: false,
+              loadCommentsError: false,
+            }}
           />
         </Provider>
       </Router>, {
@@ -67,12 +85,21 @@ it(`Shouldn't render Reviews comments`, () => {
       isLoadingComments: true,
       loadCommentsError: true,
     },
+    [NameSpace.MOVIES]: {
+      chosenMovie: film,
+    },
   });
 
   const tree = renderer.create(
       <Router history={history}>
         <Provider store={store}>
           <Reviews
+            comments={comments}
+            loadComments={() => {}}
+            isLoadingComments={{
+              isLoadingComments: false,
+              loadCommentsError: false,
+            }}
           />
         </Provider>
       </Router>, {

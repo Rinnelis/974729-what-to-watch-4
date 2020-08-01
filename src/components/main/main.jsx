@@ -13,6 +13,7 @@ import Footer from "../footer/footer.jsx";
 import {getGenresList, getFilms, getPromo, getFilmsStatus, getPromoStatus, getFavoriteFilmStatus} from "../../reducer/data/selectors.js";
 import {getCurrentGenre, getFilmsByGenre} from "../../reducer/movies/selectors.js";
 import {Page} from "../../const.js";
+import history from "../../history.js";
 
 const Main = (props) => {
   const {
@@ -21,7 +22,6 @@ const Main = (props) => {
     genresList,
     currentGenre,
     filmsByGenre,
-    onMovieChoose,
     onGenreClick,
     maxShownFilms,
     onShownFilmsAmountReset,
@@ -31,6 +31,7 @@ const Main = (props) => {
     onPromoLoad,
     onFavoriteFilmChoose,
     onFavoriteFilmSend,
+    isAuth,
   } = props;
   const {title, genre, releaseDate, bgImage, poster, id, isFavorite} = film;
 
@@ -100,9 +101,7 @@ const Main = (props) => {
               </p>
 
               <div className="movie-card__buttons">
-                <Link to={`${Page.PLAYER}/${id}`} className="btn btn--play movie-card__button" type="button"
-                  onClick={() => onMovieChoose(film)}
-                >
+                <Link to={`${Page.PLAYER}/${id}`} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <symbol id="play-s" viewBox="0 0 19 19">
                       <path fillRule="evenodd" clipRule="evenodd" d="M0 0L19 9.5L0 19V0Z" fill="#EEE5B5" />
@@ -112,7 +111,7 @@ const Main = (props) => {
                   <span>Play</span>
                 </Link>
                 <button className="btn btn--list movie-card__button" type="button"
-                  onClick={() => onFavoriteFilmChoose(film)}
+                  onClick={() => isAuth ? onFavoriteFilmChoose(film) : history.push(`${Page.SIGN_IN}`)}
                 >
                   {isInMyLyst}
                   <span>My list</span>
@@ -139,7 +138,6 @@ const Main = (props) => {
           {getFilmsMsg() ||
           <MoviesList
             films={shownFilms}
-            onCardClick={onMovieChoose}
           />
           }
 
@@ -165,7 +163,6 @@ Main.propTypes = {
   genresList: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   currentGenre: PropTypes.string.isRequired,
   filmsByGenre: PropTypes.array.isRequired,
-  onMovieChoose: PropTypes.func.isRequired,
   onGenreClick: PropTypes.func.isRequired,
   maxShownFilms: PropTypes.number.isRequired,
   onShownFilmsAmountReset: PropTypes.func.isRequired,
@@ -185,6 +182,7 @@ Main.propTypes = {
     sendFavoriteFilmError: PropTypes.bool.isRequired,
     sendFavoriteFilmSuccess: PropTypes.bool.isRequired,
   }),
+  isAuth: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -201,10 +199,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onGenreClick(genre) {
     dispatch(ActionCreator.chooseGenre(genre));
-  },
-  onMovieChoose(film) {
-    dispatch(ActionCreator.chooseMovie(film));
-    dispatch(Operation.loadComments(film.id));
   },
   onFavoriteFilmChoose(film) {
     dispatch(Operation.sendFavoriteFilm(film.id, film.isFavorite));

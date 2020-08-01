@@ -16,6 +16,7 @@ import {getAuthStatus} from "../../reducer/user/selectors.js";
 import {getFilmsStatus} from "../../reducer/data/selectors.js";
 import {AuthStatus, Page} from "../../const.js";
 import history from "../../history.js";
+import PrivateRoute from "../../private-route.js";
 
 const MainWrapped = withShownFilms(Main);
 const MoviePageWrapped = withActiveTab(MoviePage);
@@ -23,13 +24,13 @@ const VideoPlayerFullWrapped = withVideoControls(VideoPlayerFull);
 const AddReviewWrapped = withReview(AddReview);
 
 const App = (props) => {
-  const {authStatus, loadFilmsStatus} = props;
+  const {auth, loadFilmsStatus} = props;
+  const isAuth = auth.status === AuthStatus.AUTH;
 
   return (
     <Router history={history}>
       <Switch>
-        <Route exact path={Page.MAIN}
-          render={() => <MainWrapped />}
+        <Route exact path={Page.MAIN} render={() => <MainWrapped isAuth={isAuth} />}
         />
 
         <Route exact path={`${Page.FILM}/:id?`}
@@ -42,38 +43,40 @@ const App = (props) => {
           }}
         />
 
-        <Route exact path={Page.SIGN_IN}
-          render={() => authStatus === AuthStatus.NO_AUTH
-            ?
-            <SignIn />
-            :
-            <Redirect to={Page.MAIN} />
-          }>
-        </Route>
+        <Route exact path={Page.SIGN_IN} render={() => !isAuth ? <SignIn /> : <Redirect to={Page.MAIN} />}/>
 
-        <Route exact path={`${Page.FILM}/:id?/review`}>
-          <AddReviewWrapped />
-        </Route>
+        <PrivateRoute exact path={`${Page.FILM}/:id?/review`}
+          render={(routeProps) => {
+            const movieID = +routeProps.match.params.id;
+            return (loadFilmsStatus.isLoadingFilms ||
+              <AddReviewWrapped
+                movieID={movieID}
+              />);
+          }}
+        />
 
-        <Route exact path={`${Page.PLAYER}/:id?`}>
-          <VideoPlayerFullWrapped />
-        </Route>
+        <Route exact path={`${Page.PLAYER}/:id?`}
+          render={(routeProps) => {
+            const movieID = +routeProps.match.params.id;
+            return (loadFilmsStatus.isLoadingFilms ||
+              <VideoPlayerFullWrapped
+                movieID={movieID}
+              />);
+          }}
+        />
 
-        <Route exact path={Page.MY_LIST}
-          render={() => authStatus === AuthStatus.AUTH
-            ?
-            <MyList />
-            :
-            <Redirect to={Page.SIGN_IN}/>
-          }>
-        </Route>
+        <PrivateRoute exact path={Page.MY_LIST} render={() => <MyList />}/>
       </Switch>
     </Router>
   );
 };
 
 App.propTypes = {
-  authStatus: PropTypes.string.isRequired,
+  auth: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    error: PropTypes.bool.isRequired,
+    isAuthInProgress: PropTypes.bool.isRequired,
+  }).isRequired,
   loadFilmsStatus: PropTypes.shape({
     isLoadingFilms: PropTypes.bool.isRequired,
     loadFilmsError: PropTypes.bool.isRequired,
@@ -81,7 +84,7 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authStatus: getAuthStatus(state),
+  auth: getAuthStatus(state),
   loadFilmsStatus: getFilmsStatus(state),
 });
 

@@ -43,3 +43,5 @@ export const ValidReview = {
   MIN: 50,
   MAX: 400,
 };
+
+export const MIN_RATING = `1`;

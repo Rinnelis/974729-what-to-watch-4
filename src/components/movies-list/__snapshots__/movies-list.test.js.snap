@@ -15,7 +15,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -51,7 +50,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -87,7 +85,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -123,7 +120,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -159,7 +155,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -195,7 +190,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -231,7 +225,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -267,7 +260,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -303,7 +295,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -339,7 +330,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -375,7 +365,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"
@@ -411,7 +400,6 @@ exports[`Should MoviesList render correctly 1`] = `
     >
       <div
         className="small-movie-card__image"
-        onClick={[Function]}
       >
         <video
           className="player__video"

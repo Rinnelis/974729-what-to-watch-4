@@ -7,7 +7,6 @@ import Overview from "../../components/overview/overview.jsx";
 import Details from "../../components/details/details.jsx";
 import Reviews from "../../components/reviews/reviews.jsx";
 import {getFilmById} from "../../reducer/data/selectors.js";
-import {Operation} from "../../reducer/data/data.js";
 
 const withActiveTab = (Component) => {
   class WithActiveTab extends PureComponent {
@@ -47,7 +46,9 @@ const withActiveTab = (Component) => {
           );
         case MovieNav.REVIEWS:
           return (
-            <Reviews />
+            <Reviews
+              chosenMovie={chosenMovie}
+            />
           );
         default: return null;
       }
@@ -55,9 +56,6 @@ const withActiveTab = (Component) => {
 
     render() {
       const {currentTab} = this.state;
-      const {loadComments, chosenMovie} = this.props;
-
-      loadComments(chosenMovie);
 
       return <Component
         {...this.props}
@@ -73,20 +71,13 @@ const withActiveTab = (Component) => {
       ProjectPropTypes.FILM.isRequired,
       PropTypes.bool.isRequired,
     ]).isRequired,
-    loadComments: PropTypes.func.isRequired,
   };
 
   const mapStateToProps = (state, props) => ({
     chosenMovie: getFilmById(state, props.movieID),
   });
 
-  const mapDispatchToProps = (dispatch) => ({
-    loadComments(film) {
-      dispatch(Operation.loadComments(film.id));
-    },
-  });
-
-  return connect(mapStateToProps, mapDispatchToProps)(WithActiveTab);
+  return connect(mapStateToProps)(WithActiveTab);
 };
 
 export default withActiveTab;

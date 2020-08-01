@@ -36,6 +36,7 @@ it(`Should App render correctly`, () => {
         name: ``,
         avatarUrl: ``,
       },
+      isAuthInProgress: false,
     },
   });
 

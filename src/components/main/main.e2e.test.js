@@ -40,6 +40,7 @@ const store = mockStore({
       name: ``,
       avatarUrl: ``,
     },
+    isAuthInProgress: false,
   },
 });
 
@@ -50,11 +51,11 @@ it(`Should title or image be pressed`, () => {
       <Router history={history}>
         <Provider store={store}>
           <Main
-            onMovieChoose={() => {}}
             onGenreClick={() => {}}
             maxShownFilms={8}
             onShownFilmsAmountReset={() => {}}
             onShownFilmsAdd={() => {}}
+            isAuth={true}
           />
         </Provider>
       </Router>

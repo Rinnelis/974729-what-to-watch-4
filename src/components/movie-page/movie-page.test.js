@@ -22,6 +22,7 @@ it(`Should MoviePage render correctly`, () => {
         name: ``,
         avatarUrl: ``,
       },
+      isAuthInProgress: false,
     },
     [NameSpace.DATA]: {
       films,
@@ -40,7 +41,6 @@ it(`Should MoviePage render correctly`, () => {
           <MoviePage
             chosenMovie={film}
             similarFilms={films}
-            onMovieChoose={() => {}}
             currentTab={`Overview`}
             onTabClick={() => {}}
             onCurrentTabRender={() => {}}

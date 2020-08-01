@@ -7,7 +7,7 @@ import {Page} from "../../const.js";
 
 class MovieCard extends PureComponent {
   render() {
-    const {film, onCardClick, isVideoPlaying, setVideoPlaying} = this.props;
+    const {film, isVideoPlaying, setVideoPlaying} = this.props;
     const {title, image} = film;
 
     return (
@@ -21,7 +21,7 @@ class MovieCard extends PureComponent {
         }}
       >
         <Link to={`${Page.FILM}/${film.id}`}>
-          <div className="small-movie-card__image" onClick={onCardClick}>
+          <div className="small-movie-card__image">
             <VideoPlayer
               film={film}
               isPlaying={isVideoPlaying}
@@ -39,7 +39,6 @@ class MovieCard extends PureComponent {
 
 MovieCard.propTypes = {
   film: ProjectPropTypes.FILM.isRequired,
-  onCardClick: PropTypes.func.isRequired,
   isVideoPlaying: PropTypes.bool.isRequired,
   setVideoPlaying: PropTypes.func.isRequired,
 };

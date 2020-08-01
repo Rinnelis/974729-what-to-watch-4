@@ -5,18 +5,17 @@ import {ProjectPropTypes} from "../../project-prop-types.js";
 import {connect} from "react-redux";
 import {AuthStatus, Page} from "../../const.js";
 import {getAuthStatus, getUserData} from "../../reducer/user/selectors.js";
-import {Operation} from "../../reducer/data/data.js";
 
 const Header = (props) => {
-  const {authStatus, user, chosenMovie, onFavoriteFilmChoose} = props;
+  const {auth, user, chosenMovie} = props;
   const {avatarUrl, name} = user;
 
-  const isSignedIn = authStatus === AuthStatus.AUTH
+  const isSignedIn = auth.status === AuthStatus.AUTH
     ?
     <React.Fragment>
       <div className="user-block">
         <div className="user-block__avatar">
-          <Link to={Page.MY_LIST} onClick={onFavoriteFilmChoose}>
+          <Link to={Page.MY_LIST}>
             <img src={avatarUrl} alt={name} width="63" height="63" />
           </Link>
         </div>
@@ -60,21 +59,17 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  authStatus: PropTypes.string.isRequired,
+  auth: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+    error: PropTypes.bool.isRequired,
+  }).isRequired,
   user: ProjectPropTypes.USER.isRequired,
   chosenMovie: ProjectPropTypes.FILM,
-  onFavoriteFilmChoose: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  authStatus: getAuthStatus(state),
+  auth: getAuthStatus(state),
   user: getUserData(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onFavoriteFilmChoose() {
-    dispatch(Operation.loadFavoriteFilms());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);

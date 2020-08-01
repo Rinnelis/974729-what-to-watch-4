@@ -3,7 +3,7 @@ import {Router} from "react-router-dom";
 import renderer from "react-test-renderer";
 import {Provider} from "react-redux";
 import configureStore from "redux-mock-store";
-import MyList from "./my-list.jsx";
+import {MyList} from "./my-list.jsx";
 import {user, films, film} from "../../test-data.js";
 import {NameSpace} from "../../reducer/name-space.js";
 import {AuthStatus} from "../../const.js";
@@ -16,6 +16,7 @@ const store = mockStore({
     authStatus: AuthStatus.AUTH,
     authError: false,
     user,
+    isAuthInProgress: false,
   },
   [NameSpace.DATA]: {
     film,
@@ -33,7 +34,11 @@ it(`Should render MyList`, () => {
           <MyList
             user={user}
             favoriteFilms={films}
-            onMovieChoose={() => {}}
+            loadFavoriteFilms={() => {}}
+            isLoadingFavoriteFilms={{
+              isLoadingFavoriteFilms: false,
+              loadFavoriteFilmsError: false,
+            }}
           />
         </Provider>
       </Router>, {

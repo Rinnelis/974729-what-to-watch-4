@@ -11,7 +11,6 @@ it(`Should MoviesList render correctly`, () => {
         <Router history={history}>
           <MoviesList
             films={films}
-            onCardClick={() => {}}
           />
         </Router>, {
           createNodeMock: () => {

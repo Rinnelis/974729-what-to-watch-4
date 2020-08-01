@@ -11,7 +11,6 @@ it(`Should MovieCard render correctly`, () => {
         <Router history={history}>
           <MovieCard
             film={film}
-            onCardClick={() => {}}
             isVideoPlaying={false}
             setVideoPlaying={() => {}}
           />

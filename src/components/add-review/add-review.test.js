@@ -17,6 +17,7 @@ it(`Should render AddReview`, () => {
       authStatus: AuthStatus.AUTH,
       authError: false,
       user,
+      isAuthInProgress: false,
     },
     [NameSpace.DATA]: {
       isSendingReview: false,

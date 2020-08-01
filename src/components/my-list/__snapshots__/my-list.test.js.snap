@@ -79,7 +79,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -115,7 +114,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -151,7 +149,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -187,7 +184,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -223,7 +219,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -259,7 +254,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -295,7 +289,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -331,7 +324,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -367,7 +359,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -403,7 +394,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -439,7 +429,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"
@@ -475,7 +464,6 @@ exports[`Should render MyList 1`] = `
         >
           <div
             className="small-movie-card__image"
-            onClick={[Function]}
           >
             <video
               className="player__video"

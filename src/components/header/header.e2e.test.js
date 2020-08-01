@@ -30,6 +30,7 @@ it(`Should SignIn be clicked`, () => {
         name: ``,
         avatarUrl: ``,
       },
+      isAuthInProgress: false,
     },
   });
 
@@ -41,7 +42,7 @@ it(`Should SignIn be clicked`, () => {
       </Router>
   );
 
-  const signInLink = header.find(`.user-block__link`);
+  const signInLink = header.find(`a.user-block__link`);
   signInLink.simulate(`click`, header.instance().setState({
     location,
   }));

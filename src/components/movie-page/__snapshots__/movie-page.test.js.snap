@@ -235,7 +235,6 @@ Array [
           >
             <div
               className="small-movie-card__image"
-              onClick={[Function]}
             >
               <video
                 className="player__video"
@@ -271,7 +270,6 @@ Array [
           >
             <div
               className="small-movie-card__image"
-              onClick={[Function]}
             >
               <video
                 className="player__video"

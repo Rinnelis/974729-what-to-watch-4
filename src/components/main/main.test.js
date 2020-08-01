@@ -36,6 +36,7 @@ it(`Should Main render correctly`, () => {
         name: ``,
         avatarUrl: ``,
       },
+      isAuthInProgress: false,
     },
   });
 
@@ -43,11 +44,11 @@ it(`Should Main render correctly`, () => {
       <Router history={history}>
         <Provider store={store}>
           <Main
-            onMovieChoose={() => {}}
             onGenreClick={() => {}}
             maxShownFilms={8}
             onShownFilmsAmountReset={() => {}}
             onShownFilmsAdd={() => {}}
+            isAuth={true}
           />
         </Provider>
       </Router>, {

@@ -5,6 +5,7 @@ import {ProjectPropTypes} from "../../project-prop-types.js";
 import {ValidReview} from "../../const.js";
 import Header from "../header/header.jsx";
 import {getReviewStatus} from "../../reducer/data/selectors.js";
+import {Page} from "../../const.js";
 import history from "../../history.js";
 
 const AddReview = (props) => {
@@ -22,7 +23,7 @@ const AddReview = (props) => {
   const isReviewValid = (rating && review) ? false : true;
 
   if (isSendingReview.sendReviewSuccess) {
-    history.goBack();
+    history.goBack(`${Page.FILM}/${chosenMovie.id}`);
   }
 
   const getReviewMsg = () => {

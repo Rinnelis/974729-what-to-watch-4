@@ -21,6 +21,8 @@ it(`SHould render header with Sign In`, () => {
         name: ``,
         avatarUrl: ``,
       },
+      isAuthInProgress: false,
+      authError: false,
     },
   });
 
@@ -44,6 +46,8 @@ it(`SHould render header without Sign In`, () => {
     [NameSpace.USER]: {
       authStatus: AuthStatus.AUTH,
       user,
+      isAuthInProgress: false,
+      authError: false,
     },
   });
 
