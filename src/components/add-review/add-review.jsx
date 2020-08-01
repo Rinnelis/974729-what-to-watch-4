@@ -12,7 +12,7 @@ const AddReview = (props) => {
   const {
     chosenMovie,
     isSendingReview,
-    review,
+    comment,
     rating,
     onReviewWrite,
     onRatingChange,
@@ -20,7 +20,7 @@ const AddReview = (props) => {
   } = props;
   const {bgImage, title, poster, bgColor} = chosenMovie;
 
-  const isReviewValid = (rating && review) ? false : true;
+  const isReviewValid = (rating && comment) ? false : true;
 
   if (isSendingReview.sendReviewSuccess) {
     history.goBack(`${Page.FILM}/${chosenMovie.id}`);
@@ -111,7 +111,7 @@ AddReview.propTypes = {
     sendReviewError: PropTypes.bool.isRequired,
     sendReviewSuccess: PropTypes.bool.isRequired,
   }),
-  review: PropTypes.oneOfType([
+  comment: PropTypes.oneOfType([
     PropTypes.bool,
     PropTypes.string,
   ]),

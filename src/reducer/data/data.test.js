@@ -185,7 +185,7 @@ it(`Should correctly post review to comments/filmID`, () => {
   const dispatch = jest.fn();
   const reviewSending = Operation.sendReview(0, {
     rating: `3`,
-    review: `review`,
+    comment: `review`,
   });
 
   apiMock

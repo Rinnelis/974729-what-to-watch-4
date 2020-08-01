@@ -31,7 +31,7 @@ it(`Should render AddReview`, () => {
         <Provider store={store}>
           <AddReview
             chosenMovie={film}
-            review={``}
+            comment={``}
             rating={`3`}
             onReviewWrite={() => {}}
             onRatingChange={() => {}}

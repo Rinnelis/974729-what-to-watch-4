@@ -13,7 +13,7 @@ const withReview = (Component) => {
 
       this.state = {
         rating: MIN_RATING,
-        review: false,
+        comment: false,
       };
 
       this._handleReviewWrite = this._handleReviewWrite.bind(this);
@@ -22,10 +22,10 @@ const withReview = (Component) => {
     }
 
     _handleReviewWrite(evt) {
-      const review = evt.target.value;
+      const comment = evt.target.value;
 
       this.setState({
-        review,
+        comment,
       });
     }
 
@@ -39,12 +39,12 @@ const withReview = (Component) => {
 
     _handleReviewSubmit(evt) {
       const {chosenMovie, onReviewSubmit} = this.props;
-      const {rating, review} = this.state;
+      const {rating, comment} = this.state;
       evt.preventDefault();
 
       onReviewSubmit(chosenMovie.id, {
         rating,
-        review,
+        comment,
       });
     }
 
@@ -54,12 +54,12 @@ const withReview = (Component) => {
     }
 
     render() {
-      const {rating, review} = this.state;
+      const {rating, comment} = this.state;
 
       return <Component
         {...this.props}
         rating={rating}
-        review={review}
+        comment={comment}
         onReviewWrite={this._handleReviewWrite}
         onRatingChange={this._handleRatingChange}
         onReviewSubmit={this._handleReviewSubmit}
@@ -81,8 +81,8 @@ const withReview = (Component) => {
   });
 
   const mapDispatchToProps = (dispatch) => ({
-    onReviewSubmit(review, id) {
-      dispatch(Operation.sendReview(review, id));
+    onReviewSubmit(comment, id) {
+      dispatch(Operation.sendReview(comment, id));
     },
     loadFilms() {
       dispatch(Operation.loadFilms());

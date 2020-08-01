@@ -98,9 +98,9 @@ const ActionCreator = {
     payload: load,
   }),
 
-  isSendingReview: (review) => ({
+  isSendingReview: (comment) => ({
     type: ActionType.IS_SENDING_REVIEW,
-    payload: review,
+    payload: comment,
   }),
 
   sendReviewError: (error) => ({
@@ -152,9 +152,8 @@ const Operation = {
         dispatch(ActionCreator.isLoadingFilms(false));
         dispatch(ActionCreator.loadFilmsError(false));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(ActionCreator.loadFilmsError(true));
-        throw err;
       });
   },
 
@@ -165,9 +164,8 @@ const Operation = {
         dispatch(ActionCreator.isLoadingPromo(false));
         dispatch(ActionCreator.loadPromoError(false));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(ActionCreator.loadPromoError(true));
-        throw err;
       });
   },
 
@@ -178,27 +176,25 @@ const Operation = {
         dispatch(ActionCreator.isLoadingComments(false));
         dispatch(ActionCreator.loadCommentsError(false));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(ActionCreator.loadCommentsError(true));
-        throw err;
       });
   },
 
-  sendReview: (movieID, review) => (dispatch, getState, api) => {
+  sendReview: (movieID, comment) => (dispatch, getState, api) => {
     dispatch(ActionCreator.isSendingReview(true));
     return api.post(`${EntryPoint.COMMENTS}${movieID}`, {
-      rating: review.rating,
-      review: review.review,
+      rating: comment.rating,
+      comment: comment.comment,
     })
     .then(() => {
       dispatch(ActionCreator.isSendingReview(false));
       dispatch(ActionCreator.sendReviewError(false));
       dispatch(ActionCreator.sendReviewSuccess(true));
     })
-    .catch((err) => {
+    .catch(() => {
       dispatch(ActionCreator.sendReviewError(true));
       dispatch(ActionCreator.sendReviewSuccess(false));
-      throw err;
     });
   },
 
@@ -209,9 +205,8 @@ const Operation = {
         dispatch(ActionCreator.isLoadingFavoriteFilms(false));
         dispatch(ActionCreator.loadFavoriteFilmsError(false));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(ActionCreator.loadFavoriteFilmsError(true));
-        throw err;
       });
   },
 
@@ -226,10 +221,9 @@ const Operation = {
         dispatch(ActionCreator.sendFavoriteFilmError(false));
         dispatch(ActionCreator.sendFavoriteFilmSuccess(true));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(ActionCreator.sendFavoriteFilmError(true));
         dispatch(ActionCreator.sendFavoriteFilmSuccess(false));
-        throw err;
       });
   },
 };

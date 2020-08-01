@@ -34,7 +34,7 @@ class VideoPlayer extends PureComponent {
 
     if (isPlaying) {
       this._videoPlayerSetTimeout = setTimeout(() => {
-        video.play();
+        video.play().catch(() => {});
       }, 1000);
     } else {
       if (this._videoPlayerSetTimeout) {

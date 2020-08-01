@@ -52,7 +52,7 @@ const withVideoControls = (Component) => {
       const video = this.videoRef.current;
 
       video.src = chosenMovie.videoUrl;
-      video.play();
+      video.play().catch(() => {});
 
       video.onloadedmetadata = () => this.setState({
         duration: video.duration,
@@ -71,7 +71,7 @@ const withVideoControls = (Component) => {
       }
 
       if (this.state.isPlaying) {
-        video.play();
+        video.play().catch(() => {});
       } else {
         video.pause();
       }
