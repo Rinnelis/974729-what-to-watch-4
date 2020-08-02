@@ -45,3 +45,11 @@ export const ValidReview = {
 };
 
 export const MIN_RATING = `1`;
+
+export const Error = {
+  UNAUTHORIZED: 401
+};
+
+export const ENTRY_POINT = `https://4.react.pages.academy/wtw`;
+
+export const REQUEST_TIMEOUT = 5000;
