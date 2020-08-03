@@ -19,6 +19,13 @@ export const RatingLevel = {
   BAD: `Bad`
 };
 
+export const RatingNumber = {
+  BAD: 3,
+  NORMAL: 5,
+  GOOD: 8,
+  VERY_GOOD: 10
+};
+
 export const MovieNav = {
   OVERVIEW: `Overview`,
   DETAILS: `Details`,
@@ -53,3 +60,5 @@ export const Error = {
 export const ENTRY_POINT = `https://4.react.pages.academy/wtw`;
 
 export const REQUEST_TIMEOUT = 5000;
+
+export const REVIEWS_COL_AMOUNT = 2;

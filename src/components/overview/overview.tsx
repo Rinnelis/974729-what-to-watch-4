@@ -1,34 +1,10 @@
 import * as React from "react";
 import {Film} from "../../types.js";
-import {RatingLevel} from "../../const";
+import {getRatingLevel, getOverviewStarring, getRatingScore} from "../../utils";
 
 interface Props {
   film: Film;
 }
-
-const getRatingLevel = (count) => {
-  let ratingLevel = ``;
-  if (count < 3) {
-    ratingLevel = RatingLevel.BAD;
-  } else if (count >= 3 && count < 5) {
-    ratingLevel = RatingLevel.NORMAL;
-  } else if (count >= 5 && count < 8) {
-    ratingLevel = RatingLevel.GOOD;
-  } else if (count >= 8 && count < 10) {
-    ratingLevel = RatingLevel.VERY_GOOD;
-  } else {
-    ratingLevel = RatingLevel.AWESOME;
-  }
-  return ratingLevel;
-};
-
-const getStarring = (actors) => {
-  return actors.slice(0, 4).join(`, `);
-};
-
-const getRatingScore = (score) => {
-  return score.toFixed(1).toString().replace(`.`, `,`);
-};
 
 const Overview: React.FunctionComponent<Props> = (props: Props) => {
   const {film} = props;
@@ -49,7 +25,7 @@ const Overview: React.FunctionComponent<Props> = (props: Props) => {
 
         <p className="movie-card__director"><strong>Director: {director}</strong></p>
 
-        <p className="movie-card__starring"><strong>Starring: {getStarring(starring)} and other</strong></p>
+        <p className="movie-card__starring"><strong>Starring: {getOverviewStarring(starring)} and other</strong></p>
       </div>
     </React.Fragment>
   );

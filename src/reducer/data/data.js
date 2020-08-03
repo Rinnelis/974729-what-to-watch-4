@@ -1,4 +1,4 @@
-import {extend} from "../utils.js";
+import {extend} from "../../utils.js";
 import {ALL_GENRES} from "../../const.js";
 import {filmAdapter} from "../../adapters/film-adapter.tsx";
 

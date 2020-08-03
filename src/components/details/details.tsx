@@ -1,6 +1,6 @@
 import * as React from "react";
 import {Film} from "../../types";
-import {Time} from "../../const";
+import {getStarring, getHours, getMinutes} from "../../utils";
 
 interface Props {
   film: Film;
@@ -10,21 +10,7 @@ const Details: React.FunctionComponent<Props> = (props: Props) => {
   const {film} = props;
   const {director, starring, runTime, genre, releaseDate} = film;
 
-  const getStarring = (actors) => {
-    return actors.join(`, `);
-  };
-
-  const getHours = () => {
-    const hours = Math.trunc(runTime / Time.MINUTES_PER_HOUR);
-    return hours > 0 ? `${hours}h` : ``;
-  };
-
-  const getMinutes = () => {
-    const minutes = runTime % Time.SECONDS_PER_MINUTE;
-    return minutes > 0 ? `${minutes}m` : ``;
-  };
-
-  const time = `${getHours()} ${getMinutes()}`;
+  const time = `${getHours(runTime)} ${getMinutes(runTime)}`;
 
   return (
     <React.Fragment>

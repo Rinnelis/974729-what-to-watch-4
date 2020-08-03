@@ -3,6 +3,8 @@ import {connect} from "react-redux";
 import {Film, Comments} from "../../types";
 import {Operation} from "../../reducer/data/data";
 import {getFilmComments, getCommentsStatus} from "../../reducer/data/selectors";
+import {getRatingScore} from "../../utils";
+import {REVIEWS_COL_AMOUNT} from "../../const";
 
 interface Props {
   comments: {
@@ -23,10 +25,6 @@ interface Props {
   chosenMovie: Film|boolean;
 }
 
-const getRatingScore = (score) => {
-  return score.toFixed(1).toString().replace(`.`, `,`);
-};
-
 class Reviews extends React.PureComponent<Props> {
   constructor(props) {
     super(props);
@@ -46,7 +44,7 @@ class Reviews extends React.PureComponent<Props> {
 
   render() {
     const {comments, isLoadingComments} = this.props;
-    const halfOfReviews = comments && Math.round(comments.length / 2);
+    const halfOfReviews = comments && Math.round(comments.length / REVIEWS_COL_AMOUNT);
     const col1 = comments && comments.slice(0, halfOfReviews);
     const col2 = comments && comments.slice(halfOfReviews);
 

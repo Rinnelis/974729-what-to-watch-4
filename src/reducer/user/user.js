@@ -1,4 +1,4 @@
-import {extend} from "../utils.js";
+import {extend} from "../../utils.js";
 import {userAdapter} from "../../adapters/user-adapter.tsx";
 import {AuthStatus} from "../../const.js";
 
