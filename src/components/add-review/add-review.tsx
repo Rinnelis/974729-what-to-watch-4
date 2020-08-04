@@ -55,7 +55,7 @@ const AddReview: React.FunctionComponent<Props> = (props: Props) => {
   const isFormBlocked = (isSendingReview.isSendingReview && !isSendingReview.sendReviewError) ? true : false;
 
   return (
-    <section className="movie-card movie-card--full" style={/* stylelint-disable-line */{backgroundColor: bgColor}}>
+    <section className="movie-card movie-card--full" style={{backgroundColor: bgColor}}>
       <div className="movie-card__header">
         <div className="movie-card__bg">
           <img src={bgImage} alt={title} />

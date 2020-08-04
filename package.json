@@ -10,7 +10,7 @@
     "eslint.ts": "eslint --config .eslintrc-ts.yml --ext .tsx src/",
     "start": "webpack-dev-server",
     "test": "npm run eslint && npm run test.jest",
-    "test.jest": "jest"
+    "test.jest": "jest --verbose=true"
   },
   "devDependencies": {
     "@babel/core": "7.10.2",
@@ -28,7 +28,7 @@
     "babel-loader": "8.1.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
-    "eslint": "5.13.0",
+    "eslint": "7.6.0",
     "eslint-config-htmlacademy": "0.5.2",
     "eslint-plugin-react": "7.20.0",
     "jest": "25.1.0",
