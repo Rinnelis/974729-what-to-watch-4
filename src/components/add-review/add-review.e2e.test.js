@@ -38,7 +38,6 @@ it(`Should form be submitted`, () => {
         <Provider store={store}>
           <AddReview
             chosenMovie={film}
-            movieID={2}
             comment={`review`}
             rating={`1`}
             onReviewSubmit={onReviewSubmit}

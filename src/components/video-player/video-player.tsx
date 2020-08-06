@@ -7,19 +7,19 @@ interface Props {
 }
 
 class VideoPlayer extends React.PureComponent<Props, {}> {
-  private _video: React.RefObject<HTMLVideoElement>;
-  private _videoPlayerSetTimeout: NodeJS.Timeout;
+  private video: React.RefObject<HTMLVideoElement>;
+  private videoPlayerSetTimeout: NodeJS.Timeout;
 
   constructor(props) {
     super(props);
-    this._video = React.createRef();
-    this._videoPlayerSetTimeout = null;
+    this.video = React.createRef();
+    this.videoPlayerSetTimeout = null;
   }
 
   componentDidMount() {
     const {film} = this.props;
     const {image, previewUrl} = film;
-    const video = this._video.current;
+    const video = this.video.current;
 
     video.src = previewUrl;
     video.poster = image;
@@ -27,7 +27,7 @@ class VideoPlayer extends React.PureComponent<Props, {}> {
   }
 
   componentWillUnmount() {
-    const video = this._video.current;
+    const video = this.video.current;
 
     video.onplay = null;
     video.src = ``;
@@ -37,16 +37,16 @@ class VideoPlayer extends React.PureComponent<Props, {}> {
 
   componentDidUpdate() {
     const {isPlaying} = this.props;
-    const video = this._video.current;
+    const video = this.video.current;
 
     if (isPlaying) {
-      this._videoPlayerSetTimeout = setTimeout(() => {
+      this.videoPlayerSetTimeout = setTimeout(() => {
         video.play().catch(() => {});
       }, 1000);
     } else {
-      if (this._videoPlayerSetTimeout) {
-        clearTimeout(this._videoPlayerSetTimeout);
-        this._videoPlayerSetTimeout = null;
+      if (this.videoPlayerSetTimeout) {
+        clearTimeout(this.videoPlayerSetTimeout);
+        this.videoPlayerSetTimeout = null;
         video.load();
       }
     }
@@ -56,7 +56,7 @@ class VideoPlayer extends React.PureComponent<Props, {}> {
     return (
       <video
         className="player__video"
-        ref={this._video}
+        ref={this.video}
       />
     );
   }

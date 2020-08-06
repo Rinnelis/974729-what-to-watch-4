@@ -68,7 +68,7 @@ const MoviePage: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <React.Fragment>
-      <section className="movie-card movie-card--full" style={/* stylelint-disable-line */{backgroundColor: bgColor}}>
+      <section className="movie-card movie-card--full" style={{backgroundColor: bgColor}}>
         <div className="movie-card__hero">
           <div className="movie-card__bg">
             <img src={bgImage} alt={title} />
