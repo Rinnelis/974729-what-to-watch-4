@@ -15,6 +15,7 @@ export const film = {
   director: `Wes Andreson`,
   starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
   runTime: 99,
+  isFavorite: false,
 };
 
 export const films = [
@@ -35,6 +36,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 3,
@@ -53,6 +55,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 4,
@@ -71,6 +74,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 5,
@@ -89,6 +93,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 6,
@@ -107,6 +112,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 7,
@@ -125,6 +131,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 8,
@@ -143,6 +150,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 9,
@@ -161,6 +169,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 10,
@@ -179,6 +188,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 11,
@@ -197,6 +207,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 12,
@@ -215,6 +226,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   },
   {
     id: 13,
@@ -233,6 +245,7 @@ export const films = [
     director: `Wes Andreson`,
     starring: [`Bill Murray`, `Edward Norton`, `Jude Law`],
     runTime: 99,
+    isFavorite: false,
   }
 ];
 

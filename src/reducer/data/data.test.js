@@ -1,5 +1,5 @@
 import MockAdapter from "axios-mock-adapter";
-import {filmAdapter} from "../../adapters/film-adapter.js";
+import {filmAdapter} from "../../adapters/film-adapter.tsx";
 import {film, films, comments} from "../../test-data.js";
 import {ALL_GENRES} from "../../const.js";
 import {createAPI} from "../../api.js";
