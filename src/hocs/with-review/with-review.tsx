@@ -3,8 +3,9 @@ import {Subtract} from "utility-types";
 import {connect} from "react-redux";
 import {Film} from "../../types";
 import {getFilmById} from "../../reducer/data/selectors";
-import {MIN_RATING} from "../../const";
+import {MIN_RATING, Page} from "../../const";
 import {Operation} from "../../reducer/data/data";
+import history from "../../history";
 
 interface Props {
   chosenMovie: Film;
@@ -69,6 +70,7 @@ const withReview = (Component) => {
         rating,
         comment,
       });
+      history.push(`${Page.FILM}/${chosenMovie.id}`);
     }
 
     render() {

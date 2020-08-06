@@ -23,7 +23,6 @@ it(`Should render AddReview`, () => {
     [NameSpace.DATA]: {
       isSendingReview: false,
       sendReviewError: false,
-      sendReviewSuccess: false,
     },
   });
 

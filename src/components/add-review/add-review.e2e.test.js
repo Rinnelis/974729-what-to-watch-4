@@ -46,7 +46,6 @@ it(`Should form be submitted`, () => {
             isSendingReview={{
               isSendingReview: false,
               sendReviewError: false,
-              sendReviewSuccess: false,
             }}
           />
         </Provider>
