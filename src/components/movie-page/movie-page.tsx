@@ -23,8 +23,8 @@ interface Props {
     status: string;
     error: boolean;
   };
-  onFavoriteFilmChoose: (object) => object;
-  onFilmsLoad: () => object[];
+  onFavoriteFilmChoose: ({}) => void;
+  onFilmsLoad: () => void;
   onFavoriteFilmSend: {
     isSendingFavoriteFilm: boolean;
     sendFavoriteFilmError: boolean;

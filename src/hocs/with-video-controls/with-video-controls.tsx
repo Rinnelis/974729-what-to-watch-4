@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {Film} from "../../types";
 import {Time} from "../../const";
 import {getFilmById} from "../../reducer/data/selectors";
+import {noop} from "../../utils";
 
 interface Props {
   film: Film;
@@ -51,7 +52,7 @@ const withVideoControls = (Component) => {
       const video = this.videoRef.current;
 
       video.src = chosenMovie.videoUrl;
-      video.play().catch(() => {});
+      video.play().catch(noop);
 
       video.onloadedmetadata = () => this.setState({
         duration: video.duration,
@@ -80,7 +81,7 @@ const withVideoControls = (Component) => {
       }
 
       if (this.state.isPlaying) {
-        video.play().catch(() => {});
+        video.play().catch(noop);
       } else {
         video.pause();
       }

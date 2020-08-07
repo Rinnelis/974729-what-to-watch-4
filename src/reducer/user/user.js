@@ -61,9 +61,8 @@ const Operation = {
         dispatch(ActionCreator.setUserData(userAdapter(response.data)));
         dispatch(ActionCreator.setProgressStatus(false));
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch(ActionCreator.setProgressStatus(false));
-        throw err;
       });
   },
 
@@ -82,7 +81,7 @@ const Operation = {
     .catch((err) => {
       dispatch(ActionCreator.setAuthError(true));
       dispatch(ActionCreator.setProgressStatus(false));
-      throw err;
+      return Promise.resolve({err});
     });
   },
 };

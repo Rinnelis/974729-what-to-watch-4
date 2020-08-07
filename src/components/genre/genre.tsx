@@ -6,7 +6,7 @@ interface Props {
   films: Films;
   genres: string[];
   currentGenre: string;
-  onGenreClick: (genre: string, films: object) => void;
+  onGenreClick: (genre: string, films: Films) => void;
   onGenreChange: () => void;
 }
 

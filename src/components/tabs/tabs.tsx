@@ -2,7 +2,7 @@ import * as React from "react";
 import {v4 as uuidv4} from "uuid";
 
 interface Props {
-  tabs: object;
+  tabs: Record<string, unknown>;
   currentTab: string;
   onTabClick: (string) => void;
 }

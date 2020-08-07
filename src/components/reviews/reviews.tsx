@@ -1,6 +1,6 @@
 import * as React from "react";
 import {connect} from "react-redux";
-import {Film, Comments} from "../../types";
+import {Film} from "../../types";
 import {Operation} from "../../reducer/data/data";
 import {getFilmComments, getCommentsStatus} from "../../reducer/data/selectors";
 import {getRatingScore} from "../../utils";
@@ -21,8 +21,8 @@ interface Props {
     isLoadingComments: boolean;
     loadCommentsError: boolean;
   };
-  loadComments: (object) => object[];
-  chosenMovie: Film|boolean;
+  loadComments: (film: Film) => void;
+  chosenMovie?: Film;
 }
 
 class Reviews extends React.PureComponent<Props> {

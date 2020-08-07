@@ -187,7 +187,9 @@ exports[`Should render auth error 1`] = `
       <div
         className="sign-in__message"
       >
-        <p />
+        <p>
+          Please enter a valid email address
+        </p>
       </div>
       <div
         className="sign-in__fields"

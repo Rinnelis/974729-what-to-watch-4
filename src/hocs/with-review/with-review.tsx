@@ -70,7 +70,6 @@ const withReview = (Component) => {
         rating,
         comment,
       });
-      history.push(`${Page.FILM}/${chosenMovie.id}`);
     }
 
     render() {

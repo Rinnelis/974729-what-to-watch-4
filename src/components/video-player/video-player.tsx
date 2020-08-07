@@ -1,12 +1,13 @@
 import * as React from "react";
 import {Film} from "../../types";
+import {noop} from "../../utils";
 
 interface Props {
   film: Film;
   isPlaying: boolean;
 }
 
-class VideoPlayer extends React.PureComponent<Props, {}> {
+class VideoPlayer extends React.PureComponent<Props> {
   private video: React.RefObject<HTMLVideoElement>;
   private videoPlayerSetTimeout: NodeJS.Timeout;
 
@@ -41,7 +42,7 @@ class VideoPlayer extends React.PureComponent<Props, {}> {
 
     if (isPlaying) {
       this.videoPlayerSetTimeout = setTimeout(() => {
-        video.play().catch(() => {});
+        video.play().catch(noop);
       }, 1000);
     } else {
       if (this.videoPlayerSetTimeout) {

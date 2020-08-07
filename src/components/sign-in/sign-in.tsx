@@ -44,7 +44,7 @@ class SignIn extends React.PureComponent<Props> {
       ?
       <React.Fragment>
         <div className="sign-in__message">
-          <p>{auth.error}</p>
+          <p>Please enter a valid email address</p>
         </div>
       </React.Fragment>
       :

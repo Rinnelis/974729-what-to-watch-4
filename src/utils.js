@@ -1,4 +1,4 @@
-import {Time, RatingNumber, RatingLevel} from "./const.js";
+import {Time, RatingNumber, RatingLevel, MAX_ACTORS_AMOUNT} from "./const.js";
 
 export const noop = () => {
   // do nothing
@@ -35,7 +35,7 @@ export const getRatingLevel = (count) => {
 };
 
 export const getOverviewStarring = (actors) => {
-  return actors.slice(0, 4).join(`, `);
+  return actors.slice(0, MAX_ACTORS_AMOUNT).join(`, `);
 };
 
 export const getRatingScore = (score) => {

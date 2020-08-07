@@ -62,3 +62,5 @@ export const ENTRY_POINT = `https://4.react.pages.academy/wtw`;
 export const REQUEST_TIMEOUT = 5000;
 
 export const REVIEWS_COL_AMOUNT = 2;
+
+export const MAX_ACTORS_AMOUNT = 4;

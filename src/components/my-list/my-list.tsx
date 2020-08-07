@@ -26,7 +26,7 @@ class MyList extends React.PureComponent<Props> {
 
   componentDidMount() {
     const {loadFavoriteFilms} = this.props;
-    loadFavoriteFilms();
+    return loadFavoriteFilms();
   }
 
   render() {

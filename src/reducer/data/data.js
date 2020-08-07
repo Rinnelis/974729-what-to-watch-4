@@ -1,6 +1,7 @@
 import {extend} from "../../utils.js";
 import {ALL_GENRES} from "../../const.js";
 import {filmAdapter} from "../../adapters/film-adapter.tsx";
+import history from "../../history";
 
 const EntryPoint = {
   FILMS: `/films`,
@@ -191,6 +192,7 @@ const Operation = {
       dispatch(ActionCreator.isSendingReview(false));
       dispatch(ActionCreator.sendReviewError(false));
       dispatch(ActionCreator.sendReviewSuccess(true));
+      history.push(`${EntryPoint.FILMS}/${movieID}`);
     })
     .catch(() => {
       dispatch(ActionCreator.sendReviewError(true));
