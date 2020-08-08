@@ -1,4 +1,6 @@
-export const userAdapter = (user) => ({
+import {User, ServerUserInfo} from "../types";
+
+export const userAdapter = (user: ServerUserInfo): User => ({
   id: user.id,
   email: user.email,
   name: user.name,

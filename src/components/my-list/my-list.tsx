@@ -20,16 +20,16 @@ interface Props {
 }
 
 class MyList extends React.PureComponent<Props> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const {loadFavoriteFilms} = this.props;
-    return loadFavoriteFilms();
+    loadFavoriteFilms();
   }
 
-  render() {
+  render(): JSX.Element {
     const {user, favoriteFilms, isLoadingFavoriteFilms} = this.props;
     const {name, avatarUrl} = user;
 

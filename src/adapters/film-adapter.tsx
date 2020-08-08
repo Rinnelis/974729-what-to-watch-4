@@ -1,4 +1,6 @@
-export const filmAdapter = (film) => ({
+import {Film, ServerMovie} from "../types";
+
+export const filmAdapter = (film: ServerMovie): Film => ({
   id: film.id,
   title: film.name,
   poster: film.poster_image,

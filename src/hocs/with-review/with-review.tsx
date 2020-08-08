@@ -3,9 +3,8 @@ import {Subtract} from "utility-types";
 import {connect} from "react-redux";
 import {Film} from "../../types";
 import {getFilmById} from "../../reducer/data/selectors";
-import {MIN_RATING, Page} from "../../const";
+import {MIN_RATING} from "../../const";
 import {Operation} from "../../reducer/data/data";
-import history from "../../history";
 
 interface Props {
   chosenMovie: Film;
@@ -26,7 +25,7 @@ interface InjectedProps {
   handleReviewSubmit: (evt: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const withReview = (Component) => {
+const withReview = (Component: React.ElementType): JSX.Element => {
   type P = React.ComponentProps<typeof Component>;
   type T = Props & Subtract<P, InjectedProps>;
 

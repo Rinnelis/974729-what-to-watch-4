@@ -22,7 +22,7 @@ interface InjectedProps {
   handleCurrentTabRender: () => void;
 }
 
-const withActiveTab = (Component) => {
+const withActiveTab = (Component: React.ElementType): JSX.Element => {
   type P = React.ComponentProps<typeof Component>;
   type T = Props & Subtract<P, InjectedProps>;
 

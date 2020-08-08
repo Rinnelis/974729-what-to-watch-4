@@ -12,7 +12,7 @@ interface InjectedProps {
   handleShownFilmsAdd: () => void;
 }
 
-const withShownFilms = (Component) => {
+const withShownFilms = (Component: React.ElementType): React.ReactNode => {
   type P = React.ComponentProps<typeof Component>;
   type T = Subtract<P, InjectedProps>;
 

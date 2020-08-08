@@ -25,7 +25,7 @@ interface InjectedProps {
   handleLeftTimeGet: () => void;
 }
 
-const withVideoControls = (Component) => {
+const withVideoControls = (Component: React.ElementType): JSX.Element => {
   type P = React.ComponentProps<typeof Component>;
   type T = Props & Subtract<P, InjectedProps>;
 

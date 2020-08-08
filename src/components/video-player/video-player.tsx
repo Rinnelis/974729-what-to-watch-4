@@ -11,13 +11,13 @@ class VideoPlayer extends React.PureComponent<Props> {
   private video: React.RefObject<HTMLVideoElement>;
   private videoPlayerSetTimeout: NodeJS.Timeout;
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.video = React.createRef();
     this.videoPlayerSetTimeout = null;
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const {film} = this.props;
     const {image, previewUrl} = film;
     const video = this.video.current;
@@ -27,7 +27,7 @@ class VideoPlayer extends React.PureComponent<Props> {
     video.muted = true;
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     const video = this.video.current;
 
     video.onplay = null;
@@ -36,7 +36,7 @@ class VideoPlayer extends React.PureComponent<Props> {
     video.muted = null;
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     const {isPlaying} = this.props;
     const video = this.video.current;
 
@@ -53,7 +53,7 @@ class VideoPlayer extends React.PureComponent<Props> {
     }
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <video
         className="player__video"

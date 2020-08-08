@@ -26,23 +26,23 @@ interface Props {
 }
 
 class Reviews extends React.PureComponent<Props> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const {loadComments, chosenMovie} = this.props;
     loadComments(chosenMovie);
   }
 
-  componentDidUpdate(nextProps) {
+  componentDidUpdate(nextProps: Props): void {
     const {loadComments, chosenMovie} = this.props;
     if (nextProps.chosenMovie !== chosenMovie) {
       loadComments(chosenMovie);
     }
   }
 
-  render() {
+  render(): JSX.Element {
     const {comments, isLoadingComments} = this.props;
     const halfOfReviews = comments && Math.round(comments.length / REVIEWS_COL_AMOUNT);
     const col1 = comments && comments.slice(0, halfOfReviews);
